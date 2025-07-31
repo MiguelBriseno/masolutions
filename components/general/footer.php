@@ -1,5 +1,6 @@
 <footer class="footer">
     <p class="footer__title">Todos los derechos reservados ©masolutions 2025</p>
 </footer>
+<script src="./js/index.js"></script>
 </body>
 </html>

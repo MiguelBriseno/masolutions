@@ -13,7 +13,7 @@ html{
 .nav{
     width: 100%;
     height: auto;
-    padding: 4rem;
+    padding: 1rem 3rem;
     text-align: right;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -24,9 +24,15 @@ html{
     justify-content: start;
     align-items: center;
 }
-.nav .logo__container img{
+.nav .logo__container img {
+    display: block;
     width: 128px;
     height: 128px;
+    opacity: 0;
+    animation: fadeInLogo 1s ease-out forwards;
+}
+.nav .logo__container img:hover{
+    cursor: pointer;
 }
 .nav .menu__container{
     display: flex;
@@ -40,6 +46,17 @@ html{
 .nav .menu__container .nav__list .list__item{
     margin: 0 3rem;
     padding-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInDown 0.8s ease-out forwards;
+}
+.nav .menu__container .nav__list .list__item:nth-child(1) {
+    animation-delay: 0.3s;
+}
+.nav .menu__container .nav__list .list__item:nth-child(2) {
+    animation-delay: 0.5s;
+}
+.nav .menu__container .nav__list .list__item:nth-child(3) {
+    animation-delay: 0.7s;
 }
 .nav .menu__container .nav__list .list__item .item__link{
     display: inline-block;
@@ -48,10 +65,114 @@ html{
     font-size: 2rem;
     font-weight: 400;
     transition: all .8s;
+    font-weight: bold;
 }
 .nav .menu__container .nav__list .list__item .item__link:hover{
     transform: scale(1.5);
+}
+/******************************************* MAIN *****************************************************/
+.main{
+    width: 100%;
+    height: auto;
+}
+/******************************************* HERO *****************************************************/
+.header{
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.header .header__left{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 6rem;
+}
+.header .header__left h1 {
+    text-align: center;
+    font-size: 7rem;
     font-weight: bold;
+    opacity: 0;
+    animation: fadeInLeft 1.2s ease-out forwards;
+    animation-delay: 0.3s;
+}
+.header .header__left .left__title button{
+    background-color: #0096b2;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    padding: 2rem 3rem;
+}
+.header .header__left .left__title button:hover{
+    cursor: pointer;
+}
+.header .header__left h1 .green{
+    color: #0096b2;
+}
+.header .header__right {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+    padding: 3rem;
+    overflow: hidden;
+    position: relative;
+}
+.header .header__right img {
+    display: block;
+    width: 800px;
+    height: 450px;
+    border-radius: 1rem;
+    transform: translateX(50px);
+    object-fit: cover;
+    opacity: 0;
+    animation: slideIn 1.2s ease-out forwards;
+}
+/******************************************* SLIDERS *************************************************/
+.slider {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  margin: 0 5rem;
+}
+
+.slider-dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 4px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background-color: #0096b2;
 }
 /******************************************* FOOTER ****************************************************/
 .footer{
@@ -64,4 +185,45 @@ html{
 .footer .footer__title{
     font-size: 2rem;
     font-weight: 200;
+}
+/****************************************** ANIMACIONES ************************************************/
+@keyframes slideIn {
+    0% {
+        transform: translateX(300px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(50px);
+        opacity: 1;
+    }
+}
+@keyframes fadeInLeft {
+    0% {
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes fadeInLogo {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes fadeInDown {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

@@ -1,6 +1,6 @@
 <nav class="nav">
     <div class="logo__container">
-        <img src="./assets/logo.webp" alt="Logo de masolutions">
+        <img src="./assets/logo.webp" alt="Logo de masolutions" id="logo">
     </div>
     <div class="menu__container">
         <ul class="nav__list">
