@@ -1,4 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // MENÚ HAMBURGUESA - Funcionalidad mejorada
+  const hamburger = document.getElementById('hamburger');
+  const menuContainer = document.querySelector('.menu__container');
+  const menuLinks = document.querySelectorAll('.item__link');
+
+  if (hamburger && menuContainer) {
+    // Toggle del menú al hacer click en hamburger
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      menuContainer.classList.toggle('active');
+    });
+
+    // Cerrar menú al hacer click en un enlace
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        menuContainer.classList.remove('active');
+      });
+    });
+
+    // Cerrar menú al hacer click fuera de él
+    document.addEventListener('click', (event) => {
+      const isClickInsideMenu = menuContainer.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
+
+      if (!isClickInsideMenu && !isClickOnHamburger && menuContainer.classList.contains('active')) {
+        hamburger.classList.remove('active');
+        menuContainer.classList.remove('active');
+      }
+    });
+
+    // Cerrar menú al redimensionar la ventana (si cambia a desktop)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        hamburger.classList.remove('active');
+        menuContainer.classList.remove('active');
+      }
+    });
+  }
+
+  // CARDS - Tu funcionalidad existente
   const cards = document.querySelectorAll('.card');
 
   const animateCount = (el, target) => {
@@ -33,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach(card => observerCards.observe(card));
 
-
+  // LOGO CLICK - Tu funcionalidad existente
   const button = document.querySelector("#logo");
   if (button) {
     button.addEventListener('click', () => {
@@ -41,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // SLIDER - Tu funcionalidad existente
   const slides = document.querySelector('.slides');
   const images = document.querySelectorAll('.slides img');
   const dots = document.querySelectorAll('.dot');
@@ -75,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateSlider();
 
+  // SUBTITLE ANIMATION - Tu funcionalidad existente
   const subtitle = document.querySelector(".subtitle");
   if (subtitle) {
     const observer = new IntersectionObserver((entries, observer) => {
