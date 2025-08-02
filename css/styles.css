@@ -9,6 +9,9 @@ html{
     font-size: 62.5%;
     font-family: 'Roboto', sans-serif;
 }
+.green{
+    color: #0096b2;
+}
 /********************************* ESTILOS DEL NAVBAR ************************************/
 .nav{
     width: 100%;
@@ -74,6 +77,13 @@ html{
 .main{
     width: 100%;
     height: auto;
+}
+.main .subtitle{
+    text-align: center;
+    color: white;
+    font-size: 7rem;
+    margin-top: 10rem;
+    margin-bottom: 4rem;
 }
 /******************************************* HERO *****************************************************/
 .header{
@@ -158,7 +168,6 @@ html{
     font-size: 1.6rem;
     opacity: 0.9;
 }
-/* SECCIÓN DERECHA */
 .header .header__right {
     width: 100%;
     height: auto;
@@ -182,7 +191,7 @@ html{
 /******************************************* SLIDERS *************************************************/
 .slider {
   width: 100%;
-  max-width: 700px;
+  max-width: 1200px;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
@@ -194,8 +203,8 @@ html{
 }
 
 .slides img {
-  width: 128px;
-  height: 128px;
+  width: 264px;
+  height: 264px;
   object-fit: contain;
   flex: 0 0 auto;
   margin: 0 5rem;
@@ -219,6 +228,58 @@ html{
 
 .dot.active {
   background-color: #0096b2;
+}
+/******************************************* CARDS ****************************************************/
+.cards__container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 5rem;
+    padding: 4rem 2rem;
+    background-color: #242323; 
+    box-sizing: border-box;
+}
+.card {
+    background-color: #2e2e2e;
+    border-radius: 1.2rem;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.card__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.card__title {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 2rem;
+}
+.card__subtitle {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #0096b2;
+}
+.card__icon i {
+    font-size: 6rem;
+    color: #0096b2;
+}
+.card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 /******************************************* FOOTER ****************************************************/
 .footer{
@@ -282,4 +343,14 @@ html{
         transform: translateY(0);
         opacity: 1;
     }
+}
+.subtitle {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.subtitle.show {
+    opacity: 1;
+    transform: translateY(0);
 }
