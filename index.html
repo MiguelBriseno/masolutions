@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="shortcut icon" href="./assets/icon.webp" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo__container">
+            <img src="./assets/logo.webp" alt="Logo de masolutions" id="logo" />
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú de navegación">
+            <span class="hamburger__line"></span>
+            <span class="hamburger__line"></span>
+            <span class="hamburger__line"></span>
+        </button>
+
+        <div class="menu__container">
+            <ul class="nav__list">
+                <li class="list__item">
+                    <a class="item__link" href="index.html">Home</a>
+                </li>
+                <li class="list__item">
+                    <a class="item__link" href="nosotros.html">Nosotros</a>
+                </li>
+                <li class="list__item">
+                    <a class="item__link" href="contacto.html">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main">
+        <header class="header">
+            <div class="header__left">
+                <h1 class="left__title">
+                    Crea tu propio <span class="green">software </span>y lleva la
+                    <span class="green">productividad </span>a otro nivel
+                </h1>
+                <button
+                    class="left__button"
+                    onclick="window.open('https://calendly.com/d/cwty-bpz-z9f/reunion-puntual', '_blank')"
+                >
+                    <i class="fa-solid fa-calendar"></i> Agenda tu sesión
+                </button>
+            </div>
+            <div class="header__right">
+                <img
+                    src="./assets/display.webp"
+                    alt="Imagen de celular mostrando software personalizado"
+                />
+            </div>
+        </header>
+
+        <h3 class="subtitle">Nuestros clientes satisfechos</h3>
+
+        <div class="slider">
+            <div class="slides">
+                <img src="./assets/actuar.webp" alt="Actuarsustentable logo" />
+                <img src="./assets/agaveazul.webp" alt="Agave azul logo" />
+                <img src="./assets/electromex.webp" alt="Electromex logo" />
+                <img src="./assets/lions.webp" alt="Lions logo" />
+                <img src="./assets/munich.webp" alt="Munich logo" />
+            </div>
+
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+        <div class="cards__container">
+            <div class="card">
+                <div class="card__text">
+                    <h3 class="card__title">Proyectos</h3>
+                    <p class="card__subtitle" data-target="129">0</p>
+                </div>
+                <div class="card__icon">
+                    <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__text">
+                    <h3 class="card__title">Años de experiencia</h3>
+                    <p class="card__subtitle" data-target="5">0</p>
+                </div>
+                <div class="card__icon">
+                    <i class="fa-solid fa-calendar-alt" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__text">
+                    <h3 class="card__title">Eficiencia</h3>
+                    <p class="card__subtitle" data-target="93">0</p>
+                </div>
+                <div class="card__icon">
+                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__title">Todos los derechos reservados ©masolutions 2025</p>
+    </footer>
+    <script src="./js/index.js"></script>
+</body>
+</html>

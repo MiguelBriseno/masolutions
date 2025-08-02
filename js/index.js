@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const button = document.querySelector("#logo");
   if (button) {
     button.addEventListener('click', () => {
-      window.location = "./index.php";
+      window.location = "./index.html";
     });
   }
 
