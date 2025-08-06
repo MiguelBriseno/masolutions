@@ -1,25 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // MENÚ HAMBURGUESA - Funcionalidad mejorada
   const hamburger = document.getElementById('hamburger');
   const menuContainer = document.querySelector('.menu__container');
   const menuLinks = document.querySelectorAll('.item__link');
 
+  // Funcionalidad del menú hamburguesa
   if (hamburger && menuContainer) {
-    // Toggle del menú al hacer click en hamburger
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       menuContainer.classList.toggle('active');
+      
+      // Prevenir scroll del body cuando el menú está abierto
+      document.body.classList.toggle('menu-open');
     });
 
-    // Cerrar menú al hacer click en un enlace
     menuLinks.forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         menuContainer.classList.remove('active');
+        document.body.classList.remove('menu-open');
       });
     });
 
-    // Cerrar menú al hacer click fuera de él
     document.addEventListener('click', (event) => {
       const isClickInsideMenu = menuContainer.contains(event.target);
       const isClickOnHamburger = hamburger.contains(event.target);
@@ -27,19 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!isClickInsideMenu && !isClickOnHamburger && menuContainer.classList.contains('active')) {
         hamburger.classList.remove('active');
         menuContainer.classList.remove('active');
+        document.body.classList.remove('menu-open');
       }
     });
 
-    // Cerrar menú al redimensionar la ventana (si cambia a desktop)
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
         hamburger.classList.remove('active');
         menuContainer.classList.remove('active');
+        document.body.classList.remove('menu-open');
       }
     });
   }
 
-  // CARDS - Tu funcionalidad existente
+  // Animación de contadores para las cards
   const cards = document.querySelectorAll('.card');
 
   const animateCount = (el, target) => {
@@ -62,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = entry.target;
         card.classList.add('show');
 
-        // Animar el número del card
         const numberEl = card.querySelector('.card__subtitle');
         const target = +numberEl.dataset.target;
         animateCount(numberEl, target);
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach(card => observerCards.observe(card));
 
-  // LOGO CLICK - Tu funcionalidad existente
+  // Logo click handler
   const button = document.querySelector("#logo");
   if (button) {
     button.addEventListener('click', () => {
@@ -82,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // SLIDER - Tu funcionalidad existente
+  // Slider functionality
   const slides = document.querySelector('.slides');
   const images = document.querySelectorAll('.slides img');
   const dots = document.querySelectorAll('.dot');
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateSlider();
 
-  // SUBTITLE ANIMATION - Tu funcionalidad existente
+  // Animación para el subtitle
   const subtitle = document.querySelector(".subtitle");
   if (subtitle) {
     const observer = new IntersectionObserver((entries, observer) => {
@@ -131,4 +132,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
     observer.observe(subtitle);
   }
+
+  // *** NUEVA FUNCIONALIDAD: Animaciones para projects__container ***
+  const projectsContainer = document.querySelector('.projects__container');
+  
+  if (projectsContainer) {
+    const projectsObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const container = entry.target;
+          
+          // Agregar clase show al contenedor principal
+          container.classList.add('show');
+          
+          // Animar elementos individuales con delays escalonados
+          const leftSection = container.querySelector('.container__left');
+          const rightSection = container.querySelector('.container__right');
+          
+          if (leftSection) {
+            setTimeout(() => {
+              leftSection.classList.add('show');
+            }, 200);
+          }
+          
+          if (rightSection) {
+            setTimeout(() => {
+              rightSection.classList.add('show');
+            }, 400);
+          }
+          
+          // Animar párrafos individualmente
+          const paragraphs = container.querySelectorAll('.left__paragraph');
+          paragraphs.forEach((paragraph, index) => {
+            setTimeout(() => {
+              paragraph.classList.add('show');
+            }, 600 + (index * 200));
+          });
+          
+          observer.unobserve(container);
+        }
+      });
+    }, { 
+      threshold: 0.3, // Se activa cuando el 30% del elemento es visible
+      rootMargin: '0px 0px -50px 0px' // Margen para activar un poco antes
+    });
+
+    projectsObserver.observe(projectsContainer);
+  }
+
+  // Optimización: Cleanup de will-change después de las animaciones
+  const elementsWithWillChange = document.querySelectorAll('[style*="will-change"]');
+  
+  setTimeout(() => {
+    elementsWithWillChange.forEach(el => {
+      el.style.willChange = 'auto';
+    });
+  }, 2000); // Después de que terminen las animaciones iniciales
 });
