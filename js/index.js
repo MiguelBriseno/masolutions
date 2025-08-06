@@ -3,13 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuContainer = document.querySelector('.menu__container');
   const menuLinks = document.querySelectorAll('.item__link');
 
-  // Funcionalidad del menú hamburguesa
   if (hamburger && menuContainer) {
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       menuContainer.classList.toggle('active');
       
-      // Prevenir scroll del body cuando el menú está abierto
       document.body.classList.toggle('menu-open');
     });
 
@@ -41,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Animación de contadores para las cards
   const cards = document.querySelectorAll('.card');
 
   const animateCount = (el, target) => {
@@ -75,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach(card => observerCards.observe(card));
 
-  // Logo click handler
   const button = document.querySelector("#logo");
   if (button) {
     button.addEventListener('click', () => {
@@ -83,7 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Slider functionality
+  const button2 = document.querySelector("#logo2");
+  if (button2) {
+    button2.addEventListener('click', () => {
+      window.location = "../index.html";
+    });
+  }
+
   const slides = document.querySelector('.slides');
   const images = document.querySelectorAll('.slides img');
   const dots = document.querySelectorAll('.dot');
@@ -118,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateSlider();
 
-  // Animación para el subtitle
   const subtitle = document.querySelector(".subtitle");
   if (subtitle) {
     const observer = new IntersectionObserver((entries, observer) => {
@@ -133,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(subtitle);
   }
 
-  // *** NUEVA FUNCIONALIDAD: Animaciones para projects__container ***
   const projectsContainer = document.querySelector('.projects__container');
   
   if (projectsContainer) {
@@ -142,10 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (entry.isIntersecting) {
           const container = entry.target;
           
-          // Agregar clase show al contenedor principal
           container.classList.add('show');
           
-          // Animar elementos individuales con delays escalonados
           const leftSection = container.querySelector('.container__left');
           const rightSection = container.querySelector('.container__right');
           
@@ -161,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 400);
           }
           
-          // Animar párrafos individualmente
           const paragraphs = container.querySelectorAll('.left__paragraph');
           paragraphs.forEach((paragraph, index) => {
             setTimeout(() => {
@@ -173,19 +170,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     }, { 
-      threshold: 0.3, // Se activa cuando el 30% del elemento es visible
-      rootMargin: '0px 0px -50px 0px' // Margen para activar un poco antes
+      threshold: 0.3,
+      rootMargin: '0px 0px -50px 0px'
     });
 
     projectsObserver.observe(projectsContainer);
   }
 
-  // Optimización: Cleanup de will-change después de las animaciones
   const elementsWithWillChange = document.querySelectorAll('[style*="will-change"]');
   
   setTimeout(() => {
     elementsWithWillChange.forEach(el => {
       el.style.willChange = 'auto';
     });
-  }, 2000); // Después de que terminen las animaciones iniciales
+  }, 2000);
 });
