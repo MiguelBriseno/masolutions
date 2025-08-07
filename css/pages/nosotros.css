@@ -1,0 +1,653 @@
+:root {
+    --primary-color: #0096b2;
+    --text-light: #ffffff;
+    --text-muted: #d6d6d6;
+    --font-lg: 3rem;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main {
+    width: 100%;
+    height: auto;
+}
+
+.tabs-container {
+    margin-top: 4rem;
+    display: flex;
+    background: var(--primary-color);
+    position: relative;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 3rem;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.tab-button.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid white;
+}
+
+.content-container {
+    width: 90%;
+    position: relative;
+    min-height: 3600px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.profile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+}
+
+.profile.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6rem;
+    margin-top: 6rem;
+    gap: 30px;
+}
+
+.profile-image {
+    width: 280px;
+    height: 450px;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 48px;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-right: 7rem;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.profile.animate-text .profile-info h2,
+.profile.animate-text .profile-info .role,
+.profile.animate-text .profile-description {
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+}
+
+.profile.animate-text .profile-info h2 {
+    animation-delay: 0.2s;
+}
+
+.profile.animate-text .profile-info .role {
+    animation-delay: 0.4s;
+}
+
+.profile.animate-text .profile-description {
+    animation-delay: 0.6s;
+}
+
+.profile-info h2 {
+    color: var(--primary-color);
+    font-size: 8rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.profile-info .role {
+    color: var(--text-light);
+    font-size: 6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.profile-description {
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-size: 2.5rem;
+    margin-bottom: 8rem;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.skill-tag {
+    background: var(--primary-color);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.contact-info {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.contact-info h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.contact-item::before {
+    content: '•';
+    color: #667eea;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.about__me {
+    width: 80%;
+    margin: 5rem auto;
+}
+
+.about__me h2 {
+    font-size: 8rem;
+    margin-bottom: 5rem;
+    text-align: center;
+}
+
+.about__me .paragraphs{
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+}
+
+.about__me .paragraphs p {
+    text-align: start;
+    margin-bottom: 5rem;
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+}
+
+/* Galería de fotos moderna */
+.photos {
+    margin-top: 5rem;
+    width: 100%;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 150px);
+    gap: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.photo-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.photo-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.photo-large {
+    grid-column: span 2;
+    grid-row: span 6;
+}
+
+.photo-medium {
+    grid-column: span 2;
+    grid-row: span 3;
+}
+
+.photo-small {
+    grid-column: span 1;
+    grid-row: span 3;
+}
+
+.photo-tall {
+    grid-column: span 1;
+    grid-row: span 3;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-item:hover img {
+    transform: scale(1.1);
+}
+
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 20px 15px 15px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.photo-item:hover .photo-overlay {
+    transform: translateY(0);
+}
+
+.photo-overlay span {
+    font-size: 2rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* RESPONSIVE MEJORADO */
+
+/* Tablets grandes y laptops pequeñas */
+@media (max-width: 1200px) {
+    .content-container {
+        width: 95%;
+        min-height: 3200px;
+    }
+    
+    .profile-info h2 {
+        font-size: 6rem;
+    }
+
+    .profile-info .role {
+        font-size: 4.5rem;
+    }
+    
+    .profile-description {
+        font-size: 2.2rem;
+    }
+    
+    .about__me h2 {
+        font-size: 6rem;
+    }
+    
+    .about__me .paragraphs p {
+        font-size: 2.2rem;
+        line-height: 3rem;
+    }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .tabs-container {
+        margin-top: 2rem;
+    }
+    
+    .tab-button {
+        padding: 2rem;
+        font-size: 2.2rem;
+    }
+    
+    .content-container {
+        min-height: 3200px;
+    }
+    
+    .profile-header {
+        margin-bottom: 4rem;
+        margin-top: 4rem;
+        gap: 25px;
+    }
+    
+    .profile-image {
+        width: 220px;
+        height: 350px;
+        margin-right: 4rem;
+        font-size: 42px;
+    }
+
+    .profile-info h2 {
+        font-size: 5rem;
+    }
+
+    .profile-info .role {
+        font-size: 4rem;
+    }
+    
+    .profile-description {
+        font-size: 2rem;
+        margin-bottom: 6rem;
+    }
+    
+    .skill-tag {
+        font-size: 1.8rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .about__me {
+        width: 85%;
+        margin: 4rem auto;
+    }
+    
+    .about__me h2 {
+        font-size: 5rem;
+        margin-bottom: 4rem;
+    }
+    
+    .about__me .paragraphs p {
+        font-size: 2rem;
+        line-height: 2.8rem;
+        margin-bottom: 4rem;
+    }
+    
+    .photo-overlay span {
+        font-size: 1.8rem;
+    }
+}
+
+/* Tablets verticales y móviles grandes */
+@media (max-width: 768px) {
+    .tabs-container {
+        margin-top: 1rem;
+    }
+    
+    .tab-button {
+        padding: 1.5rem;
+        font-size: 1.8rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .content-container {
+        width: 95%;
+        min-height: 3200px;
+    }
+    
+    .profile {
+        padding: 20px;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        margin-bottom: 3rem;
+        margin-top: 3rem;
+    }
+
+    .profile-image {
+        width: 180px;
+        height: 280px;
+        margin-right: 0;
+        font-size: 36px;
+    }
+
+    .profile-info h2 {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-info .role {
+        font-size: 3rem;
+    }
+    
+    .profile-description {
+        font-size: 1.8rem;
+        line-height: 1.6;
+        margin-bottom: 4rem;
+        text-align: left;
+    }
+    
+    .skills {
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .skill-tag {
+        font-size: 1.5rem;
+        padding: 0.7rem 1.2rem;
+    }
+    
+    .about__me {
+        width: 90%;
+        margin: 3rem auto;
+    }
+    
+    .about__me h2 {
+        font-size: 4rem;
+        margin-bottom: 3rem;
+    }
+    
+    .about__me .paragraphs {
+        width: 100%;
+    }
+    
+    .about__me .paragraphs p {
+        font-size: 1.8rem;
+        line-height: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    /* Responsive para galería de fotos */
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(6, 140px);
+        gap: 12px;
+    }
+    
+    .photo-large {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+    
+    .photo-medium {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+    
+    .photo-small,
+    .photo-tall {
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+    
+    .photo-overlay span {
+        font-size: 1.5rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .tab-button {
+        padding: 1rem;
+        font-size: 1.5rem;
+    }
+    
+    .tab-button.active::after {
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid white;
+    }
+    
+    .content-container {
+        width: 100%;
+        min-height: 3200px;
+        padding: 0 10px;
+    }
+    
+    .profile {
+        padding: 15px;
+    }
+    
+    .profile-header {
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .profile-image {
+        width: 150px;
+        height: 240px;
+        font-size: 32px;
+    }
+
+    .profile-info h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .profile-info .role {
+        font-size: 2.2rem;
+    }
+    
+    .profile-description {
+        font-size: 1.6rem;
+        line-height: 1.5;
+        margin-bottom: 3rem;
+    }
+    
+    .skill-tag {
+        font-size: 1.3rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .about__me {
+        width: 95%;
+        margin: 2rem auto;
+    }
+    
+    .about__me h2 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .about__me .paragraphs p {
+        font-size: 1.6rem;
+        line-height: 2.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .photo-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 200px);
+        gap: 10px;
+    }
+    
+    .photo-large,
+    .photo-medium,
+    .photo-small,
+    .photo-tall {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+    
+    .photo-overlay {
+        padding: 15px 10px 10px;
+    }
+    
+    .photo-overlay span {
+        font-size: 1.3rem;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 375px) {
+    .tab-button {
+        font-size: 1.3rem;
+        padding: 0.8rem;
+    }
+    
+    .profile-info h2 {
+        font-size: 2.5rem;
+    }
+
+    .profile-info .role {
+        font-size: 2rem;
+    }
+    
+    .profile-description {
+        font-size: 1.4rem;
+    }
+    
+    .about__me h2 {
+        font-size: 2.5rem;
+    }
+    
+    .about__me .paragraphs p {
+        font-size: 1.4rem;
+        line-height: 2rem;
+    }
+    
+    .skill-tag {
+        font-size: 1.2rem;
+        padding: 0.4rem 0.8rem;
+    }
+}

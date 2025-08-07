@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -39,6 +36,7 @@
     <link rel="preload" href="../css/styles.css" as="style" />
     <link rel="preload" href="../assets/logo.webp" as="image" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/pages/contacto.css" />
     <link rel="shortcut icon" href="../assets/icon.webp" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -75,7 +73,89 @@
     </nav>
 
     <main class="main">
-        
+        <!-- Hero Section -->
+        <section class="contact-hero">
+            <div class="hero-content">
+                <h1>¿Tienes un proyecto en mente?</h1>
+                <p>Estamos aquí para ayudarte a convertir tus ideas en soluciones tecnológicas reales. Contáctanos y descubre cómo podemos transformar tu negocio.</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <h2>Información de Contacto</h2>
+                        <p>Nos encantaría conocer más sobre tu proyecto. Utiliza cualquiera de estos medios para ponerte en contacto con nosotros.</p>
+                        
+                        <div class="contact-items">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Email</h3>
+                                    <p>miguel.briseno.bustos@gmail.com</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Teléfono</h3>
+                                    <p>+52 (33) 2262-0459</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Ubicación</h3>
+                                    <p>Guadalajara, Jalisco, México</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Horario de Atención</h3>
+                                    <p>Lun - Vie: 9:00 AM - 6:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="social-links">
+                            <h3>Síguenos</h3>
+                            <div class="social-icons">
+                                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Quick Action -->
+                        <div class="quick-action">
+                            <h3>¿Prefieres una videollamada?</h3>
+                            <p>Agenda una reunión directamente en nuestro calendario</p>
+                            <a href="#" class="cta-btn" onclick="window.open('https://calendly.com/d/cwty-bpz-z9f/reunion-puntual', '_blank')">
+                                <i class="fas fa-calendar-alt"></i>
+                                Agendar Cita
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -151,7 +231,9 @@
             </div>
         </div>
     </footer>
+    
     <script src="../js/index.js"></script>
+    <script src="../js/pages/contacto.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -39,6 +36,7 @@
     <link rel="preload" href="../css/styles.css" as="style" />
     <link rel="preload" href="../assets/logo.webp" as="image" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/pages/nosotros.css">
     <link rel="shortcut icon" href="../assets/icon.webp" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -76,7 +74,168 @@
     </nav>
 
     <main class="main">
-        
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="showProfile(1, this)">
+                CEO
+            </button>
+            <button class="tab-button" onclick="showProfile(2, this)">
+                CTO
+            </button>
+        </div>
+
+        <div class="content-container">
+            <div class="profile active" id="profile1">
+                <div class="profile-header">
+                    <div class="profile-image">
+                        <img src="../assets/profile.webp" alt="Imagen de perfil" style="object-fit: contain;">
+                    </div>
+                    <div class="profile-info">
+                        <h2>Miguel Briseño</h2>
+                        <div class="role">Full Stack Developer</div>
+                    </div>
+                </div>
+
+                <div class="profile-description">
+                    Desarrollador full-stack con sólida experiencia en desarrollo de software y arquitectura de
+                    sistemas,
+                    especializado en crear soluciones tecnológicas escalables que transforman procesos empresariales y
+                    maximizan la eficiencia operacional. He liderado el desarrollo de sistemas críticos, incluyendo
+                    plataformas WMS que optimizaron la gestión logística en un 40% y APIs robustas que integraron
+                    ecosistemas complejos con SAP, MySQL y SQL Server.
+                    <br><br>
+                    Mi experiencia incluye la gestión exitosa de crisis tecnológicas de alto impacto, como el liderazgo
+                    en la recuperación completa de una empresa tras un ciberataque de ransomware. Implementé protocolos
+                    de seguridad avanzados y estrategias de continuidad de negocio que no solo restauraron las
+                    operaciones
+                    en tiempo récord, sino que fortalecieron significativamente la infraestructura contra futuras
+                    amenazas.
+                    <br><br>
+                    Especialista en tecnologías modernas como Vue.js, C# y Node.js, desarrollo APIs REST de alto
+                    rendimiento
+                    y aplicaciones web centradas en la experiencia de usuario, siguiendo principios de clean code y
+                    arquitecturas escalables. Mi metodología combina pensamiento analítico, liderazgo técnico y
+                    adaptabilidad estratégica, permitiéndome generar resultados excepcionales en entornos de alta
+                    presión
+                    y complejidad técnica.
+                    <br><br>
+                    Comprometido con la excelencia técnica y la innovación continua, busco contribuir en proyectos
+                    desafiantes donde pueda aplicar mi experiencia en resolución de problemas complejos y crear
+                    soluciones tecnológicas que generen valor empresarial duradero y impacto medible.
+                </div>
+
+                <div class="skills">
+                    <span class="skill-tag">Vue.JS</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.JS</span>
+                    <span class="skill-tag">PHP</span>
+                    <span class="skill-tag">SAP B1</span>
+                </div>
+                <div class="about__me">
+                    <h2>Acerca de mí</h2>
+                    <div class="paragraphs">
+                        <p>
+                            Soy una persona apasionada por la vida y por todo lo que me rodea. Mi corazón está
+                            completamente
+                            entregado a mi familia: estoy profundamente enamorado de mi esposa, quien es mi compañera de
+                            vida y
+                            mi
+                            mejor amiga, y de mi hija, quien ha transformado mi mundo y me ha enseñado el verdadero
+                            significado
+                            del
+                            amor incondicional. Cada momento que paso con ellas es un regalo que atesoro profundamente.
+                            Fuera del ámbito familiar, tengo una gran variedad de pasiones que nutren mi alma. Me
+                            encanta hacer
+                            senderismo, donde encuentro paz y conexión con la naturaleza; viajar y descubrir nuevas
+                            culturas y
+                            paisajes que amplían mi perspectiva del mundo; practicar calistenia, que me ayuda a mantener
+                            mi
+                            cuerpo
+                            fuerte y mi mente disciplinada; y pasear con mis perros, quienes me enseñan sobre la lealtad
+                            y la
+                            alegría en las cosas simples.
+                        </p>
+
+                        <p>
+                            Una de mis grandes pasiones es la lectura de manga. Esta forma de arte japonesa no solo me
+                            entretiene,
+                            sino que me inspira profundamente con sus narrativas complejas, su arte visual único y sus
+                            profundas
+                            reflexiones sobre la condición humana. Cada historia que leo alimenta mi imaginación y
+                            enriquece mi
+                            creatividad.
+                            Todas estas actividades y relaciones forman parte integral de quien soy. Me ayudan a
+                            desconectar del
+                            estrés diario, mantenerme física y mentalmente activo, y nutrir constantemente mi
+                            creatividad, tanto
+                            en
+                            lo personal como en mi carrera profesional como desarrollador. Creo firmemente que una vida
+                            equilibrada
+                            entre familia, pasiones personales y crecimiento profesional es la clave para la felicidad y
+                            el
+                            éxito.
+                        </p>
+                    </div>
+
+                    <div class="photos">
+                        <div class="photo-grid">
+                            <div class="photo-item photo-large">
+                                <img src="../assets/wedding.webp" alt="Momentos en familia" />
+                                <div class="photo-overlay">
+                                    <span>Mi familia ❤️</span>
+                                </div>
+                            </div>
+                            <div class="photo-item photo-medium">
+                                <img src="../assets/dogs.webp" alt="Paseos con mis perros" />
+                                <div class="photo-overlay">
+                                    <span>Aventuras con mis compañeros</span>
+                                </div>
+                            </div>
+                            <div class="photo-item photo-small">
+                                <img src="../assets/rocks.webp" alt="Senderismo en la naturaleza" />
+                                <div class="photo-overlay">
+                                    <span>Conectando con la naturaleza</span>
+                                </div>
+                            </div>
+                            <div class="photo-item photo-tall">
+                                <img src="../assets/walk.webp" alt="Entrenamiento de calistenia" />
+                                <div class="photo-overlay">
+                                    <span>Fuerza y disciplina</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile" id="profile2">
+                <div class="profile-header">
+                    <div class="profile-image">DM</div>
+                    <div class="profile-info">
+                        <h2>Daniel Montes</h2>
+                        <div class="role">Sr. Front-End Developer</div>
+                    </div>
+                </div>
+
+                <div class="profile-description">
+                    Carlos es nuestro experto en desarrollo web y arquitectura de software. Con más de 10 años de
+                    experiencia, ha liderado la implementación de soluciones tecnológicas escalables y robustas para
+                    empresas de diferentes tamaños.
+                    <br><br>
+                    Su enfoque metodológico y atención al detalle garantizan que cada proyecto se entregue con los más
+                    altos estándares de calidad, rendimiento y seguridad. Carlos es un apasionado de las nuevas
+                    tecnologías y la optimización de procesos.
+                </div>
+
+                <div class="skills">
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">DevOps</span>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -153,6 +312,7 @@
         </div>
     </footer>
     <script src="../js/index.js"></script>
+    <script src="../js/pages/nosotros.js"></script>
 </body>
 
 </html>
