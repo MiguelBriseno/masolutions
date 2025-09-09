@@ -69,7 +69,7 @@
 .content-container {
     width: 90%;
     position: relative;
-    min-height: 3600px;
+    min-height: 2000px;
     overflow: hidden;
     margin: 0 auto;
 }
@@ -323,7 +323,7 @@
 @media (max-width: 1200px) {
     .content-container {
         width: 95%;
-        min-height: 3200px;
+        min-height: 1600px;
     }
     
     .profile-info h2 {
@@ -429,7 +429,7 @@
     
     .content-container {
         width: 95%;
-        min-height: 3200px;
+        min-height: 1800px;
     }
     
     .profile {
@@ -540,7 +540,7 @@
     
     .content-container {
         width: 100%;
-        min-height: 3200px;
+        min-height: 1500px;
         padding: 0 10px;
     }
     
