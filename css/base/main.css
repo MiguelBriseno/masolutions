@@ -1,0 +1,11 @@
+/* Base */
+@import url("./reset.css");
+@import url("./globals.css");
+
+/* Layout */
+@import url("../layout/header.css");
+@import url("../layout//hero.css");
+@import url("../layout/footer.css");
+@import url("../layout/services.css");
+@import url("../layout//clients.css");
+@import url("../layout/contact.css");

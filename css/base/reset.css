@@ -1,0 +1,35 @@
+/* Elimina márgenes y paddings por defecto y ajusta el box model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Asegura que el body ocupe toda la altura */
+body {
+  min-height: 100vh;
+}
+
+/* Quita estilos raros de listas y títulos (si quieres) */
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
