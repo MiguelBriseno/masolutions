@@ -3,10 +3,12 @@
   top: 0;
   z-index: 50;
   backdrop-filter: blur(16px);
-  background: linear-gradient(to bottom,
-      rgba(15, 23, 42, 0.9),
-      rgba(15, 23, 42, 0.7),
-      transparent);
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.9),
+    rgba(15, 23, 42, 0.7),
+    transparent
+  );
   border-bottom: 1px solid rgba(148, 163, 184, 0.1);
 }
 
@@ -77,9 +79,9 @@
   gap: 0.5rem;
 }
 
-/* Botón lenguaje */
+/* 🔽 BOTÓN LENGUAJE + BANDERAS (GLOBAL) */
 .nav__lang-btn {
-  padding: 0.45rem 0.9rem;
+  padding: 0.4rem 0.8rem;
   border-radius: var(--radius-pill);
   border: 1px solid rgba(148, 163, 184, 0.6);
   background: radial-gradient(circle at top left, #1e293b, #020617);
@@ -88,6 +90,41 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Banderas: tamaño fijo SIEMPRE */
+.nav__flag {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: none; /* por defecto ocultas; mostramos sólo la del idioma activo */
+}
+
+/* Texto ES / EN */
+.nav__lang-text {
+  font-size: 0.75rem;
+}
+
+/* Mostrar bandera según el idioma (data-lang en el botón) */
+.nav__lang-btn[data-lang="es"] .nav__flag--es {
+  display: inline-block;
+}
+
+.nav__lang-btn[data-lang="es"] .nav__flag--en {
+  display: none;
+}
+
+.nav__lang-btn[data-lang="en"] .nav__flag--es {
+  display: none;
+}
+
+.nav__lang-btn[data-lang="en"] .nav__flag--en {
+  display: inline-block;
 }
 
 /* Botón meeting reutiliza .btn de components/button.css si quieres */
@@ -188,56 +225,13 @@
     gap: 0.6rem;
   }
 
+  /* puedes ajustar sólo tamaños finos aquí si quieres */
   .nav__lang-btn {
     font-size: 0.75rem;
   }
 
-  .nav__lang-btn {
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    background: radial-gradient(circle at top left, #1e293b, #020617);
-    color: var(--color-text);
-    font-size: 0.8rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    cursor: pointer;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  /* Banderas */
   .nav__flag {
     width: 18px;
     height: 18px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: none;
-    /* por defecto se ocultan, mostramos según idioma */
   }
-
-  /* Texto ES / EN */
-  .nav__lang-text {
-    font-size: 0.75rem;
-  }
-
-  /* Mostrar bandera según el idioma (data-lang en el botón) */
-  .nav__lang-btn[data-lang="es"] .nav__flag--es {
-    display: inline-block;
-  }
-
-  .nav__lang-btn[data-lang="es"] .nav__flag--en {
-    display: none;
-  }
-
-  .nav__lang-btn[data-lang="en"] .nav__flag--es {
-    display: none;
-  }
-
-  .nav__lang-btn[data-lang="en"] .nav__flag--en {
-    display: inline-block;
-  }
-
 }
