@@ -4,35 +4,101 @@ export function initNavbar() {
   const toggle = document.getElementById("nav-toggle");
   const menu = document.getElementById("nav-menu");
   const langToggle = document.getElementById("lang-toggle");
+  const header = document.querySelector('.site-header');
 
-  // Menú móvil
+  // Mobile menu toggle
   if (toggle && menu) {
     toggle.addEventListener("click", () => {
       const isOpen = menu.classList.toggle("nav__menu--open");
       toggle.classList.toggle("nav__toggle--open", isOpen);
+      
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    menu.addEventListener("click", (event) => {
-      const target = event.target;
-      if (target.classList.contains("nav__link")) {
-        menu.classList.remove("nav__menu--open");
-        toggle.classList.remove("nav__toggle--open");
-      }
+    // Close menu when clicking a link
+    menu.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('nav__menu--open');
+        toggle.classList.remove('nav__toggle--open');
+        document.body.style.overflow = '';
+      });
     });
   }
 
-  // Botón de idioma
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.classList.remove('nav__menu--open');
+      toggle.classList.remove('nav__toggle--open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Header scroll effect
+  if (header) {
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  }
+
+  // Language toggle
   if (langToggle) {
-    // inicializamos UI por si acaso
     updateLangUI(langToggle, currentLang);
 
     langToggle.addEventListener("click", () => {
       currentLang = currentLang === "es" ? "en" : "es";
       updateLangUI(langToggle, currentLang);
-
-      // Aquí después puedes disparar la lógica
-      // para cambiar textos de toda la página.
       console.log("Idioma actual:", currentLang);
+    });
+  }
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const headerHeight = header ? header.offsetHeight : 0;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Active link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  if (sections.length > 0) {
+    window.addEventListener('scroll', () => {
+      const scrollY = window.pageYOffset;
+      
+      sections.forEach(section => {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 100;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          document.querySelector(`.nav__link[href="#${sectionId}"]`)?.classList.add('active');
+        } else {
+          document.querySelector(`.nav__link[href="#${sectionId}"]`)?.classList.remove('active');
+        }
+      });
     });
   }
 }

@@ -1,183 +1,175 @@
 .services {
-  padding: 3.5rem 0 4rem;
+  padding: var(--space-2xl) 0;
   position: relative;
 }
 
-.services::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), transparent 55%);
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-/* Encabezado */
 .services__header {
-  position: relative;
-  z-index: 1;
   text-align: center;
-  max-width: 640px;
-  margin: 0 auto 2.5rem;
+  max-width: 700px;
+  margin: 0 auto var(--space-xl);
 }
 
 .services__eyebrow {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--color-text-muted);
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.2em;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
 }
 
 .services__title {
-  font-size: clamp(1.6rem, 1.5vw + 1rem, 2.1rem);
-  margin-bottom: 0.8rem;
+  font-size: clamp(2rem, 4vw + 0.5rem, 3rem);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
 }
 
 .services__subtitle {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--color-text-muted);
   line-height: 1.7;
 }
 
-/* Grid de cards */
 .services__grid {
-  position: relative;
-  z-index: 1;
   display: grid;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
+  gap: var(--space-md);
 }
 
-/* Mobile: 1 columna */
 .service-card {
-  border-radius: 1.1rem;
-  padding: 1.3rem 1.4rem;
-  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), #020617);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(16, 185, 129, 0.15);
+}
+
+.service-card:hover::before {
+  opacity: 1;
 }
 
 .service-card__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.25), rgba(15, 23, 42, 1));
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.3rem;
+  margin-bottom: var(--space-md);
+  transition: transform var(--transition-fast);
+}
+
+.service-card:hover .service-card__icon {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .service-card__icon svg {
-  width: 20px;
-  height: 20px;
-  color: var(--color-primary-soft);
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
 }
 
 .service-card__title {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
+  margin-bottom: var(--space-xs);
 }
 
 .service-card__text {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-text-muted);
-  line-height: 1.6;
+  line-height: 1.65;
+  margin-bottom: var(--space-md);
 }
 
-/* Tags */
 .service-card__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 0.4rem;
-  padding: 0;
-  list-style: none;
 }
 
 .service-card__tags li {
   font-size: 0.75rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  background: rgba(15, 23, 42, 0.9);
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: rgba(31, 41, 55, 0.5);
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
 }
 
-/* Hover */
-.service-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(96, 165, 250, 0.7);
-  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.95);
+.service-card:hover .service-card__tags li {
+  border-color: rgba(16, 185, 129, 0.3);
+  color: var(--color-primary-soft);
 }
 
-/* CTA final */
 .services__cta {
-  position: relative;
-  z-index: 1;
-  margin-top: 2.5rem;
-  padding: 1.3rem 1.4rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: linear-gradient(
-    120deg,
-    rgba(37, 99, 235, 0.18),
-    rgba(15, 23, 42, 0.95)
-  );
+  margin-top: var(--space-xl);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.05));
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: var(--space-md);
   align-items: center;
   justify-content: space-between;
 }
 
 .services__cta-text {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  font-weight: 500;
 }
 
-/* 📱 Mobile */
-@media (max-width: 600px) {
-  .services {
-    padding: 3rem 0 3.5rem;
-  }
-
-  .services__header {
-    margin-bottom: 2.2rem;
-  }
-
-  .services__subtitle {
-    font-size: 0.9rem;
-  }
-
-  .service-card {
-    padding: 1.1rem 1.15rem;
-  }
-
-  .services__cta {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.services__cta .btn {
+  flex-shrink: 0;
 }
 
-/* 💻 Tablets / desktop */
 @media (min-width: 768px) {
   .services__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* 🖥 Desktop amplio */
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   .services__grid {
-    gap: 1.8rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
   }
+}
 
+@media (max-width: 640px) {
+  .services {
+    padding: var(--space-xl) 0;
+  }
+  
   .services__cta {
-    padding-inline: 1.8rem;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .services__cta .btn {
+    width: 100%;
   }
 }

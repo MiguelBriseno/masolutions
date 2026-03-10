@@ -1,5 +1,7 @@
 import { initHero } from "../components/hero.js";
 import { initNavbar } from "../components/navbar.js";
+import { initAnimations } from "../components/animations.js";
+import { initContactForm } from "../components/contact-form.js";
 
 function initFooterYear() {
   const span = document.getElementById("footer-year");
@@ -10,5 +12,7 @@ function initFooterYear() {
 document.addEventListener("DOMContentLoaded", () => {
   initNavbar();
   initHero();
+  initAnimations();
+  initContactForm();
   initFooterYear();
 });

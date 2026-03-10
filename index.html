@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MASOLUTIONS | Construimos soluciones web para tu negocio.</title>
+    <title>MASOLUTIONS | Desarrollo de Software a la Medida</title>
     <meta name="description" content="MASolutions desarrolla páginas web, apps móviles y APIs a la medida. Creamos soluciones de software modernas, escalables y alineadas a los objetivos de tu negocio.">
     <meta name="keywords" content="desarrollo de software, páginas web, landing pages, apps móviles, desarrollo móvil, APIs, backend, MASolutions">
     <meta name="author" content="MASolutions">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://masolutions.mx/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="./assets/icon.webp" type="image/x-icon">
     <meta property="og:type" content="website">
     <meta property="og:title" content="MASolutions | Desarrollo de software web y móvil">
@@ -53,7 +56,7 @@
                 <div class="nav__links">
                     <a href="#hero" class="nav__link">Inicio</a>
                     <a href="#servicios" class="nav__link">Servicios</a>
-                    <a href="#clientes" class="nav__link">Clientes</a>
+                    <a href="#proyectos" class="nav__link">Proyectos</a>
                     <a href="#contacto" class="nav__link">Contacto</a>
                 </div>
                 <div class="nav__actions">
@@ -96,21 +99,15 @@
                         robustas, escalables y alineadas a tus objetivos de negocio.
                     </p>
                     <div class="hero__actions">
-                        <a href="https://calendar.app.google/iXRAPx6p2PgyBNuM9"
-                            class="btn btn--primary hero__btn-primary hero__btn-icon" target="_blank"
-                            rel="noopener noreferrer">
-                            <svg class="hero__btn-icon-svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <a href="#contacto" class="btn btn--primary hero__btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
-                            Agendar meeting
+                            Contáctanos
                         </a>
-                        <a href="#portafolios" class="btn btn--ghost hero__btn-ghost">
-                            Ver portafolio
+                        <a href="#proyectos" class="btn btn--ghost">
+                            Ver proyectos
                         </a>
                     </div>
                     <div class="hero__trust">
@@ -164,6 +161,35 @@
                 </div>
             </div>
         </section>
+
+        <!-- Stats Section -->
+        <section class="stats" id="stats">
+            <div class="container">
+                <div class="stats__grid">
+                    <div class="stats__item">
+                        <span class="stats__number" data-count="300">0</span>
+                        <span class="stats__suffix">+</span>
+                        <p class="stats__label">Proyectos completados</p>
+                    </div>
+                    <div class="stats__item">
+                        <span class="stats__number" data-count="5">0</span>
+                        <span class="stats__suffix">+</span>
+                        <p class="stats__label">Años de experiencia</p>
+                    </div>
+                    <div class="stats__item">
+                        <span class="stats__number" data-count="99">0</span>
+                        <span class="stats__suffix">%</span>
+                        <p class="stats__label">Clientes satisfechos</p>
+                    </div>
+                    <div class="stats__item">
+                        <span class="stats__number" data-count="12">0</span>
+                        <span class="stats__suffix">sem</span>
+                        <p class="stats__label">Tiempo promedio de entrega</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="servicios" class="services">
             <div class="container">
                 <header class="services__header">
@@ -322,6 +348,114 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <header class="testimonials__header">
+                    <p class="testimonials__eyebrow">Testimonios</p>
+                    <h2 class="testimonials__title">Lo que dicen nuestros clientes</h2>
+                </header>
+                <div class="testimonials__grid">
+                    <article class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <img src="./assets/alex.webp" alt="Cliente" class="testimonial-card__avatar">
+                            <div>
+                                <h4 class="testimonial-card__name">Alejandro R.</h4>
+                                <p class="testimonial-card__role">Director, Agave Azul</p>
+                            </div>
+                        </div>
+                        <blockquote class="testimonial-card__quote">
+                            "MASolutions transformó nuestra presencia digital. El equipo entendió exactamente lo que necesitábamos y entregó un producto que superó nuestras expectativas."
+                        </blockquote>
+                        <div class="testimonial-card__rating">★★★★★</div>
+                    </article>
+                    <article class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <img src="./assets/dani.webp" alt="Cliente" class="testimonial-card__avatar">
+                            <div>
+                                <h4 class="testimonial-card__name">Daniel M.</h4>
+                                <p class="testimonial-card__role">CEO, Electromex</p>
+                            </div>
+                        </div>
+                        <blockquote class="testimonial-card__quote">
+                            "Profesionales excepcionales. Cumplieron con los tiempos y la calidad fue impecable. Sin duda volveremos a trabajar con ellos."
+                        </blockquote>
+                        <div class="testimonial-card__rating">★★★★★</div>
+                    </article>
+                    <article class="testimonial-card">
+                        <div class="testimonial-card__header">
+                            <img src="./assets/munich.webp" alt="Cliente" class="testimonial-card__avatar">
+                            <div>
+                                <h4 class="testimonial-card__name">Miguel T.</h4>
+                                <p class="testimonial-card__role">Founder, Actuar Consultores</p>
+                            </div>
+                        </div>
+                        <blockquote class="testimonial-card__quote">
+                            "La mejor decisión que tomamos. Su enfoque en la experiencia del usuario y las mejores prácticas de desarrollo se nota en cada interacción."
+                        </blockquote>
+                        <div class="testimonial-card__rating">★★★★★</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects" id="proyectos">
+            <div class="container">
+                <header class="projects__header">
+                    <p class="projects__eyebrow">Proyectos</p>
+                    <h2 class="projects__title">Casos de éxito</h2>
+                    <p class="projects__subtitle">
+                        Conoce algunos de los proyectos que hemos desarrollado para nuestros clientes.
+                    </p>
+                </header>
+                <div class="projects__grid">
+                    <article class="project-card">
+                        <div class="project-card__image">
+                            <img src="./assets/agaveazul.webp" alt="Agave Azul">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Sistema de gestión de producción de tequila</h3>
+                            <p class="project-card__desc">Plataforma integral para control de producción, inventario de materia prima y seguimiento de lotes.</p>
+                            <div class="project-card__tags">
+                                <span>Web App</span>
+                                <span>Producción</span>
+                                <span>Inventario</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-card__image">
+                            <img src="./assets/electromex.webp" alt="Electromex">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Sistema de gestión</h3>
+                            <p class="project-card__desc">Dashboard integral para control de operaciones y reportes automatizados.</p>
+                            <div class="project-card__tags">
+                                <span>Dashboard</span>
+                                <span>Analytics</span>
+                                <span>Reports</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-card__image">
+                            <img src="./assets/lions.webp" alt="Lions Club">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Sistema de pólizas de seguros de autos</h3>
+                            <p class="project-card__desc">Plataforma para gestión de seguros vehiculares, emisión de pólizas y seguimiento de clientes.</p>
+                            <div class="project-card__tags">
+                                <span>Web App</span>
+                                <span>Seguros</span>
+                                <span>CRM</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <section id="contacto" class="contact">
             <div class="container contact__grid">
                 <div class="contact__info">
@@ -334,8 +468,8 @@
                         <a href="mailto:miguel.briseno.bustos@gmail.com" class="contact__method">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
-                                <polyline points="3 7 12 13 21 7"></polyline>
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
                             miguel.briseno.bustos@gmail.com
                         </a>
@@ -352,21 +486,24 @@
                         </a>
                     </div>
                 </div>
-                <form class="contact__form" action="https://formsubmit.co/miguel.briseno.bustos@gmail.com"
+                <form class="contact__form" id="contact-form" action="https://formsubmit.co/miguel.briseno.bustos@gmail.com"
                     method="POST">
                     <input type="hidden" name="_subject" value="Nuevo contacto desde MASolutions">
                     <input type="hidden" name="_captcha" value="false">
+                    <div class="form__success" id="form-success">
+                        ¡Gracias! Tu mensaje ha sido enviado. Te contactaremos pronto.
+                    </div>
                     <div class="form__group">
                         <label for="nombre">Nombre</label>
-                        <input id="nombre" type="text" name="nombre" required>
+                        <input id="nombre" type="text" name="nombre" placeholder="Tu nombre" required>
                     </div>
                     <div class="form__group">
                         <label for="email">Email</label>
-                        <input id="email" type="email" name="email" required>
+                        <input id="email" type="email" name="email" placeholder="tu@email.com" required>
                     </div>
                     <div class="form__group">
                         <label for="telefono">Teléfono (opcional)</label>
-                        <input id="telefono" type="text" name="telefono">
+                        <input id="telefono" type="tel" name="telefono" placeholder="+52 ...">
                     </div>
                     <div class="form__group">
                         <label for="tipo">Tipo de proyecto (opcional)</label>
@@ -380,16 +517,15 @@
                     </div>
                     <div class="form__group">
                         <label for="mensaje">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn--primary hero__btn-icon2">
+                    <button type="submit" class="btn btn--primary">
                         Enviar mensaje
                     </button>
                 </form>
             </div>
         </section>
     </main>
-
     <!-- OJO: quité el id="contacto" de aquí para no duplicar el mismo id que usa la sección de contacto -->
     <footer class="site-footer">
         <div class="container footer__grid">
@@ -407,7 +543,7 @@
                 <ul class="footer__links">
                     <li><a href="#hero" class="footer__link">Inicio</a></li>
                     <li><a href="#servicios" class="footer__link">Servicios</a></li>
-                    <li><a href="#portafolios" class="footer__link">Portafolios</a></li>
+                    <li><a href="#proyectos" class="footer__link">Proyectos</a></li>
                     <li><a href="#contacto" class="footer__link">Contacto</a></li>
                 </ul>
             </div>

@@ -1,35 +1,132 @@
 :root {
-  /* Colores base de la landing (ajústalos a tu marca) */
-  --color-bg: #020617;
-  --color-bg-alt: #0f172a;
-  --color-primary: #2563eb;
-  --color-primary-soft: #60a5fa;
-  --color-text: #e5e7eb;
+  /* Colores base - Modern dark theme con accent verde/mint */
+  --color-bg: #030712;
+  --color-bg-alt: #0a0f1a;
+  --color-bg-card: #111827;
+  --color-surface: #1f2937;
+  
+  /* Primary accent - Verde esmeralda moderno */
+  --color-primary: #10b981;
+  --color-primary-dark: #059669;
+  --color-primary-soft: #34d399;
+  --color-primary-glow: rgba(16, 185, 129, 0.4);
+  
+  /* Secondary - Slate oscuro */
+  --color-secondary: #6366f1;
+  --color-secondary-soft: #818cf8;
+  
+  /* Textos */
+  --color-text: #f9fafb;
   --color-text-muted: #9ca3af;
-
-  --radius-pill: 999px;
+  --color-text-subtle: #6b7280;
+  
+  /* Bordes y superficies */
+  --color-border: rgba(148, 163, 184, 0.15);
+  --color-border-hover: rgba(148, 163, 184, 0.3);
+  
+  /* Radios */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
   --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 999px;
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px var(--color-primary-glow);
+  
+  /* Transiciones */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  
+  /* Container */
+  --container-max: 1200px;
+}
 
-  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.6);
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: radial-gradient(circle at top, #1e293b, #020617 55%);
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(99, 102, 241, 0.1), transparent),
+    var(--color-bg);
   color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* Quitar subrayado por defecto y usar color heredado */
 a {
   color: inherit;
   text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary);
 }
 
 /* Contenedor reutilizable para centrar contenido */
 .container {
   width: 100%;
-  max-width: 1100px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--space-md);
+}
+
+/* Selection color */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Utility classes */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

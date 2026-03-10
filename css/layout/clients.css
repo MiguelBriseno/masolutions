@@ -1,103 +1,154 @@
 .clients {
-  padding: 3rem 0 3.5rem;
+  padding: var(--space-2xl) 0;
   position: relative;
-}
-
-.clients::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at bottom, rgba(15, 23, 42, 0.6), transparent 55%);
-  opacity: 0.9;
-  pointer-events: none;
+  overflow: hidden;
 }
 
 .clients__header {
-  position: relative;
-  z-index: 1;
   text-align: center;
-  max-width: 640px;
-  margin: 0 auto 2rem;
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
 }
 
 .clients__eyebrow {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--color-text-muted);
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.2em;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
 }
 
 .clients__title {
-  font-size: clamp(1.4rem, 1.4vw + 1rem, 1.9rem);
-  margin-bottom: 0.6rem;
+  font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
 }
 
 .clients__subtitle {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-text-muted);
   line-height: 1.7;
 }
 
-/* Carrusel / marquee */
 .clients__marquee {
   position: relative;
-  z-index: 1;
   overflow: hidden;
-  margin-top: 1.5rem;
-  padding-block: 1rem;
+  padding: var(--space-md) 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .clients__track {
   display: flex;
-  align-items: center;
-  gap: 3rem;
-  animation: clients-scroll 22s linear infinite;
+  gap: var(--space-xl);
+  animation: scroll 30s linear infinite;
+  width: max-content;
+}
+
+.clients__track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .clients__item {
-  flex: 0 0 auto;
-  filter: grayscale(90%);
-  opacity: 0.9;
-  transition: filter 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  opacity: 0.6;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.clients__item:hover {
+  opacity: 1;
 }
 
 .clients__item img {
-  display: block;
-  max-height: 100px;
+  height: 48px;
   width: auto;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.8);
+  transition: filter var(--transition-fast);
 }
 
-/* Hover */
-.clients__item:hover {
-  filter: grayscale(0%);
+.clients__item:hover img {
+  filter: grayscale(0%) brightness(1);
+}
+
+.clients__logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.clients__logo-item {
+  flex: 0 0 calc(33.333% - var(--space-md));
+  min-width: 120px;
+  max-width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  opacity: 0.5;
+  transition: opacity var(--transition-base);
+}
+
+.clients__logo-item:hover {
   opacity: 1;
-  transform: translateY(-2px);
 }
 
-/* Animación de scroll infinito */
-@keyframes clients-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.clients__logo-item img {
+  max-width: 100%;
+  height: auto;
+  filter: grayscale(100%) brightness(0.9);
+  transition: filter var(--transition-base);
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .clients {
-    padding: 2.5rem 0 3rem;
-  }
+.clients__logo-item:hover img {
+  filter: grayscale(0%) brightness(1);
+}
 
-  .clients__track {
-    gap: 2rem;
-    animation-duration: 26s;
+@media (min-width: 768px) {
+  .clients__logo-item {
+    flex: 0 0 calc(20% - var(--space-md));
   }
-
+  
   .clients__item img {
-    max-height: 44px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 640px) {
+  .clients {
+    padding: var(--space-xl) 0;
+  }
+  
+  .clients__track {
+    gap: var(--space-lg);
+  }
+  
+  .clients__item img {
+    height: 36px;
+  }
+  
+  .clients__logo-item {
+    flex: 0 0 calc(50% - var(--space-sm));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clients__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
