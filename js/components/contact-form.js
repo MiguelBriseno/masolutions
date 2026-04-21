@@ -1,64 +1,54 @@
+import { t } from '../core/i18n.js';
+
 export function initContactForm() {
   const form = document.getElementById('contact-form');
   const successMessage = document.getElementById('form-success');
-  
+
   if (!form) return;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Honeypot: bots fill this, humans don't — silently abort
     const honeypot = form.querySelector('[name="_honey"]');
     if (honeypot && honeypot.value.trim()) {
       form.reset();
       return;
     }
 
-    // Basic validation
     const nombre = form.querySelector('#nombre');
     const email = form.querySelector('#email');
     const mensaje = form.querySelector('#mensaje');
 
     if (!nombre.value.trim() || !email.value.trim() || !mensaje.value.trim()) {
-      showError('Por favor completa todos los campos requeridos');
+      showError(t('contact.errorRequired'));
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.value)) {
-      showError('Por favor ingresa un email válido');
+      showError(t('contact.errorEmail'));
       return;
     }
 
-    // Show loading state
     form.classList.add('loading');
-    
+
     try {
-      // Submit the form
       const formData = new FormData(form);
       const response = await fetch(form.action, {
         method: 'POST',
         body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        headers: { Accept: 'application/json' },
       });
-      
+
       if (response.ok) {
-        // Show success message
         form.reset();
         successMessage.classList.add('show');
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          successMessage.classList.remove('show');
-        }, 5000);
+        setTimeout(() => successMessage.classList.remove('show'), 5000);
       } else {
-        showError('Hubo un problema al enviar el mensaje. Intenta de nuevo.');
+        showError(t('contact.errorSend'));
       }
-    } catch (error) {
-      showError('Hubo un problema al enviar el mensaje. Intenta de nuevo.');
+    } catch {
+      showError(t('contact.errorSend'));
     } finally {
       form.classList.remove('loading');
     }
@@ -73,13 +63,9 @@ export function initContactForm() {
     }
     errorEl.textContent = message;
     errorEl.classList.add('show');
-
-    setTimeout(() => {
-      errorEl.classList.remove('show');
-    }, 4000);
+    setTimeout(() => errorEl.classList.remove('show'), 4000);
   }
 
-  // Real-time validation feedback
   const inputs = form.querySelectorAll('input, textarea');
   inputs.forEach(input => {
     input.addEventListener('blur', () => {
@@ -89,7 +75,7 @@ export function initContactForm() {
         input.style.borderColor = '';
       }
     });
-    
+
     input.addEventListener('input', () => {
       input.style.borderColor = '';
     });

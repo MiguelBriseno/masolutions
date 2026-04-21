@@ -90,10 +90,10 @@
         </a>
         <nav class="nav__menu" id="nav-menu">
           <div class="nav__links">
-            <a href="#hero" class="nav__link">Inicio</a>
-            <a href="#servicios" class="nav__link">Servicios</a>
-            <a href="#proyectos" class="nav__link">Proyectos</a>
-            <a href="#contacto" class="nav__link">Contacto</a>
+            <a href="#hero" class="nav__link" data-i18n="nav.home">Inicio</a>
+            <a href="#servicios" class="nav__link" data-i18n="nav.services">Servicios</a>
+            <a href="#proyectos" class="nav__link" data-i18n="nav.projects">Proyectos</a>
+            <a href="#contacto" class="nav__link" data-i18n="nav.contact">Contacto</a>
           </div>
           <div class="nav__actions">
             <button
@@ -101,6 +101,8 @@
               id="lang-toggle"
               type="button"
               data-lang="es"
+              data-i18n-aria="nav.toggleAriaLabel"
+              aria-label="Cambiar a inglés"
             >
               <img
                 src="./assets/flag-mx.webp"
@@ -119,12 +121,18 @@
               class="btn btn--primary nav__meeting-btn"
               target="_blank"
               rel="noopener noreferrer"
+              data-i18n="nav.meeting"
             >
               Agendar meeting
             </a>
           </div>
         </nav>
-        <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú">
+        <button
+          class="nav__toggle"
+          id="nav-toggle"
+          aria-label="Abrir menú"
+          data-i18n-aria="nav.menuAriaLabel"
+        >
           <span class="nav__toggle-line"></span>
           <span class="nav__toggle-line"></span>
           <span class="nav__toggle-line"></span>
@@ -137,19 +145,17 @@
         <div class="container hero__grid">
           <div class="hero__content">
             <div class="hero__eyebrow">
-              <span class="hero__eyebrow-pill">Desarrollo de software</span>
-              <span class="hero__eyebrow-badge"
-                >Web · Mobile · Integraciones</span
-              >
+              <span class="hero__eyebrow-pill" data-i18n="hero.eyebrowPill">Desarrollo de software</span>
+              <span class="hero__eyebrow-badge" data-i18n="hero.eyebrowBadge">Web · Mobile · Integraciones</span>
             </div>
             <h1 class="hero__title">
-              Construimos soluciones
+              <span data-i18n="hero.titleBefore">Construimos soluciones</span>
               <span class="hero__title-highlight">
                 <span id="hero-dynamic-text">web</span>
               </span>
-              para tu negocio.
+              <span data-i18n="hero.titleAfter">para tu negocio.</span>
             </h1>
-            <p class="hero__subtitle">
+            <p class="hero__subtitle" data-i18n="hero.subtitle">
               En MASolutions diseñamos y desarrollamos aplicaciones web y
               móviles robustas, escalables y alineadas a tus objetivos de
               negocio.
@@ -172,16 +178,16 @@
                   ></path>
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
-                Contáctanos
+                <span data-i18n="hero.cta">Contáctanos</span>
               </a>
-              <a href="#proyectos" class="btn btn--ghost"> Ver proyectos </a>
+              <a href="#proyectos" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver proyectos</a>
             </div>
             <div class="hero__trust">
-              <p class="hero__trust-label">Especialistas en:</p>
+              <p class="hero__trust-label" data-i18n="hero.trustLabel">Especialistas en:</p>
               <div class="hero__trust-tags">
-                <span class="hero__tag">Aplicaciones web</span>
-                <span class="hero__tag">Apps móviles</span>
-                <span class="hero__tag">APIs & Backends</span>
+                <span class="hero__tag" data-i18n="hero.tag1">Aplicaciones web</span>
+                <span class="hero__tag" data-i18n="hero.tag2">Apps móviles</span>
+                <span class="hero__tag" data-i18n="hero.tag3">APIs & Backends</span>
               </div>
             </div>
           </div>
@@ -190,11 +196,11 @@
             <div class="hero__card hero__card--main">
               <div class="hero__card-header">
                 <span class="hero__status-dot"></span>
-                <span class="hero__status-text">Proyecto en producción</span>
+                <span class="hero__status-text" data-i18n="hero.card1Status">Proyecto en producción</span>
               </div>
               <div class="hero__card-body">
-                <p class="hero__card-title">Panel web + app móvil</p>
-                <p class="hero__card-subtitle">
+                <p class="hero__card-title" data-i18n="hero.card1Title">Panel web + app móvil</p>
+                <p class="hero__card-subtitle" data-i18n="hero.card1Desc">
                   Dashboard para gestión de leads, usuarios y analítica en
                   tiempo real.
                 </p>
@@ -208,11 +214,11 @@
             <div class="hero__card hero__card--secondary">
               <div class="hero__card-header">
                 <span class="hero__status-dot hero__status-dot--idle"></span>
-                <span class="hero__status-text">CMS para mueblería</span>
+                <span class="hero__status-text" data-i18n="hero.card2Status">CMS para mueblería</span>
               </div>
               <div class="hero__card-body">
-                <p class="hero__card-title">Catálogo + inventario</p>
-                <p class="hero__card-subtitle">
+                <p class="hero__card-title" data-i18n="hero.card2Title">Catálogo + inventario</p>
+                <p class="hero__card-subtitle" data-i18n="hero.card2Desc">
                   Gestión de productos, existencias y sucursales desde un panel
                   centralizado.
                 </p>
@@ -224,11 +230,11 @@
               </div>
             </div>
             <div class="hero__floating-card hero__floating-card--1">
-              <p class="hero__floating-label">Time to market</p>
-              <p class="hero__floating-value">2-6 semanas</p>
+              <p class="hero__floating-label" data-i18n="hero.float1Label">Time to market</p>
+              <p class="hero__floating-value" data-i18n="hero.float1Value">2-6 semanas</p>
             </div>
             <div class="hero__floating-card hero__floating-card--2">
-              <p class="hero__floating-label">Proyectos entregados</p>
+              <p class="hero__floating-label" data-i18n="hero.float2Label">Proyectos entregados</p>
               <p class="hero__floating-value">300+</p>
             </div>
           </div>
@@ -242,22 +248,22 @@
             <div class="stats__item">
               <span class="stats__number" data-count="300">0</span>
               <span class="stats__suffix">+</span>
-              <p class="stats__label">Proyectos completados</p>
+              <p class="stats__label" data-i18n="stats.projects">Proyectos completados</p>
             </div>
             <div class="stats__item">
               <span class="stats__number" data-count="5">0</span>
               <span class="stats__suffix">+</span>
-              <p class="stats__label">Años de experiencia</p>
+              <p class="stats__label" data-i18n="stats.years">Años de experiencia</p>
             </div>
             <div class="stats__item">
               <span class="stats__number" data-count="99">0</span>
               <span class="stats__suffix">%</span>
-              <p class="stats__label">Clientes satisfechos</p>
+              <p class="stats__label" data-i18n="stats.clients">Clientes satisfechos</p>
             </div>
             <div class="stats__item">
               <span class="stats__number" data-count="12">0</span>
               <span class="stats__suffix">sem</span>
-              <p class="stats__label">Tiempo promedio de entrega</p>
+              <p class="stats__label" data-i18n="stats.delivery">Tiempo promedio de entrega</p>
             </div>
           </div>
         </div>
@@ -266,9 +272,9 @@
       <section id="servicios" class="services">
         <div class="container">
           <header class="services__header">
-            <p class="services__eyebrow">Servicios</p>
-            <h2 class="services__title">Soluciones de software a la medida</h2>
-            <p class="services__subtitle">
+            <p class="services__eyebrow" data-i18n="services.eyebrow">Servicios</p>
+            <h2 class="services__title" data-i18n="services.title">Soluciones de software a la medida</h2>
+            <p class="services__subtitle" data-i18n="services.subtitle">
               Te acompañamos desde la idea hasta el despliegue en producción,
               construyendo productos digitales robustos, escalables y listos
               para crecer con tu negocio.
@@ -291,16 +297,16 @@
                   <line x1="12" y1="17" x2="12" y2="21"></line>
                 </svg>
               </div>
-              <h3 class="service-card__title">Páginas web y landing pages</h3>
-              <p class="service-card__text">
+              <h3 class="service-card__title" data-i18n="services.card1Title">Páginas web y landing pages</h3>
+              <p class="service-card__text" data-i18n="services.card1Text">
                 Sitios corporativos y landing pages optimizadas para conversión,
                 con enfoque en performance, SEO técnico y experiencia de
                 usuario.
               </p>
               <ul class="service-card__tags">
-                <li>Landing pages</li>
-                <li>Web corporativa</li>
-                <li>SEO técnico</li>
+                <li data-i18n="services.card1Tag1">Landing pages</li>
+                <li data-i18n="services.card1Tag2">Web corporativa</li>
+                <li data-i18n="services.card1Tag3">SEO técnico</li>
               </ul>
             </article>
             <article class="service-card">
@@ -318,16 +324,16 @@
                   <line x1="12" y1="18" x2="12.01" y2="18"></line>
                 </svg>
               </div>
-              <h3 class="service-card__title">Apps móviles iOS & Android</h3>
-              <p class="service-card__text">
+              <h3 class="service-card__title" data-i18n="services.card2Title">Apps móviles iOS & Android</h3>
+              <p class="service-card__text" data-i18n="services.card2Text">
                 Desarrollo de aplicaciones móviles nativas o híbridas,
                 integradas con tus sistemas actuales y listas para publicar en
                 App Store y Google Play.
               </p>
               <ul class="service-card__tags">
-                <li>iOS & Android</li>
-                <li>Notificaciones push</li>
-                <li>Integración con APIs</li>
+                <li data-i18n="services.card2Tag1">iOS & Android</li>
+                <li data-i18n="services.card2Tag2">Notificaciones push</li>
+                <li data-i18n="services.card2Tag3">Integración con APIs</li>
               </ul>
             </article>
             <article class="service-card">
@@ -345,16 +351,16 @@
                   <polyline points="8 6 2 12 8 18"></polyline>
                 </svg>
               </div>
-              <h3 class="service-card__title">APIs & backends escalables</h3>
-              <p class="service-card__text">
+              <h3 class="service-card__title" data-i18n="services.card3Title">APIs & backends escalables</h3>
+              <p class="service-card__text" data-i18n="services.card3Text">
                 Diseño e implementación de APIs seguras y mantenibles, listas
                 para soportar integraciones con tus apps, terceros y
                 automatizaciones internas.
               </p>
               <ul class="service-card__tags">
-                <li>REST / GraphQL</li>
-                <li>Autenticación & roles</li>
-                <li>Integraciones externas</li>
+                <li data-i18n="services.card3Tag1">REST / GraphQL</li>
+                <li data-i18n="services.card3Tag2">Autenticación & roles</li>
+                <li data-i18n="services.card3Tag3">Integraciones externas</li>
               </ul>
             </article>
             <article class="service-card">
@@ -373,20 +379,20 @@
                   ></path>
                 </svg>
               </div>
-              <h3 class="service-card__title">Mantenimiento & evolución</h3>
-              <p class="service-card__text">
+              <h3 class="service-card__title" data-i18n="services.card4Title">Mantenimiento & evolución</h3>
+              <p class="service-card__text" data-i18n="services.card4Text">
                 Acompañamiento continuo para mantener tus sistemas al día:
                 mejoras, nuevas funcionalidades, monitoreo y soporte técnico.
               </p>
               <ul class="service-card__tags">
-                <li>Soporte continuo</li>
-                <li>Mejoras incrementales</li>
-                <li>Refactors & optimización</li>
+                <li data-i18n="services.card4Tag1">Soporte continuo</li>
+                <li data-i18n="services.card4Tag2">Mejoras incrementales</li>
+                <li data-i18n="services.card4Tag3">Refactors & optimización</li>
               </ul>
             </article>
           </div>
           <div class="services__cta">
-            <p class="services__cta-text">
+            <p class="services__cta-text" data-i18n="services.ctaText">
               ¿Tienes una idea o proyecto en mente?
             </p>
             <a
@@ -412,17 +418,18 @@
                 <line x1="8" y1="2" x2="8" y2="6"></line>
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
-              Agendar una reunión
+              <span data-i18n="services.ctaBtn">Agendar una reunión</span>
             </a>
           </div>
         </div>
       </section>
+
       <section id="proceso" class="process">
         <div class="container">
           <header class="process__header">
-            <p class="process__eyebrow">Nuestro proceso</p>
-            <h2 class="process__title">De la idea al producto en producción</h2>
-            <p class="process__subtitle">
+            <p class="process__eyebrow" data-i18n="process.eyebrow">Nuestro proceso</p>
+            <h2 class="process__title" data-i18n="process.title">De la idea al producto en producción</h2>
+            <p class="process__subtitle" data-i18n="process.subtitle">
               Un proceso claro, iterativo y con visibilidad total. Sabés exactamente en qué etapa está tu proyecto en todo momento.
             </p>
           </header>
@@ -430,29 +437,29 @@
             <div class="process__step">
               <div class="process__step-badge">01</div>
               <div class="process__step-content">
-                <h3 class="process__step-title">Descubrimiento</h3>
-                <p class="process__step-desc">Analizamos tu negocio, objetivos y usuarios. Definimos el alcance y entregamos una propuesta técnica detallada.</p>
+                <h3 class="process__step-title" data-i18n="process.step1Title">Descubrimiento</h3>
+                <p class="process__step-desc" data-i18n="process.step1Desc">Analizamos tu negocio, objetivos y usuarios. Definimos el alcance y entregamos una propuesta técnica detallada.</p>
               </div>
             </div>
             <div class="process__step">
               <div class="process__step-badge">02</div>
               <div class="process__step-content">
-                <h3 class="process__step-title">Diseño & Prototipo</h3>
-                <p class="process__step-desc">Diseñamos la experiencia de usuario y prototipamos la solución para validar antes de escribir una sola línea de código.</p>
+                <h3 class="process__step-title" data-i18n="process.step2Title">Diseño & Prototipo</h3>
+                <p class="process__step-desc" data-i18n="process.step2Desc">Diseñamos la experiencia de usuario y prototipamos la solución para validar antes de escribir una sola línea de código.</p>
               </div>
             </div>
             <div class="process__step">
               <div class="process__step-badge">03</div>
               <div class="process__step-content">
-                <h3 class="process__step-title">Desarrollo</h3>
-                <p class="process__step-desc">Desarrollo iterativo con entregas semanales. Tenés visibilidad total del avance y podés dar feedback en cada sprint.</p>
+                <h3 class="process__step-title" data-i18n="process.step3Title">Desarrollo</h3>
+                <p class="process__step-desc" data-i18n="process.step3Desc">Desarrollo iterativo con entregas semanales. Tenés visibilidad total del avance y podés dar feedback en cada sprint.</p>
               </div>
             </div>
             <div class="process__step">
               <div class="process__step-badge">04</div>
               <div class="process__step-content">
-                <h3 class="process__step-title">Lanzamiento</h3>
-                <p class="process__step-desc">Deploy en producción, pruebas finales y soporte post-lanzamiento para que tu producto escale sin fricciones.</p>
+                <h3 class="process__step-title" data-i18n="process.step4Title">Lanzamiento</h3>
+                <p class="process__step-desc" data-i18n="process.step4Desc">Deploy en producción, pruebas finales y soporte post-lanzamiento para que tu producto escale sin fricciones.</p>
               </div>
             </div>
           </div>
@@ -462,11 +469,11 @@
       <section class="clients" id="clientes">
         <div class="container">
           <header class="clients__header">
-            <p class="clients__eyebrow">Clientes</p>
-            <h2 class="clients__title">
+            <p class="clients__eyebrow" data-i18n="clients.eyebrow">Clientes</p>
+            <h2 class="clients__title" data-i18n="clients.title">
               Empresas que han confiado en nosotros
             </h2>
-            <p class="clients__subtitle">
+            <p class="clients__subtitle" data-i18n="clients.subtitle">
               Colaboramos con compañías de distintos sectores para diseñar y
               construir soluciones digitales que generan resultados.
             </p>
@@ -512,8 +519,8 @@
       <section class="testimonials" id="testimonials">
         <div class="container">
           <header class="testimonials__header">
-            <p class="testimonials__eyebrow">Testimonios</p>
-            <h2 class="testimonials__title">Lo que dicen nuestros clientes</h2>
+            <p class="testimonials__eyebrow" data-i18n="testimonials.eyebrow">Testimonios</p>
+            <h2 class="testimonials__title" data-i18n="testimonials.title">Lo que dicen nuestros clientes</h2>
           </header>
           <div class="testimonials__grid">
             <article class="testimonial-card">
@@ -526,10 +533,10 @@
                 />
                 <div>
                   <h4 class="testimonial-card__name">Alejandro R.</h4>
-                  <p class="testimonial-card__role">Director, Agave Azul</p>
+                  <p class="testimonial-card__role" data-i18n="testimonials.t1Role">Director, Agave Azul</p>
                 </div>
               </div>
-              <blockquote class="testimonial-card__quote">
+              <blockquote class="testimonial-card__quote" data-i18n="testimonials.t1Quote">
                 "MASolutions transformó nuestra presencia digital. El equipo
                 entendió exactamente lo que necesitábamos y entregó un producto
                 que superó nuestras expectativas."
@@ -546,10 +553,10 @@
                 />
                 <div>
                   <h4 class="testimonial-card__name">Daniel M.</h4>
-                  <p class="testimonial-card__role">CEO, Electromex</p>
+                  <p class="testimonial-card__role" data-i18n="testimonials.t2Role">CEO, Electromex</p>
                 </div>
               </div>
-              <blockquote class="testimonial-card__quote">
+              <blockquote class="testimonial-card__quote" data-i18n="testimonials.t2Quote">
                 "Profesionales excepcionales. Cumplieron con los tiempos y la
                 calidad fue impecable. Sin duda volveremos a trabajar con
                 ellos."
@@ -566,12 +573,12 @@
                 />
                 <div>
                   <h4 class="testimonial-card__name">Miguel T.</h4>
-                  <p class="testimonial-card__role">
+                  <p class="testimonial-card__role" data-i18n="testimonials.t3Role">
                     Founder, Actuar Consultores
                   </p>
                 </div>
               </div>
-              <blockquote class="testimonial-card__quote">
+              <blockquote class="testimonial-card__quote" data-i18n="testimonials.t3Quote">
                 "La mejor decisión que tomamos. Su enfoque en la experiencia del
                 usuario y las mejores prácticas de desarrollo se nota en cada
                 interacción."
@@ -586,9 +593,9 @@
       <section class="projects" id="proyectos">
         <div class="container">
           <header class="projects__header">
-            <p class="projects__eyebrow">Proyectos</p>
-            <h2 class="projects__title">Casos de éxito</h2>
-            <p class="projects__subtitle">
+            <p class="projects__eyebrow" data-i18n="projects.eyebrow">Proyectos</p>
+            <h2 class="projects__title" data-i18n="projects.title">Casos de éxito</h2>
+            <p class="projects__subtitle" data-i18n="projects.subtitle">
               Conoce algunos de los proyectos que hemos desarrollado para
               nuestros clientes.
             </p>
@@ -599,17 +606,17 @@
                 <img src="./assets/agaveazul.webp" alt="Agave Azul" loading="lazy" />
               </div>
               <div class="project-card__content">
-                <h3 class="project-card__title">
+                <h3 class="project-card__title" data-i18n="projects.p1Title">
                   Sistema de gestión de producción de tequila
                 </h3>
-                <p class="project-card__desc">
+                <p class="project-card__desc" data-i18n="projects.p1Desc">
                   Plataforma integral para control de producción, inventario de
                   materia prima y seguimiento de lotes.
                 </p>
                 <div class="project-card__tags">
-                  <span>Web App</span>
-                  <span>Producción</span>
-                  <span>Inventario</span>
+                  <span data-i18n="projects.p1Tag1">Web App</span>
+                  <span data-i18n="projects.p1Tag2">Producción</span>
+                  <span data-i18n="projects.p1Tag3">Inventario</span>
                 </div>
               </div>
             </article>
@@ -618,8 +625,8 @@
                 <img src="./assets/electromex.webp" alt="Electromex" loading="lazy" />
               </div>
               <div class="project-card__content">
-                <h3 class="project-card__title">Sistema de gestión</h3>
-                <p class="project-card__desc">
+                <h3 class="project-card__title" data-i18n="projects.p2Title">Sistema de gestión</h3>
+                <p class="project-card__desc" data-i18n="projects.p2Desc">
                   Dashboard integral para control de operaciones y reportes
                   automatizados.
                 </p>
@@ -635,17 +642,17 @@
                 <img src="./assets/lions.webp" alt="Lions Club" loading="lazy" />
               </div>
               <div class="project-card__content">
-                <h3 class="project-card__title">
+                <h3 class="project-card__title" data-i18n="projects.p3Title">
                   Sistema de pólizas de seguros de autos
                 </h3>
-                <p class="project-card__desc">
+                <p class="project-card__desc" data-i18n="projects.p3Desc">
                   Plataforma para gestión de seguros vehiculares, emisión de
                   pólizas y seguimiento de clientes.
                 </p>
                 <div class="project-card__tags">
-                  <span>Web App</span>
-                  <span>Seguros</span>
-                  <span>CRM</span>
+                  <span data-i18n="projects.p3Tag1">Web App</span>
+                  <span data-i18n="projects.p3Tag2">Seguros</span>
+                  <span data-i18n="projects.p3Tag3">CRM</span>
                 </div>
               </div>
             </article>
@@ -656,8 +663,8 @@
       <section id="contacto" class="contact">
         <div class="container contact__grid">
           <div class="contact__info">
-            <h2 class="contact__title">Hablemos de tu proyecto</h2>
-            <p class="contact__subtitle">
+            <h2 class="contact__title" data-i18n="contact.title">Hablemos de tu proyecto</h2>
+            <p class="contact__subtitle" data-i18n="contact.subtitle">
               Cuéntanos tu idea y te ayudaremos a convertirla en una solución
               digital robusta, moderna y lista para escalar.
             </p>
@@ -704,7 +711,7 @@
                   <line x1="8" y1="2" x2="8" y2="6"></line>
                   <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
-                Agendar reunión
+                <span data-i18n="contact.meeting">Agendar reunión</span>
               </a>
             </div>
           </div>
@@ -727,11 +734,11 @@
               autocomplete="off"
               aria-hidden="true"
             />
-            <div class="form__success" id="form-success">
+            <div class="form__success" id="form-success" data-i18n="contact.success">
               ¡Gracias! Tu mensaje ha sido enviado. Te contactaremos pronto.
             </div>
             <div class="form__group">
-              <label for="nombre">Nombre</label>
+              <label for="nombre" data-i18n="contact.labelName">Nombre</label>
               <input
                 id="nombre"
                 type="text"
@@ -740,10 +747,11 @@
                 autocomplete="name"
                 maxlength="100"
                 required
+                data-i18n-placeholder="contact.placeholderName"
               />
             </div>
             <div class="form__group">
-              <label for="email">Email</label>
+              <label for="email" data-i18n="contact.labelEmail">Email</label>
               <input
                 id="email"
                 type="email"
@@ -752,10 +760,11 @@
                 autocomplete="email"
                 maxlength="254"
                 required
+                data-i18n-placeholder="contact.placeholderEmail"
               />
             </div>
             <div class="form__group">
-              <label for="telefono">Teléfono (opcional)</label>
+              <label for="telefono" data-i18n="contact.labelPhone">Teléfono (opcional)</label>
               <input
                 id="telefono"
                 type="tel"
@@ -766,17 +775,17 @@
               />
             </div>
             <div class="form__group">
-              <label for="tipo">Tipo de proyecto (opcional)</label>
+              <label for="tipo" data-i18n="contact.labelType">Tipo de proyecto (opcional)</label>
               <select id="tipo" name="tipo">
-                <option value="">Selecciona una opción</option>
-                <option value="web">Página web / landing page</option>
-                <option value="app">App móvil iOS / Android</option>
-                <option value="api">APIs / backend</option>
-                <option value="otro">Otro</option>
+                <option value="" data-i18n="contact.selectDefault">Selecciona una opción</option>
+                <option value="web" data-i18n="contact.optionWeb">Página web / landing page</option>
+                <option value="app" data-i18n="contact.optionApp">App móvil iOS / Android</option>
+                <option value="api" data-i18n="contact.optionApi">APIs / backend</option>
+                <option value="otro" data-i18n="contact.optionOther">Otro</option>
               </select>
             </div>
             <div class="form__group">
-              <label for="mensaje">Mensaje</label>
+              <label for="mensaje" data-i18n="contact.labelMessage">Mensaje</label>
               <textarea
                 id="mensaje"
                 name="mensaje"
@@ -785,9 +794,10 @@
                 autocomplete="off"
                 maxlength="2000"
                 required
+                data-i18n-placeholder="contact.placeholderMessage"
               ></textarea>
             </div>
-            <button type="submit" class="btn btn--primary">
+            <button type="submit" class="btn btn--primary" data-i18n="contact.submit">
               Enviar mensaje
             </button>
           </form>
@@ -806,21 +816,21 @@
             />
             <span class="footer__brand-name">MASolutions</span>
           </div>
-          <p class="footer__text">
+          <p class="footer__text" data-i18n="footer.text">
             Desarrollo de aplicaciones web y móviles a la medida de tu negocio.
           </p>
         </div>
         <div class="footer__nav">
-          <h3 class="footer__heading">Navegación</h3>
+          <h3 class="footer__heading" data-i18n="footer.navHeading">Navegación</h3>
           <ul class="footer__links">
-            <li><a href="#hero" class="footer__link">Inicio</a></li>
-            <li><a href="#servicios" class="footer__link">Servicios</a></li>
-            <li><a href="#proyectos" class="footer__link">Proyectos</a></li>
-            <li><a href="#contacto" class="footer__link">Contacto</a></li>
+            <li><a href="#hero" class="footer__link" data-i18n="nav.home">Inicio</a></li>
+            <li><a href="#servicios" class="footer__link" data-i18n="nav.services">Servicios</a></li>
+            <li><a href="#proyectos" class="footer__link" data-i18n="nav.projects">Proyectos</a></li>
+            <li><a href="#contacto" class="footer__link" data-i18n="nav.contact">Contacto</a></li>
           </ul>
         </div>
         <div class="footer__contact">
-          <h3 class="footer__heading">Contacto</h3>
+          <h3 class="footer__heading" data-i18n="footer.contactHeading">Contacto</h3>
           <a
             href="mailto:miguel.briseno.bustos@gmail.com"
             class="footer__contact-item"
@@ -866,7 +876,7 @@
                 <line x1="8" y1="2" x2="8" y2="6"></line>
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
-              Agendar meeting
+              <span data-i18n="footer.meeting">Agendar meeting</span>
             </a>
           </div>
         </div>
@@ -874,8 +884,7 @@
       <div class="footer__bottom">
         <div class="container footer__bottom-row">
           <p class="footer__copyright">
-            © <span id="footer-year"></span> MASolutions. Todos los derechos
-            reservados.
+            © <span id="footer-year"></span> MASolutions. <span data-i18n="footer.copyright">Todos los derechos reservados.</span>
           </p>
         </div>
       </div>
