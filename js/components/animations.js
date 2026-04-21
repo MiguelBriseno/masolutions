@@ -26,6 +26,12 @@ export function initAnimations() {
     item.style.transitionDelay = `${index * 100}ms`;
   });
 
+  // Process steps
+  document.querySelectorAll('.process__step').forEach((item, index) => {
+    item.classList.add('animate-on-scroll');
+    item.style.transitionDelay = `${index * 120}ms`;
+  });
+
   // Hero content animation - starts visible
   const heroContent = document.querySelector('.hero__content');
   if (heroContent) {

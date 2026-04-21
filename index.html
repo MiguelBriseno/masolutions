@@ -22,6 +22,10 @@
       rel="stylesheet"
     />
     <link rel="shortcut icon" href="./assets/icon.webp" type="image/x-icon" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;"
+    />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
@@ -182,6 +186,7 @@
             </div>
           </div>
           <div class="hero__visual">
+            <div class="hero__grid-pattern" aria-hidden="true"></div>
             <div class="hero__card hero__card--main">
               <div class="hero__card-header">
                 <span class="hero__status-dot"></span>
@@ -221,6 +226,10 @@
             <div class="hero__floating-card hero__floating-card--1">
               <p class="hero__floating-label">Time to market</p>
               <p class="hero__floating-value">2-6 semanas</p>
+            </div>
+            <div class="hero__floating-card hero__floating-card--2">
+              <p class="hero__floating-label">Proyectos entregados</p>
+              <p class="hero__floating-value">300+</p>
             </div>
           </div>
         </div>
@@ -408,6 +417,48 @@
           </div>
         </div>
       </section>
+      <section id="proceso" class="process">
+        <div class="container">
+          <header class="process__header">
+            <p class="process__eyebrow">Nuestro proceso</p>
+            <h2 class="process__title">De la idea al producto en producción</h2>
+            <p class="process__subtitle">
+              Un proceso claro, iterativo y con visibilidad total. Sabés exactamente en qué etapa está tu proyecto en todo momento.
+            </p>
+          </header>
+          <div class="process__steps">
+            <div class="process__step">
+              <div class="process__step-badge">01</div>
+              <div class="process__step-content">
+                <h3 class="process__step-title">Descubrimiento</h3>
+                <p class="process__step-desc">Analizamos tu negocio, objetivos y usuarios. Definimos el alcance y entregamos una propuesta técnica detallada.</p>
+              </div>
+            </div>
+            <div class="process__step">
+              <div class="process__step-badge">02</div>
+              <div class="process__step-content">
+                <h3 class="process__step-title">Diseño & Prototipo</h3>
+                <p class="process__step-desc">Diseñamos la experiencia de usuario y prototipamos la solución para validar antes de escribir una sola línea de código.</p>
+              </div>
+            </div>
+            <div class="process__step">
+              <div class="process__step-badge">03</div>
+              <div class="process__step-content">
+                <h3 class="process__step-title">Desarrollo</h3>
+                <p class="process__step-desc">Desarrollo iterativo con entregas semanales. Tenés visibilidad total del avance y podés dar feedback en cada sprint.</p>
+              </div>
+            </div>
+            <div class="process__step">
+              <div class="process__step-badge">04</div>
+              <div class="process__step-content">
+                <h3 class="process__step-title">Lanzamiento</h3>
+                <p class="process__step-desc">Deploy en producción, pruebas finales y soporte post-lanzamiento para que tu producto escale sin fricciones.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="clients" id="clientes">
         <div class="container">
           <header class="clients__header">
@@ -423,34 +474,34 @@
           <div class="clients__marquee">
             <div class="clients__track">
               <div class="clients__item">
-                <img src="./assets/actuar.webp" alt="Cliente 1" />
+                <img src="./assets/actuar.webp" alt="Actuar Consultores" loading="lazy" />
               </div>
               <div class="clients__item">
-                <img src="./assets/agaveazul.webp" alt="Cliente 2" />
+                <img src="./assets/agaveazul.webp" alt="Agave Azul" loading="lazy" />
               </div>
               <div class="clients__item">
-                <img src="./assets/electromex.webp" alt="Cliente 3" />
+                <img src="./assets/electromex.webp" alt="Electromex" loading="lazy" />
               </div>
               <div class="clients__item">
-                <img src="./assets/lions.webp" alt="Cliente 4" />
+                <img src="./assets/lions.webp" alt="Lions" loading="lazy" />
               </div>
               <div class="clients__item">
-                <img src="./assets/munich.webp" alt="Cliente 5" />
+                <img src="./assets/munich.webp" alt="Munich" loading="lazy" />
               </div>
-              <div class="clients__item">
-                <img src="./assets/actuar.webp" alt="Cliente 1" />
+              <div class="clients__item" aria-hidden="true">
+                <img src="./assets/actuar.webp" alt="" loading="lazy" />
               </div>
-              <div class="clients__item">
-                <img src="./assets/agaveazul.webp" alt="Cliente 2" />
+              <div class="clients__item" aria-hidden="true">
+                <img src="./assets/agaveazul.webp" alt="" loading="lazy" />
               </div>
-              <div class="clients__item">
-                <img src="./assets/electromex.webp" alt="Cliente 3" />
+              <div class="clients__item" aria-hidden="true">
+                <img src="./assets/electromex.webp" alt="" loading="lazy" />
               </div>
-              <div class="clients__item">
-                <img src="./assets/lions.webp" alt="Cliente 4" />
+              <div class="clients__item" aria-hidden="true">
+                <img src="./assets/lions.webp" alt="" loading="lazy" />
               </div>
-              <div class="clients__item">
-                <img src="./assets/munich.webp" alt="Cliente 5" />
+              <div class="clients__item" aria-hidden="true">
+                <img src="./assets/munich.webp" alt="" loading="lazy" />
               </div>
             </div>
           </div>
@@ -469,8 +520,9 @@
               <div class="testimonial-card__header">
                 <img
                   src="./assets/carlos.webp"
-                  alt="Cliente"
+                  alt="Alejandro R."
                   class="testimonial-card__avatar"
+                  loading="lazy"
                 />
                 <div>
                   <h4 class="testimonial-card__name">Alejandro R.</h4>
@@ -488,8 +540,9 @@
               <div class="testimonial-card__header">
                 <img
                   src="./assets/dani.webp"
-                  alt="Cliente"
+                  alt="Daniel M."
                   class="testimonial-card__avatar"
+                  loading="lazy"
                 />
                 <div>
                   <h4 class="testimonial-card__name">Daniel M.</h4>
@@ -507,8 +560,9 @@
               <div class="testimonial-card__header">
                 <img
                   src="./assets/arturo.webp"
-                  alt="Cliente"
+                  alt="Miguel T."
                   class="testimonial-card__avatar"
+                  loading="lazy"
                 />
                 <div>
                   <h4 class="testimonial-card__name">Miguel T.</h4>
@@ -542,7 +596,7 @@
           <div class="projects__grid">
             <article class="project-card">
               <div class="project-card__image">
-                <img src="./assets/agaveazul.webp" alt="Agave Azul" />
+                <img src="./assets/agaveazul.webp" alt="Agave Azul" loading="lazy" />
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">
@@ -561,7 +615,7 @@
             </article>
             <article class="project-card">
               <div class="project-card__image">
-                <img src="./assets/electromex.webp" alt="Electromex" />
+                <img src="./assets/electromex.webp" alt="Electromex" loading="lazy" />
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">Sistema de gestión</h3>
@@ -578,7 +632,7 @@
             </article>
             <article class="project-card">
               <div class="project-card__image">
-                <img src="./assets/lions.webp" alt="Lions Club" />
+                <img src="./assets/lions.webp" alt="Lions Club" loading="lazy" />
               </div>
               <div class="project-card__content">
                 <h3 class="project-card__title">
@@ -660,12 +714,19 @@
             action="https://formsubmit.co/miguel.briseno.bustos@gmail.com"
             method="POST"
           >
-            <input
-              type="hidden"
-              name="_subject"
-              value="Nuevo contacto desde MASolutions"
-            />
+            <input type="hidden" name="_subject" value="Nuevo contacto desde MASolutions" />
             <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://masolutions.mx/" />
+            <!-- TODO: Replace email in form action with FormSubmit.co encrypted hash.
+                 Submit once, verify via email, then use the hash URL to prevent harvesting. -->
+            <input
+              type="text"
+              name="_honey"
+              class="form__honeypot"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <div class="form__success" id="form-success">
               ¡Gracias! Tu mensaje ha sido enviado. Te contactaremos pronto.
             </div>
@@ -676,6 +737,8 @@
                 type="text"
                 name="nombre"
                 placeholder="Tu nombre"
+                autocomplete="name"
+                maxlength="100"
                 required
               />
             </div>
@@ -686,6 +749,8 @@
                 type="email"
                 name="email"
                 placeholder="tu@email.com"
+                autocomplete="email"
+                maxlength="254"
                 required
               />
             </div>
@@ -696,6 +761,8 @@
                 type="tel"
                 name="telefono"
                 placeholder="+52 ..."
+                autocomplete="tel"
+                maxlength="20"
               />
             </div>
             <div class="form__group">
@@ -715,6 +782,8 @@
                 name="mensaje"
                 rows="4"
                 placeholder="Cuéntanos sobre tu proyecto..."
+                autocomplete="off"
+                maxlength="2000"
                 required
               ></textarea>
             </div>
