@@ -98,6 +98,31 @@ four derive from `icon.webp`; regenerate them together with it.
 - **navbar.js** — active nav link highlighting via `IntersectionObserver` (the nav is static, not sticky; smooth scrolling is native `scroll-behavior`)
 - **contact-form.js** — async `fetch` POST to FormSubmit with `FormData`, blur/input validation, and a success panel that replaces the form (with a reset button)
 - **animations.js** — `IntersectionObserver` adds `.visible` to `.animate-on-scroll` elements; CSS handles the transition, and it is skipped under `prefers-reduced-motion`
+- **analytics.js** — loads the Microsoft Clarity tag from a `'self'` module instead of the inline snippet the CSP blocks (see Analytics below)
+
+## Analytics
+
+Microsoft Clarity (project `y95cif49iw`) runs from
+`js/components/analytics.js`, not from the inline snippet Clarity hands out.
+The page CSP has no `script-src 'unsafe-inline'`, so that snippet is blocked
+outright — and opening inline scripts to admit an analytics tag would admit
+every injected script too. The module transcribes the vendor loader (queue shim
+plus an async `<script>` pointing at the tag) from a file served from `'self'`,
+and the CSP allows only `https://*.clarity.ms` and `https://c.bing.com`. Both
+hosts are needed: Clarity load-balances its tag and its ingestion across
+`a.clarity.ms` … `z.clarity.ms`, and `c.bing.com` receives part of the beacon.
+Keep the meta CSP in `index.html` and `_headers` identical.
+
+The queue shim stays a `function`, not an arrow — it forwards `arguments`,
+which an arrow function does not have.
+
+`404.html` is deliberately left out: it runs no JavaScript at all and its CSP
+is `script-src 'none'`. Measuring broken inbound links would mean giving that
+page a script, which is a bigger change than the data is worth.
+
+Clarity sets first-party cookies (`_clck`, `_clsk`) and records sessions. There
+is no consent banner on the page; if one is ever added, `initClarity()` is the
+single call to gate behind it.
 
 ## Contact form delivery
 
