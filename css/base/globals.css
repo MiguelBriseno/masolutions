@@ -1,57 +1,62 @@
 :root {
-  /* Colores base - Modern dark theme con accent verde/mint */
-  --color-bg: #030712;
-  --color-bg-alt: #0a0f1a;
-  --color-bg-card: #111827;
-  --color-surface: #1f2937;
-  
-  /* Primary accent - Verde esmeralda moderno */
-  --color-primary: #10b981;
-  --color-primary-dark: #059669;
-  --color-primary-soft: #34d399;
-  --color-primary-glow: rgba(16, 185, 129, 0.4);
-  
-  /* Secondary - Slate oscuro */
-  --color-secondary: #6366f1;
-  --color-secondary-soft: #818cf8;
-  
-  /* Textos */
-  --color-text: #f9fafb;
-  --color-text-muted: #9ca3af;
-  --color-text-subtle: #6b7280;
-  
-  /* Bordes y superficies */
-  --color-border: rgba(148, 163, 184, 0.15);
-  --color-border-hover: rgba(148, 163, 184, 0.3);
-  
-  /* Radios */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* Surfaces */
+  --color-bg: #f7f7fb;
+  --color-surface: #ffffff;
+  --color-on-primary: #ffffff;
+  --color-surface-muted: #fbfbfe;
+  --color-mock: #eeecf9;
+
+  /* Brand */
+  --color-primary: #5b3df5;
+  --color-primary-dark: #4327cf;
+  --color-primary-darker: #2f1a9c;
+  --color-primary-soft: #ece7ff;
+  --color-primary-softer: #f2f0ff;
+  --color-primary-tint: #ddd4ff;
+  --color-primary-faint: #f6f4ff;
+
+  /* Text */
+  --color-text: #14141f;
+  --color-text-muted: #4b4b60;
+  --color-text-soft: #5a5a70;
+  --color-text-subtle: #6b6b82;
+  --color-text-faint: #8b8ba3;
+
+  /* Borders */
+  --color-border: #e6e6f0;
+  --color-border-soft: #eeeef5;
+  --color-border-strong: #d5d5e2;
+  --color-border-input: #ddddea;
+
+  /* Feedback */
+  --color-danger: #c0392b;
+  --color-danger-soft: #fdecea;
+  --color-success: #1f7a54;
+  --color-success-soft: #e4f6ec;
+
+  /* Typography */
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+
+  /* Radii */
+  --radius-sm: 9px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-pill: 999px;
-  
-  /* Sombras */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 40px var(--color-primary-glow);
-  
-  /* Transiciones */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 31, 0.05);
+  --shadow-md: 0 8px 24px rgba(20, 20, 31, 0.06);
+  --shadow-lg: 0 10px 30px rgba(20, 20, 31, 0.06);
+
+  /* Transitions */
   --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
-  --transition-slow: 400ms ease;
-  
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: 4rem;
-  
-  /* Container */
-  --container-max: 1200px;
+
+  /* Layout */
+  --container-max: 1180px;
+  --container-pad: clamp(20px, 5vw, 56px);
+  --section-gap: clamp(40px, 7vw, 56px);
 }
 
 html {
@@ -59,74 +64,193 @@ html {
 }
 
 body {
-  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(99, 102, 241, 0.1), transparent),
-    var(--color-bg);
+  background: var(--color-bg);
   color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
   line-height: 1.6;
-  overflow-x: hidden;
+  text-wrap: pretty;
+  /* Long unbroken strings (URLs, emails) must never widen the page. */
+  overflow-wrap: break-word;
 }
 
-/* Quitar subrayado por defecto y usar color heredado */
+/* Headings shrink with the viewport but can still meet a word longer than the
+   line box at 320px, so allow them to break rather than overflow. */
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
 a {
-  color: inherit;
-  text-decoration: none;
+  color: var(--color-primary-dark);
+  text-underline-offset: 3px;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-darker);
 }
 
-/* Contenedor reutilizable para centrar contenido */
-.container {
-  width: 100%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding-inline: var(--space-md);
+input,
+select,
+textarea,
+button {
+  font: inherit;
 }
 
-/* Selection color */
-::selection {
-  background: var(--color-primary);
-  color: var(--color-bg);
-}
-
-/* Focus styles for accessibility */
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
+::selection {
+  background: var(--color-primary-tint);
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg-alt);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-surface);
-  border-radius: var(--radius-pill);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
-}
-
-/* Utility classes */
-.visually-hidden {
+.skip-link {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+  left: 8px;
+  top: -100px;
+  z-index: 10;
+  padding: 11px 18px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus-visible {
+  top: 8px;
+  color: var(--color-on-primary);
+}
+
+/* Shared layout primitives */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  padding-block: var(--section-gap);
+}
+
+/* Used both as a <span> and as the section's <h2>, so every property the
+   global heading rule sets is restated here to keep it tag-agnostic. */
+.section__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-dark);
+  margin: 0;
+}
+
+.section__title {
+  font-size: clamp(28px, 3.4vw, 38px);
+  margin-top: 12px;
+  max-width: 24ch;
+}
+
+.section__note {
+  font-size: 13.5px;
+  color: var(--color-text-subtle);
+  margin-top: 20px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
   border: 0;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.btn--primary {
+  padding: 13px 22px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 15px;
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+  color: var(--color-on-primary);
+}
+
+.btn--secondary {
+  padding: 13px 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.btn--secondary:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}
+
+.btn--sm {
+  padding: 10px 17px;
+  font-size: 14px;
+}
+
+/* Pills */
+.pill {
+  display: inline-flex;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.pill--wide {
+  padding: 6px 12px;
+  letter-spacing: 0.06em;
+}
+
+.pill--muted {
+  background: var(--color-primary-softer);
+  font-size: 12px;
+}
+
+/* Cards */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Touch devices need a target of at least ~44px in the primary axis. */
+@media (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+  }
 }

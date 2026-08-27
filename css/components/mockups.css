@@ -1,0 +1,447 @@
+/* UI mockups used inside the case cards.
+
+   These fake product screens are drawn in markup instead of shipped as images
+   so the text stays crisp at any zoom and the palette follows the design
+   tokens. Sizes are deliberately tiny (6–8px): the whole stage is 236px tall.
+
+   Inline styles are blocked by the CSP, so the per-element proportions live at
+   the bottom of this file as :nth-child rules.
+*/
+
+
+/* Component-scoped palette. These are incidental chrome for a fake product
+   screen, not site-wide design decisions, so they stay out of :root. The three
+   --mock-brand-* values are tints of --color-primary and must be regenerated
+   alongside it. */
+.mock {
+  --mock-window-border: #e0dcf2;
+  --mock-chrome-bg: #f4f3fa;
+  --mock-chrome-border: #e8e6f3;
+  --mock-dot: #e2dff0;
+  --mock-panel-border: #ecebf5;
+  --mock-divider: #eeedf6;
+  --mock-map-bg: #f5f4fb;
+  --mock-map-grid: #e9e7f5;
+  --mock-brand-deep: #3a2a9b;
+  --mock-brand-bar: #d9d2fb;
+  --mock-brand-mid: #c9bff5;
+}
+
+/* ---- Shared mockup stage ---- */
+.mock {
+  height: 236px;
+  background: var(--color-mock);
+  overflow: hidden;
+}
+
+.mock--browser {
+  padding: 16px 16px 0;
+}
+
+.mock--phone {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.mock__window {
+  background: var(--color-surface);
+  border: 1px solid var(--mock-window-border);
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 6px 18px rgba(20, 20, 31, 0.1);
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ---- Mockup: ERP dashboard ---- */
+.mock__chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  background: var(--mock-chrome-bg);
+  border-bottom: 1px solid var(--mock-chrome-border);
+}
+
+.mock__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--mock-dot);
+}
+
+.mock__url {
+  flex: 1;
+  margin-left: 6px;
+  height: 13px;
+  border-radius: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--mock-chrome-border);
+  display: flex;
+  align-items: center;
+  padding-inline: 6px;
+  font-size: 7.5px;
+  color: var(--color-text-faint);
+}
+
+.mock__app {
+  display: flex;
+  height: calc(100% - 28px);
+}
+
+.mock__sidebar {
+  width: 64px;
+  padding: 10px 8px;
+  background: var(--mock-brand-deep);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.mock__sidebar-brand {
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--color-on-primary);
+  letter-spacing: 0.04em;
+}
+
+.mock__sidebar-item {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.mock__sidebar-item--active {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.mock__main {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mock__kpis {
+  display: flex;
+  gap: 7px;
+}
+
+.mock__kpi {
+  flex: 1;
+  border: 1px solid var(--mock-panel-border);
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.mock__kpi-label {
+  font-size: 7px;
+  color: var(--color-text-faint);
+}
+
+.mock__kpi-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.mock__kpi-value--accent {
+  color: var(--color-primary-dark);
+}
+
+.mock__chart {
+  flex: 1;
+  border: 1px solid var(--mock-panel-border);
+  border-radius: 5px;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mock__chart-label {
+  font-size: 7px;
+  color: var(--color-text-faint);
+}
+
+.mock__bars {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.mock__bar {
+  flex: 1;
+  background: var(--mock-brand-bar);
+  border-radius: 2px 2px 0 0;
+}
+
+.mock__bar--active {
+  background: var(--color-primary);
+}
+
+/* ---- Mockup: tracking ---- */
+.mock__topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--mock-divider);
+}
+
+.mock__topbar-brand {
+  font-size: 8.5px;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.mock__topbar-meta {
+  font-size: 7.5px;
+  color: var(--color-text-faint);
+}
+
+.mock__status {
+  margin-left: auto;
+  font-size: 7px;
+  font-weight: 600;
+  color: var(--color-success);
+  background: var(--color-success-soft);
+  border-radius: var(--radius-pill);
+  padding: 2px 7px;
+}
+
+.mock__split {
+  display: flex;
+  height: calc(100% - 30px);
+}
+
+.mock__map {
+  flex: 1;
+  position: relative;
+  background-color: var(--mock-map-bg);
+  background-image: linear-gradient(var(--mock-map-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mock-map-grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* The route SVG paints with currentColor so the brand purple comes from the
+   token instead of being repeated inside the markup. */
+.mock__route {
+  display: block;
+  position: absolute;
+  inset: 0;
+  color: var(--color-primary);
+}
+
+.mock__timeline {
+  width: 96px;
+  border-left: 1px solid var(--mock-divider);
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mock__event {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.mock__event-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.mock__event-dot--current {
+  background: var(--mock-brand-mid);
+}
+
+.mock__event-dot--pending {
+  background: var(--mock-dot);
+}
+
+.mock__event-title {
+  display: block;
+  font-size: 7.5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.mock__event-title--pending {
+  color: var(--color-text-faint);
+}
+
+.mock__event-time {
+  display: block;
+  font-size: 6.5px;
+  color: var(--color-text-faint);
+}
+
+/* ---- Mockup: phone app ---- */
+.mock__phone {
+  width: 132px;
+  height: 222px;
+  background: var(--color-text);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 6px 6px 0;
+  box-shadow: 0 8px 20px rgba(20, 20, 31, 0.18);
+}
+
+.mock__screen {
+  background: var(--color-surface);
+  border-radius: 12px 12px 0 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock__statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 9px 2px;
+  font-size: 6.5px;
+  color: var(--color-text-faint);
+}
+
+.mock__screen-head {
+  padding: 2px 9px 8px;
+}
+
+.mock__screen-eyebrow {
+  font-size: 7px;
+  color: var(--color-text-faint);
+}
+
+.mock__screen-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text);
+  line-height: 1.15;
+  margin-top: 2px;
+}
+
+.mock__set {
+  margin-inline: 9px;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 9px;
+  color: var(--color-on-primary);
+}
+
+.mock__set-label {
+  font-size: 6.5px;
+  opacity: 0.8;
+}
+
+.mock__set-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.1;
+  margin-top: 1px;
+}
+
+.mock__progress {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.28);
+  margin-top: 7px;
+}
+
+.mock__progress-fill {
+  display: block;
+  width: 60%;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-on-primary);
+}
+
+.mock__exercises {
+  padding: 8px 9px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mock__exercise {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mock__exercise-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  background: var(--color-primary-soft);
+  flex-shrink: 0;
+}
+
+.mock__exercise-body {
+  flex: 1;
+}
+
+.mock__exercise-name {
+  display: block;
+  font-size: 7.5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.mock__exercise-reps {
+  display: block;
+  font-size: 6.5px;
+  color: var(--color-text-faint);
+}
+
+.mock__exercise-state {
+  font-size: 6.5px;
+  color: var(--color-text-faint);
+}
+
+.mock__exercise-state--done {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.mock__tabbar {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 6px 0 8px;
+  border-top: 1px solid var(--mock-divider);
+  font-size: 6.5px;
+  color: var(--color-text-faint);
+}
+
+.mock__tab--active {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+/* Mockup proportions (kept in CSS: inline styles are blocked by the CSP) */
+.mock__sidebar-item:nth-child(2) { width: 86%; }
+.mock__sidebar-item:nth-child(3) { width: 70%; }
+.mock__sidebar-item:nth-child(4) { width: 78%; }
+.mock__sidebar-item:nth-child(5) { width: 62%; }
+.mock__sidebar-item:nth-child(6) { width: 74%; }
+
+.mock__bar:nth-of-type(1) { height: 38%; }
+.mock__bar:nth-of-type(2) { height: 56%; }
+.mock__bar:nth-of-type(3) { height: 46%; }
+.mock__bar:nth-of-type(4) { height: 72%; }
+.mock__bar:nth-of-type(5) { height: 64%; }
+.mock__bar:nth-of-type(6) { height: 88%; }
+.mock__bar:nth-of-type(7) { height: 52%; }

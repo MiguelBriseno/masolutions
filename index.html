@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="shortcut icon" href="./assets/icon.webp" type="image/x-icon" />
@@ -67,9 +67,10 @@
         "contactPoint": [
           {
             "@type": "ContactPoint",
-            "email": "miguel.briseno.bustos@gmail.com",
+            "email": "contacto@masolutions.com",
+            "telephone": "+52-33-1217-0122",
             "contactType": "sales",
-            "availableLanguage": ["es", "en"]
+            "availableLanguage": ["es"]
           }
         ]
       }
@@ -79,816 +80,594 @@
   </head>
 
   <body>
-    <header class="site-header" id="top">
-      <div class="container nav">
-        <a href="/" class="nav__brand">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="container">
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#top" class="nav__brand">
           <img
             src="./assets/logo.webp"
-            alt="Logo de la empresa MASolutions"
-            class="nav__logo-img"
+            alt=""
+            class="nav__logo"
+            width="52"
+            height="29"
+            decoding="async"
           />
+          <span class="nav__brand-name">masolutions</span>
         </a>
-        <nav class="nav__menu" id="nav-menu">
-          <div class="nav__links">
-            <a href="#hero" class="nav__link" data-i18n="nav.home">Inicio</a>
-            <a href="#servicios" class="nav__link" data-i18n="nav.services">Servicios</a>
-            <a href="#proyectos" class="nav__link" data-i18n="nav.projects">Proyectos</a>
-            <a href="#contacto" class="nav__link" data-i18n="nav.contact">Contacto</a>
-          </div>
-          <div class="nav__actions">
-            <button
-              class="nav__lang-btn"
-              id="lang-toggle"
-              type="button"
-              data-lang="es"
-              data-i18n-aria="nav.toggleAriaLabel"
-              aria-label="Cambiar a inglés"
-            >
-              <img
-                src="./assets/flag-mx.webp"
-                alt="Español"
-                class="nav__flag nav__flag--es"
-              />
-              <img
-                src="./assets/flag-eu.webp"
-                alt="English"
-                class="nav__flag nav__flag--en"
-              />
-              <span class="nav__lang-text">ES</span>
-            </button>
-            <a
-              href="https://calendar.app.google/iXRAPx6p2PgyBNuM9"
-              class="btn btn--primary nav__meeting-btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-i18n="nav.meeting"
-            >
-              Agendar meeting
-            </a>
-          </div>
-        </nav>
-        <button
-          class="nav__toggle"
-          id="nav-toggle"
-          aria-label="Abrir menú"
-          data-i18n-aria="nav.menuAriaLabel"
-        >
-          <span class="nav__toggle-line"></span>
-          <span class="nav__toggle-line"></span>
-          <span class="nav__toggle-line"></span>
-        </button>
-      </div>
-    </header>
+        <a href="#servicios" class="nav__link">Servicios</a>
+        <a href="#proceso" class="nav__link">Proceso</a>
+        <a href="#casos" class="nav__link">Casos</a>
+        <a href="#faq" class="nav__link">Preguntas</a>
+        <a href="#contacto" class="btn btn--primary btn--sm">Solicitar propuesta</a>
+      </nav>
 
-    <main>
-      <section id="hero" class="hero">
-        <div class="container hero__grid">
+      <main id="contenido" tabindex="-1">
+        <section id="top" class="hero">
           <div class="hero__content">
-            <div class="hero__eyebrow">
-              <span class="hero__eyebrow-pill" data-i18n="hero.eyebrowPill">Desarrollo de software</span>
-              <span class="hero__eyebrow-badge" data-i18n="hero.eyebrowBadge">Web · Mobile · Integraciones</span>
-            </div>
+            <span class="pill pill--wide">DESARROLLO DE SOFTWARE A MEDIDA</span>
             <h1 class="hero__title">
-              <span data-i18n="hero.titleBefore">Construimos soluciones</span>
-              <span class="hero__title-highlight">
-                <span id="hero-dynamic-text">web</span>
-              </span>
-              <span data-i18n="hero.titleAfter">para tu negocio.</span>
+              Ingeniería de software para aplicaciones móviles y web
             </h1>
-            <p class="hero__subtitle" data-i18n="hero.subtitle">
-              En MASolutions diseñamos y desarrollamos aplicaciones web y
-              móviles robustas, escalables y alineadas a tus objetivos de
-              negocio.
+            <p class="hero__lead">
+              Diseñamos, desarrollamos y mantenemos productos digitales para
+              empresas. Alcance definido, plazos comprometidos y entregas
+              verificables cada dos semanas.
             </p>
             <div class="hero__actions">
-              <a href="#contacto" class="btn btn--primary hero__btn-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                  ></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                <span data-i18n="hero.cta">Contáctanos</span>
-              </a>
-              <a href="#proyectos" class="btn btn--ghost" data-i18n="hero.ctaSecondary">Ver proyectos</a>
+              <a href="#contacto" class="btn btn--primary">Solicitar una propuesta</a>
+              <a href="#servicios" class="btn btn--secondary">Conocer los servicios</a>
             </div>
-            <div class="hero__trust">
-              <p class="hero__trust-label" data-i18n="hero.trustLabel">Especialistas en:</p>
-              <div class="hero__trust-tags">
-                <span class="hero__tag" data-i18n="hero.tag1">Aplicaciones web</span>
-                <span class="hero__tag" data-i18n="hero.tag2">Apps móviles</span>
-                <span class="hero__tag" data-i18n="hero.tag3">APIs & Backends</span>
-              </div>
-            </div>
-          </div>
-          <div class="hero__visual">
-            <div class="hero__grid-pattern" aria-hidden="true"></div>
-            <div class="hero__card hero__card--main">
-              <div class="hero__card-header">
-                <span class="hero__status-dot"></span>
-                <span class="hero__status-text" data-i18n="hero.card1Status">Proyecto en producción</span>
-              </div>
-              <div class="hero__card-body">
-                <p class="hero__card-title" data-i18n="hero.card1Title">Panel web + app móvil</p>
-                <p class="hero__card-subtitle" data-i18n="hero.card1Desc">
-                  Dashboard para gestión de leads, usuarios y analítica en
-                  tiempo real.
-                </p>
-                <div class="hero__stack">
-                  <span class="hero__stack-pill">Frontend</span>
-                  <span class="hero__stack-pill">Backend</span>
-                  <span class="hero__stack-pill">Cloud</span>
-                </div>
-              </div>
-            </div>
-            <div class="hero__card hero__card--secondary">
-              <div class="hero__card-header">
-                <span class="hero__status-dot hero__status-dot--idle"></span>
-                <span class="hero__status-text" data-i18n="hero.card2Status">CMS para mueblería</span>
-              </div>
-              <div class="hero__card-body">
-                <p class="hero__card-title" data-i18n="hero.card2Title">Catálogo + inventario</p>
-                <p class="hero__card-subtitle" data-i18n="hero.card2Desc">
-                  Gestión de productos, existencias y sucursales desde un panel
-                  centralizado.
-                </p>
-                <div class="hero__stack">
-                  <span class="hero__stack-pill">Admin web</span>
-                  <span class="hero__stack-pill">Roles & permisos</span>
-                  <span class="hero__stack-pill">Reportes</span>
-                </div>
-              </div>
-            </div>
-            <div class="hero__floating-card hero__floating-card--1">
-              <p class="hero__floating-label" data-i18n="hero.float1Label">Time to market</p>
-              <p class="hero__floating-value" data-i18n="hero.float1Value">2-6 semanas</p>
-            </div>
-            <div class="hero__floating-card hero__floating-card--2">
-              <p class="hero__floating-label" data-i18n="hero.float2Label">Proyectos entregados</p>
-              <p class="hero__floating-value">300+</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Stats Section -->
-      <section class="stats" id="stats">
-        <div class="container">
-          <div class="stats__grid">
-            <div class="stats__item">
-              <span class="stats__number" data-count="300">0</span>
-              <span class="stats__suffix">+</span>
-              <p class="stats__label" data-i18n="stats.projects">Proyectos completados</p>
-            </div>
-            <div class="stats__item">
-              <span class="stats__number" data-count="5">0</span>
-              <span class="stats__suffix">+</span>
-              <p class="stats__label" data-i18n="stats.years">Años de experiencia</p>
-            </div>
-            <div class="stats__item">
-              <span class="stats__number" data-count="99">0</span>
-              <span class="stats__suffix">%</span>
-              <p class="stats__label" data-i18n="stats.clients">Clientes satisfechos</p>
-            </div>
-            <div class="stats__item">
-              <span class="stats__number" data-count="12">0</span>
-              <span class="stats__suffix">sem</span>
-              <p class="stats__label" data-i18n="stats.delivery">Tiempo promedio de entrega</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="servicios" class="services">
-        <div class="container">
-          <header class="services__header">
-            <p class="services__eyebrow" data-i18n="services.eyebrow">Servicios</p>
-            <h2 class="services__title" data-i18n="services.title">Soluciones de software a la medida</h2>
-            <p class="services__subtitle" data-i18n="services.subtitle">
-              Te acompañamos desde la idea hasta el despliegue en producción,
-              construyendo productos digitales robustos, escalables y listos
-              para crecer con tu negocio.
+            <p class="hero__note">
+              Propuesta formal en 48 horas · Alcance, plazos y presupuesto por
+              escrito
             </p>
-          </header>
+          </div>
+
+          <div class="hero__panel">
+            <span class="hero__panel-label">MODELO DE TRABAJO</span>
+            <div class="hero__panel-list">
+              <div class="hero__panel-row">
+                <span class="hero__panel-key">Primera propuesta</span>
+                <span class="hero__panel-value">48 h</span>
+              </div>
+              <div class="hero__panel-row">
+                <span class="hero__panel-key">Ciclo de entrega</span>
+                <span class="hero__panel-value">2 semanas</span>
+              </div>
+              <div class="hero__panel-row">
+                <span class="hero__panel-key">Plataformas</span>
+                <span class="hero__panel-value">iOS · Android · Web</span>
+              </div>
+              <div class="hero__panel-row">
+                <span class="hero__panel-key">Documentación de entrega</span>
+                <span class="hero__panel-value">Incluida</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="servicios" class="section services">
+          <span class="section__eyebrow">SERVICIOS</span>
+          <h2 class="section__title">Áreas de trabajo y capacidades</h2>
           <div class="services__grid">
-            <article class="service-card">
-              <div class="service-card__icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                  <line x1="8" y1="21" x2="16" y2="21"></line>
-                  <line x1="12" y1="17" x2="12" y2="21"></line>
-                </svg>
-              </div>
-              <h3 class="service-card__title" data-i18n="services.card1Title">Páginas web y landing pages</h3>
-              <p class="service-card__text" data-i18n="services.card1Text">
-                Sitios corporativos y landing pages optimizadas para conversión,
-                con enfoque en performance, SEO técnico y experiencia de
-                usuario.
+            <article class="card service-card">
+              <div class="service-card__index">01</div>
+              <h3 class="service-card__title">Apps móviles</h3>
+              <p class="service-card__text">
+                Aplicaciones nativas y multiplataforma para iOS y Android, desde
+                el prototipo hasta la publicación en tiendas.
               </p>
-              <ul class="service-card__tags">
-                <li data-i18n="services.card1Tag1">Landing pages</li>
-                <li data-i18n="services.card1Tag2">Web corporativa</li>
-                <li data-i18n="services.card1Tag3">SEO técnico</li>
-              </ul>
             </article>
-            <article class="service-card">
-              <div class="service-card__icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect>
-                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                </svg>
-              </div>
-              <h3 class="service-card__title" data-i18n="services.card2Title">Apps móviles iOS & Android</h3>
-              <p class="service-card__text" data-i18n="services.card2Text">
-                Desarrollo de aplicaciones móviles nativas o híbridas,
-                integradas con tus sistemas actuales y listas para publicar en
-                App Store y Google Play.
+            <article class="card service-card">
+              <div class="service-card__index">02</div>
+              <h3 class="service-card__title">Aplicaciones web</h3>
+              <p class="service-card__text">
+                Portales, paneles de administración y plataformas SaaS, con
+                arquitecturas seguras y preparadas para escalar.
               </p>
-              <ul class="service-card__tags">
-                <li data-i18n="services.card2Tag1">iOS & Android</li>
-                <li data-i18n="services.card2Tag2">Notificaciones push</li>
-                <li data-i18n="services.card2Tag3">Integración con APIs</li>
-              </ul>
             </article>
-            <article class="service-card">
-              <div class="service-card__icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="16 18 22 12 16 6"></polyline>
-                  <polyline points="8 6 2 12 8 18"></polyline>
-                </svg>
-              </div>
-              <h3 class="service-card__title" data-i18n="services.card3Title">APIs & backends escalables</h3>
-              <p class="service-card__text" data-i18n="services.card3Text">
-                Diseño e implementación de APIs seguras y mantenibles, listas
-                para soportar integraciones con tus apps, terceros y
-                automatizaciones internas.
+            <article class="card service-card">
+              <div class="service-card__index">03</div>
+              <h3 class="service-card__title">Software a medida</h3>
+              <p class="service-card__text">
+                Sistemas internos ajustados a los procesos de cada organización:
+                inventarios, facturación, reportería y automatización de tareas.
               </p>
-              <ul class="service-card__tags">
-                <li data-i18n="services.card3Tag1">REST / GraphQL</li>
-                <li data-i18n="services.card3Tag2">Autenticación & roles</li>
-                <li data-i18n="services.card3Tag3">Integraciones externas</li>
-              </ul>
             </article>
-            <article class="service-card">
-              <div class="service-card__icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M14.7 6.3a4 4 0 0 0-5.6 5.6L4 17v3h3l5.1-5.1a4 4 0 0 0 2.6-8.6z"
-                  ></path>
-                </svg>
-              </div>
-              <h3 class="service-card__title" data-i18n="services.card4Title">Mantenimiento & evolución</h3>
-              <p class="service-card__text" data-i18n="services.card4Text">
-                Acompañamiento continuo para mantener tus sistemas al día:
-                mejoras, nuevas funcionalidades, monitoreo y soporte técnico.
+            <article class="card service-card">
+              <div class="service-card__index">04</div>
+              <h3 class="service-card__title">Integraciones y API</h3>
+              <p class="service-card__text">
+                Interoperabilidad con pasarelas de pago, ERP, CRM y servicios de
+                terceros mediante API documentadas y versionadas.
               </p>
-              <ul class="service-card__tags">
-                <li data-i18n="services.card4Tag1">Soporte continuo</li>
-                <li data-i18n="services.card4Tag2">Mejoras incrementales</li>
-                <li data-i18n="services.card4Tag3">Refactors & optimización</li>
-              </ul>
+            </article>
+            <article class="card service-card">
+              <div class="service-card__index">05</div>
+              <h3 class="service-card__title">Mantenimiento y soporte</h3>
+              <p class="service-card__text">
+                Monitoreo, corrección de incidencias y evolución funcional
+                posterior al lanzamiento, con niveles de servicio acordados.
+              </p>
+            </article>
+            <article class="card service-card">
+              <div class="service-card__index">06</div>
+              <h3 class="service-card__title">Consultoría técnica</h3>
+              <p class="service-card__text">
+                Auditoría de arquitectura, selección tecnológica y acompañamiento
+                a equipos con productos ya en operación.
+              </p>
             </article>
           </div>
-          <div class="services__cta">
-            <p class="services__cta-text" data-i18n="services.ctaText">
-              ¿Tienes una idea o proyecto en mente?
-            </p>
-            <a
-              href="https://calendar.app.google/iXRAPx6p2PgyBNuM9"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn--primary hero__btn-icon"
-            >
-              <svg
-                class="hero__btn-icon-svg"
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <span data-i18n="services.ctaBtn">Agendar una reunión</span>
-            </a>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="proceso" class="process">
-        <div class="container">
-          <header class="process__header">
-            <p class="process__eyebrow" data-i18n="process.eyebrow">Nuestro proceso</p>
-            <h2 class="process__title" data-i18n="process.title">De la idea al producto en producción</h2>
-            <p class="process__subtitle" data-i18n="process.subtitle">
-              Un proceso claro, iterativo y con visibilidad total. Sabés exactamente en qué etapa está tu proyecto en todo momento.
-            </p>
-          </header>
-          <div class="process__steps">
-            <div class="process__step">
-              <div class="process__step-badge">01</div>
-              <div class="process__step-content">
-                <h3 class="process__step-title" data-i18n="process.step1Title">Descubrimiento</h3>
-                <p class="process__step-desc" data-i18n="process.step1Desc">Analizamos tu negocio, objetivos y usuarios. Definimos el alcance y entregamos una propuesta técnica detallada.</p>
-              </div>
-            </div>
-            <div class="process__step">
-              <div class="process__step-badge">02</div>
-              <div class="process__step-content">
-                <h3 class="process__step-title" data-i18n="process.step2Title">Diseño & Prototipo</h3>
-                <p class="process__step-desc" data-i18n="process.step2Desc">Diseñamos la experiencia de usuario y prototipamos la solución para validar antes de escribir una sola línea de código.</p>
-              </div>
-            </div>
-            <div class="process__step">
-              <div class="process__step-badge">03</div>
-              <div class="process__step-content">
-                <h3 class="process__step-title" data-i18n="process.step3Title">Desarrollo</h3>
-                <p class="process__step-desc" data-i18n="process.step3Desc">Desarrollo iterativo con entregas semanales. Tenés visibilidad total del avance y podés dar feedback en cada sprint.</p>
-              </div>
-            </div>
-            <div class="process__step">
-              <div class="process__step-badge">04</div>
-              <div class="process__step-content">
-                <h3 class="process__step-title" data-i18n="process.step4Title">Lanzamiento</h3>
-                <p class="process__step-desc" data-i18n="process.step4Desc">Deploy en producción, pruebas finales y soporte post-lanzamiento para que tu producto escale sin fricciones.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="clients" id="clientes">
-        <div class="container">
-          <header class="clients__header">
-            <p class="clients__eyebrow" data-i18n="clients.eyebrow">Clientes</p>
-            <h2 class="clients__title" data-i18n="clients.title">
-              Empresas que han confiado en nosotros
-            </h2>
-            <p class="clients__subtitle" data-i18n="clients.subtitle">
-              Colaboramos con compañías de distintos sectores para diseñar y
-              construir soluciones digitales que generan resultados.
-            </p>
-          </header>
-          <div class="clients__marquee">
-            <div class="clients__track">
-              <div class="clients__item">
-                <img src="./assets/actuar.webp" alt="Actuar Consultores" loading="lazy" />
-              </div>
-              <div class="clients__item">
-                <img src="./assets/agaveazul.webp" alt="Agave Azul" loading="lazy" />
-              </div>
-              <div class="clients__item">
-                <img src="./assets/electromex.webp" alt="Electromex" loading="lazy" />
-              </div>
-              <div class="clients__item">
-                <img src="./assets/lions.webp" alt="Lions" loading="lazy" />
-              </div>
-              <div class="clients__item">
-                <img src="./assets/munich.webp" alt="Munich" loading="lazy" />
-              </div>
-              <div class="clients__item" aria-hidden="true">
-                <img src="./assets/actuar.webp" alt="" loading="lazy" />
-              </div>
-              <div class="clients__item" aria-hidden="true">
-                <img src="./assets/agaveazul.webp" alt="" loading="lazy" />
-              </div>
-              <div class="clients__item" aria-hidden="true">
-                <img src="./assets/electromex.webp" alt="" loading="lazy" />
-              </div>
-              <div class="clients__item" aria-hidden="true">
-                <img src="./assets/lions.webp" alt="" loading="lazy" />
-              </div>
-              <div class="clients__item" aria-hidden="true">
-                <img src="./assets/munich.webp" alt="" loading="lazy" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Testimonials Section -->
-      <section class="testimonials" id="testimonials">
-        <div class="container">
-          <header class="testimonials__header">
-            <p class="testimonials__eyebrow" data-i18n="testimonials.eyebrow">Testimonios</p>
-            <h2 class="testimonials__title" data-i18n="testimonials.title">Lo que dicen nuestros clientes</h2>
-          </header>
-          <div class="testimonials__grid">
-            <article class="testimonial-card">
-              <div class="testimonial-card__header">
-                <img
-                  src="./assets/carlos.webp"
-                  alt="Alejandro R."
-                  class="testimonial-card__avatar"
-                  loading="lazy"
-                />
-                <div>
-                  <h4 class="testimonial-card__name">Alejandro R.</h4>
-                  <p class="testimonial-card__role" data-i18n="testimonials.t1Role">Director, Agave Azul</p>
-                </div>
-              </div>
-              <blockquote class="testimonial-card__quote" data-i18n="testimonials.t1Quote">
-                "MASolutions transformó nuestra presencia digital. El equipo
-                entendió exactamente lo que necesitábamos y entregó un producto
-                que superó nuestras expectativas."
-              </blockquote>
-              <div class="testimonial-card__rating">★★★★★</div>
+        <section id="proceso" class="section process">
+          <span class="section__eyebrow">PROCESO</span>
+          <h2 class="section__title">Metodología en cuatro fases</h2>
+          <div class="process__grid">
+            <article class="card process__step">
+              <span class="process__phase">FASE 01</span>
+              <h3 class="process__title">Levantamiento</h3>
+              <p class="process__text">
+                Relevamiento de requisitos, definición de alcance y estimación
+                formal de costo y plazo.
+              </p>
+              <span class="pill pill--muted">1 semana</span>
             </article>
-            <article class="testimonial-card">
-              <div class="testimonial-card__header">
-                <img
-                  src="./assets/dani.webp"
-                  alt="Daniel M."
-                  class="testimonial-card__avatar"
-                  loading="lazy"
-                />
-                <div>
-                  <h4 class="testimonial-card__name">Daniel M.</h4>
-                  <p class="testimonial-card__role" data-i18n="testimonials.t2Role">CEO, Electromex</p>
-                </div>
-              </div>
-              <blockquote class="testimonial-card__quote" data-i18n="testimonials.t2Quote">
-                "Profesionales excepcionales. Cumplieron con los tiempos y la
-                calidad fue impecable. Sin duda volveremos a trabajar con
-                ellos."
-              </blockquote>
-              <div class="testimonial-card__rating">★★★★★</div>
+            <article class="card process__step">
+              <span class="process__phase">FASE 02</span>
+              <h3 class="process__title">Diseño y arquitectura</h3>
+              <p class="process__text">
+                Flujos, interfaces navegables y definición técnica, aprobados
+                antes de iniciar el desarrollo.
+              </p>
+              <span class="pill pill--muted">2 semanas</span>
             </article>
-            <article class="testimonial-card">
-              <div class="testimonial-card__header">
-                <img
-                  src="./assets/arturo.webp"
-                  alt="Miguel T."
-                  class="testimonial-card__avatar"
-                  loading="lazy"
-                />
-                <div>
-                  <h4 class="testimonial-card__name">Miguel T.</h4>
-                  <p class="testimonial-card__role" data-i18n="testimonials.t3Role">
-                    Founder, Actuar Consultores
-                  </p>
-                </div>
-              </div>
-              <blockquote class="testimonial-card__quote" data-i18n="testimonials.t3Quote">
-                "La mejor decisión que tomamos. Su enfoque en la experiencia del
-                usuario y las mejores prácticas de desarrollo se nota en cada
-                interacción."
-              </blockquote>
-              <div class="testimonial-card__rating">★★★★★</div>
+            <article class="card process__step">
+              <span class="process__phase">FASE 03</span>
+              <h3 class="process__title">Desarrollo</h3>
+              <p class="process__text">
+                Construcción iterativa con versiones de prueba y control de
+                calidad al cierre de cada ciclo.
+              </p>
+              <span class="pill pill--muted">4–12 semanas</span>
+            </article>
+            <article class="card process__step">
+              <span class="process__phase">FASE 04</span>
+              <h3 class="process__title">Implementación</h3>
+              <p class="process__text">
+                Puesta en producción, publicación en tiendas, capacitación del
+                equipo y documentación entregada.
+              </p>
+              <span class="pill pill--muted">1 semana</span>
             </article>
           </div>
-        </div>
-      </section>
+          <p class="section__note">
+            Los plazos indicados son referenciales y se confirman en la
+            propuesta, una vez definido el alcance.
+          </p>
+        </section>
 
-      <!-- Projects Section -->
-      <section class="projects" id="proyectos">
-        <div class="container">
-          <header class="projects__header">
-            <p class="projects__eyebrow" data-i18n="projects.eyebrow">Proyectos</p>
-            <h2 class="projects__title" data-i18n="projects.title">Casos de éxito</h2>
-            <p class="projects__subtitle" data-i18n="projects.subtitle">
-              Conoce algunos de los proyectos que hemos desarrollado para
-              nuestros clientes.
-            </p>
-          </header>
+        <section id="casos" class="section projects">
+          <span class="section__eyebrow">CASOS</span>
+          <h2 class="section__title">Proyectos representativos</h2>
           <div class="projects__grid">
-            <article class="project-card">
-              <div class="project-card__image">
-                <img src="./assets/agaveazul.webp" alt="Agave Azul" loading="lazy" />
-              </div>
-              <div class="project-card__content">
-                <h3 class="project-card__title" data-i18n="projects.p1Title">
-                  Sistema de gestión de producción de tequila
-                </h3>
-                <p class="project-card__desc" data-i18n="projects.p1Desc">
-                  Plataforma integral para control de producción, inventario de
-                  materia prima y seguimiento de lotes.
-                </p>
-                <div class="project-card__tags">
-                  <span data-i18n="projects.p1Tag1">Web App</span>
-                  <span data-i18n="projects.p1Tag2">Producción</span>
-                  <span data-i18n="projects.p1Tag3">Inventario</span>
+            <article class="card project-card">
+              <div class="mock mock--browser" aria-hidden="true">
+                <div class="mock__window">
+                  <div class="mock__chrome">
+                    <span class="mock__dot"></span>
+                    <span class="mock__dot"></span>
+                    <span class="mock__dot"></span>
+                    <span class="mock__url">tonalli.mx/produccion</span>
+                  </div>
+                  <div class="mock__app">
+                    <div class="mock__sidebar">
+                      <span class="mock__sidebar-brand">TONALLI</span>
+                      <span class="mock__sidebar-item mock__sidebar-item--active"></span>
+                      <span class="mock__sidebar-item"></span>
+                      <span class="mock__sidebar-item"></span>
+                      <span class="mock__sidebar-item"></span>
+                      <span class="mock__sidebar-item"></span>
+                    </div>
+                    <div class="mock__main">
+                      <div class="mock__kpis">
+                        <div class="mock__kpi">
+                          <div class="mock__kpi-label">LOTES ACTIVOS</div>
+                          <div class="mock__kpi-value">128</div>
+                        </div>
+                        <div class="mock__kpi">
+                          <div class="mock__kpi-label">AGAVE (TON)</div>
+                          <div class="mock__kpi-value">2,340</div>
+                        </div>
+                        <div class="mock__kpi">
+                          <div class="mock__kpi-label">RENDIMIENTO</div>
+                          <div class="mock__kpi-value mock__kpi-value--accent">92%</div>
+                        </div>
+                      </div>
+                      <div class="mock__chart">
+                        <div class="mock__chart-label">DESTILACIÓN POR SEMANA</div>
+                        <div class="mock__bars">
+                          <span class="mock__bar"></span>
+                          <span class="mock__bar"></span>
+                          <span class="mock__bar"></span>
+                          <span class="mock__bar mock__bar--active"></span>
+                          <span class="mock__bar"></span>
+                          <span class="mock__bar"></span>
+                          <span class="mock__bar"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </article>
-            <article class="project-card">
-              <div class="project-card__image">
-                <img src="./assets/electromex.webp" alt="Electromex" loading="lazy" />
-              </div>
-              <div class="project-card__content">
-                <h3 class="project-card__title" data-i18n="projects.p2Title">Sistema de gestión</h3>
-                <p class="project-card__desc" data-i18n="projects.p2Desc">
-                  Dashboard integral para control de operaciones y reportes
-                  automatizados.
+              <div class="project-card__body">
+                <span class="pill">ERP web</span>
+                <h3 class="project-card__title">Tonalli ERP</h3>
+                <p class="project-card__text">
+                  Sistema de gestión web para el sector tequilero: control de
+                  producción, inventarios y trazabilidad en un solo entorno.
                 </p>
-                <div class="project-card__tags">
-                  <span>Dashboard</span>
-                  <span>Analytics</span>
-                  <span>Reports</span>
-                </div>
               </div>
             </article>
-            <article class="project-card">
-              <div class="project-card__image">
-                <img src="./assets/lions.webp" alt="Lions Club" loading="lazy" />
-              </div>
-              <div class="project-card__content">
-                <h3 class="project-card__title" data-i18n="projects.p3Title">
-                  Sistema de pólizas de seguros de autos
-                </h3>
-                <p class="project-card__desc" data-i18n="projects.p3Desc">
-                  Plataforma para gestión de seguros vehiculares, emisión de
-                  pólizas y seguimiento de clientes.
-                </p>
-                <div class="project-card__tags">
-                  <span data-i18n="projects.p3Tag1">Web App</span>
-                  <span data-i18n="projects.p3Tag2">Seguros</span>
-                  <span data-i18n="projects.p3Tag3">CRM</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
 
-      <section id="contacto" class="contact">
-        <div class="container contact__grid">
-          <div class="contact__info">
-            <h2 class="contact__title" data-i18n="contact.title">Hablemos de tu proyecto</h2>
-            <p class="contact__subtitle" data-i18n="contact.subtitle">
-              Cuéntanos tu idea y te ayudaremos a convertirla en una solución
-              digital robusta, moderna y lista para escalar.
-            </p>
-            <div class="contact__methods">
-              <a
-                href="mailto:miguel.briseno.bustos@gmail.com"
-                class="contact__method"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+            <article class="card project-card">
+              <div class="mock mock--browser" aria-hidden="true">
+                <div class="mock__window">
+                  <div class="mock__topbar">
+                    <span class="mock__topbar-brand">ActuarEnvíos</span>
+                    <span class="mock__topbar-meta">Guía AE-48192</span>
+                    <span class="mock__status">EN RUTA</span>
+                  </div>
+                  <div class="mock__split">
+                    <div class="mock__map">
+                      <svg
+                        class="mock__route"
+                        viewBox="0 0 200 150"
+                        width="100%"
+                        height="100%"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M18 128 C60 128 52 74 96 74 C142 74 138 42 176 42"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                        />
+                        <circle cx="18" cy="128" r="4" fill="currentColor" />
+                        <circle cx="96" cy="74" r="5.5" fill="#fff" stroke="currentColor" stroke-width="2.5" />
+                        <path
+                          d="M176 30a9 9 0 0 1 9 9c0 7-9 15-9 15s-9-8-9-15a9 9 0 0 1 9-9z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <div class="mock__timeline">
+                      <div class="mock__event">
+                        <span class="mock__event-dot"></span>
+                        <span>
+                          <span class="mock__event-title">Recolectado</span>
+                          <span class="mock__event-time">08:12 · Guadalajara</span>
+                        </span>
+                      </div>
+                      <div class="mock__event">
+                        <span class="mock__event-dot"></span>
+                        <span>
+                          <span class="mock__event-title">Centro de acopio</span>
+                          <span class="mock__event-time">11:40 · Zapopan</span>
+                        </span>
+                      </div>
+                      <div class="mock__event">
+                        <span class="mock__event-dot mock__event-dot--current"></span>
+                        <span>
+                          <span class="mock__event-title">En reparto</span>
+                          <span class="mock__event-time">14:05 · Unidad 12</span>
+                        </span>
+                      </div>
+                      <div class="mock__event">
+                        <span class="mock__event-dot mock__event-dot--pending"></span>
+                        <span>
+                          <span class="mock__event-title mock__event-title--pending">Entrega estimada</span>
+                          <span class="mock__event-time">Hoy, 17:30</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-card__body">
+                <span class="pill">Software a medida</span>
+                <h3 class="project-card__title">ActuarEnvíos</h3>
+                <p class="project-card__text">
+                  Plataforma de envío y seguimiento de paquetes, con estados de
+                  entrega en tiempo real y trazabilidad por guía.
+                </p>
+              </div>
+            </article>
+
+            <article class="card project-card">
+              <div class="mock mock--phone" aria-hidden="true">
+                <div class="mock__phone">
+                  <div class="mock__screen">
+                    <div class="mock__statusbar">
+                      <span>9:41</span>
+                      <span>▮▮▮</span>
+                    </div>
+                    <div class="mock__screen-head">
+                      <div class="mock__screen-eyebrow">HOY · TREN DE EMPUJE</div>
+                      <div class="mock__screen-title">Urban Reps</div>
+                    </div>
+                    <div class="mock__set">
+                      <div class="mock__set-label">SERIE 3 DE 5</div>
+                      <div class="mock__set-value">12 reps</div>
+                      <div class="mock__progress">
+                        <span class="mock__progress-fill"></span>
+                      </div>
+                    </div>
+                    <div class="mock__exercises">
+                      <div class="mock__exercise">
+                        <span class="mock__exercise-icon"></span>
+                        <span class="mock__exercise-body">
+                          <span class="mock__exercise-name">Dominadas</span>
+                          <span class="mock__exercise-reps">5 × 8</span>
+                        </span>
+                        <span class="mock__exercise-state mock__exercise-state--done">✓</span>
+                      </div>
+                      <div class="mock__exercise">
+                        <span class="mock__exercise-icon"></span>
+                        <span class="mock__exercise-body">
+                          <span class="mock__exercise-name">Fondos en paralelas</span>
+                          <span class="mock__exercise-reps">4 × 12</span>
+                        </span>
+                        <span class="mock__exercise-state">•</span>
+                      </div>
+                    </div>
+                    <div class="mock__tabbar">
+                      <span class="mock__tab--active">Rutina</span>
+                      <span>Progreso</span>
+                      <span>Perfil</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-card__body">
+                <span class="pill">App móvil</span>
+                <h3 class="project-card__title">Urban Reps</h3>
+                <p class="project-card__text">
+                  Aplicación móvil de calistenia: rutinas progresivas, registro
+                  de repeticiones y seguimiento del avance del usuario.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="testimonios" class="section testimonials">
+          <h2 class="section__eyebrow">TESTIMONIOS</h2>
+          <div class="testimonials__grid">
+            <figure class="card testimonial-card">
+              <blockquote class="testimonial-card__quote">
+                “Pasamos de hojas de cálculo a un solo sistema. Hoy conocemos el
+                estado de cada lote y la trazabilidad completa sin pedirle
+                reportes a nadie.”
+              </blockquote>
+              <figcaption class="testimonial-card__author">
+                <span class="testimonial-card__avatar">CS</span>
+                <span>
+                  <span class="testimonial-card__name">Carlos Sierra</span>
+                  Gerente general · Tonalli ERP
+                </span>
+              </figcaption>
+            </figure>
+            <figure class="card testimonial-card">
+              <blockquote class="testimonial-card__quote">
+                “Cumplieron los plazos comprometidos y entendieron nuestra
+                operación. Las consultas por teléfono sobre el estado de un envío
+                bajaron de forma notable.”
+              </blockquote>
+              <figcaption class="testimonial-card__author">
+                <span class="testimonial-card__avatar">KR</span>
+                <span>
+                  <span class="testimonial-card__name">Karla Reyes</span>
+                  Gerente general · ActuarEnvíos
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section id="faq" class="section faq">
+          <h2 class="section__eyebrow">PREGUNTAS FRECUENTES</h2>
+          <div class="faq__grid">
+            <div>
+              <h3 class="faq__question">¿Cuánto cuesta un proyecto?</h3>
+              <p class="faq__answer">
+                Depende del alcance definido. Tras la reunión inicial entregamos
+                una propuesta sin costo, con precio cerrado y plazos
+                comprometidos.
+              </p>
+            </div>
+            <div>
+              <h3 class="faq__question">¿Cuánto tarda en estar listo?</h3>
+              <p class="faq__answer">
+                Una primera versión funcional toma habitualmente entre 8 y 14
+                semanas, con avances demostrables cada dos semanas.
+              </p>
+            </div>
+            <div>
+              <h3 class="faq__question">¿Cómo es el seguimiento del proyecto?</h3>
+              <p class="faq__answer">
+                Una reunión de avance por ciclo, acceso permanente al tablero de
+                tareas y un informe al cierre de cada fase.
+              </p>
+            </div>
+            <div>
+              <h3 class="faq__question">¿Trabajan con proyectos ya empezados?</h3>
+              <p class="faq__answer">
+                Sí. Realizamos una auditoría del código existente y presentamos
+                un plan para continuar, corregir o migrar el desarrollo.
+              </p>
+            </div>
+            <div>
+              <h3 class="faq__question">¿Publican la app en las tiendas?</h3>
+              <p class="faq__answer">
+                Gestionamos el proceso completo en App Store y Google Play:
+                fichas, material gráfico y respuesta a las revisiones.
+              </p>
+            </div>
+            <div>
+              <h3 class="faq__question">¿Qué pasa después del lanzamiento?</h3>
+              <p class="faq__answer">
+                Ofrecemos contratos de mantenimiento mensual que incluyen
+                soporte, monitoreo y horas de desarrollo para nuevas funciones.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contacto" class="contact">
+          <div class="contact__panel">
+            <div>
+              <span class="section__eyebrow">CONTACTO</span>
+              <h2 class="contact__title">Solicite una propuesta</h2>
+              <p class="contact__lead">
+                Describa brevemente el proyecto. Respondemos en menos de 48 horas
+                con una propuesta de alcance, plazos y presupuesto.
+              </p>
+              <div class="contact__channels">
+                <a class="contact__channel" href="mailto:contacto@masolutions.com">
+                  contacto@masolutions.com
+                </a>
+                <a
+                  class="contact__channel"
+                  href="https://wa.me/523312170122"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <path
-                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                  ></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                miguel.briseno.bustos@gmail.com
-              </a>
-              <a
-                href="https://calendar.app.google/iXRAPx6p2PgyBNuM9"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="contact__method"
+                  WhatsApp 33 1217 0122
+                </a>
+                <span class="contact__hours">Lunes a viernes, 9:00 – 18:00</span>
+              </div>
+            </div>
+
+            <div>
+              <form
+                class="form"
+                id="contact-form"
+                action="https://formsubmit.co/miguel.briseno.bustos@gmail.com"
+                method="POST"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <span data-i18n="contact.meeting">Agendar reunión</span>
-              </a>
+                <input type="hidden" name="_subject" value="Nueva solicitud desde masolutions.mx" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <!-- TODO: Replace email in form action with FormSubmit.co encrypted hash.
+                     Submit once, verify via email, then use the hash URL to prevent harvesting. -->
+                <input
+                  type="text"
+                  name="_honey"
+                  class="form__honeypot"
+                  tabindex="-1"
+                  autocomplete="off"
+                  aria-hidden="true"
+                />
+
+                <div class="form__grid">
+                  <div class="form__group">
+                    <label class="form__label" for="nombre">Nombre y apellido</label>
+                    <input
+                      class="form__control"
+                      id="nombre"
+                      name="nombre"
+                      type="text"
+                      placeholder="Nombre completo"
+                      autocomplete="name"
+                      maxlength="100"
+                      required
+                    />
+                  </div>
+                  <div class="form__group">
+                    <label class="form__label" for="telefono">Teléfono / WhatsApp</label>
+                    <input
+                      class="form__control"
+                      id="telefono"
+                      name="telefono"
+                      type="tel"
+                      placeholder="33 1217 0122"
+                      autocomplete="tel"
+                      maxlength="20"
+                    />
+                  </div>
+                  <div class="form__group form__group--full">
+                    <label class="form__label" for="email">Correo electrónico</label>
+                    <input
+                      class="form__control"
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="tu@empresa.com"
+                      autocomplete="email"
+                      maxlength="254"
+                      required
+                    />
+                  </div>
+                  <div class="form__group form__group--full">
+                    <label class="form__label" for="detalle">Descripción del proyecto</label>
+                    <textarea
+                      class="form__control"
+                      id="detalle"
+                      name="detalle"
+                      rows="5"
+                      maxlength="2000"
+                      placeholder="Objetivo del proyecto, usuarios previstos y plazo estimado."
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="form__actions">
+                  <button type="submit" class="btn btn--primary">Enviar solicitud</button>
+                  <span class="form__disclaimer">
+                    Respuesta en menos de 48 horas. La consulta no genera
+                    compromiso.
+                  </span>
+                </div>
+              </form>
+
+              <div class="form__success" id="form-success" role="status" tabindex="-1" hidden>
+                <span class="form__success-label">SOLICITUD RECIBIDA</span>
+                <h3 class="form__success-title">
+                  Gracias, <span id="form-success-name">por escribirnos</span>
+                </h3>
+                <p class="form__success-text">
+                  Hemos registrado su solicitud. Le responderemos al correo
+                  indicado dentro de las próximas 48 horas hábiles.
+                </p>
+                <button type="button" class="form__success-reset" id="form-reset">
+                  Enviar otra solicitud
+                </button>
+              </div>
             </div>
           </div>
-          <form
-            class="contact__form"
-            id="contact-form"
-            action="https://formsubmit.co/miguel.briseno.bustos@gmail.com"
-            method="POST"
-          >
-            <input type="hidden" name="_subject" value="Nuevo contacto desde MASolutions" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://masolutions.mx/" />
-            <!-- TODO: Replace email in form action with FormSubmit.co encrypted hash.
-                 Submit once, verify via email, then use the hash URL to prevent harvesting. -->
-            <input
-              type="text"
-              name="_honey"
-              class="form__honeypot"
-              tabindex="-1"
-              autocomplete="off"
-              aria-hidden="true"
-            />
-            <div class="form__success" id="form-success" data-i18n="contact.success">
-              ¡Gracias! Tu mensaje ha sido enviado. Te contactaremos pronto.
-            </div>
-            <div class="form__group">
-              <label for="nombre" data-i18n="contact.labelName">Nombre</label>
-              <input
-                id="nombre"
-                type="text"
-                name="nombre"
-                placeholder="Tu nombre"
-                autocomplete="name"
-                maxlength="100"
-                required
-                data-i18n-placeholder="contact.placeholderName"
-              />
-            </div>
-            <div class="form__group">
-              <label for="email" data-i18n="contact.labelEmail">Email</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="tu@email.com"
-                autocomplete="email"
-                maxlength="254"
-                required
-                data-i18n-placeholder="contact.placeholderEmail"
-              />
-            </div>
-            <div class="form__group">
-              <label for="telefono" data-i18n="contact.labelPhone">Teléfono (opcional)</label>
-              <input
-                id="telefono"
-                type="tel"
-                name="telefono"
-                placeholder="+52 ..."
-                autocomplete="tel"
-                maxlength="20"
-              />
-            </div>
-            <div class="form__group">
-              <label for="tipo" data-i18n="contact.labelType">Tipo de proyecto (opcional)</label>
-              <select id="tipo" name="tipo">
-                <option value="" data-i18n="contact.selectDefault">Selecciona una opción</option>
-                <option value="web" data-i18n="contact.optionWeb">Página web / landing page</option>
-                <option value="app" data-i18n="contact.optionApp">App móvil iOS / Android</option>
-                <option value="api" data-i18n="contact.optionApi">APIs / backend</option>
-                <option value="otro" data-i18n="contact.optionOther">Otro</option>
-              </select>
-            </div>
-            <div class="form__group">
-              <label for="mensaje" data-i18n="contact.labelMessage">Mensaje</label>
-              <textarea
-                id="mensaje"
-                name="mensaje"
-                rows="4"
-                placeholder="Cuéntanos sobre tu proyecto..."
-                autocomplete="off"
-                maxlength="2000"
-                required
-                data-i18n-placeholder="contact.placeholderMessage"
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn--primary" data-i18n="contact.submit">
-              Enviar mensaje
-            </button>
-          </form>
-        </div>
-      </section>
-    </main>
-    <!-- OJO: quité el id="contacto" de aquí para no duplicar el mismo id que usa la sección de contacto -->
-    <footer class="site-footer">
-      <div class="container footer__grid">
-        <div class="footer__brand">
-          <div class="footer__logo-row">
-            <img
-              src="./assets/logo.webp"
-              alt="MASolutions"
-              class="footer__logo-img"
-            />
-            <span class="footer__brand-name">MASolutions</span>
-          </div>
-          <p class="footer__text" data-i18n="footer.text">
-            Desarrollo de aplicaciones web y móviles a la medida de tu negocio.
-          </p>
-        </div>
-        <div class="footer__nav">
-          <h3 class="footer__heading" data-i18n="footer.navHeading">Navegación</h3>
-          <ul class="footer__links">
-            <li><a href="#hero" class="footer__link" data-i18n="nav.home">Inicio</a></li>
-            <li><a href="#servicios" class="footer__link" data-i18n="nav.services">Servicios</a></li>
-            <li><a href="#proyectos" class="footer__link" data-i18n="nav.projects">Proyectos</a></li>
-            <li><a href="#contacto" class="footer__link" data-i18n="nav.contact">Contacto</a></li>
-          </ul>
-        </div>
-        <div class="footer__contact">
-          <h3 class="footer__heading" data-i18n="footer.contactHeading">Contacto</h3>
-          <a
-            href="mailto:miguel.briseno.bustos@gmail.com"
-            class="footer__contact-item"
-          >
-            <svg
-              class="footer__icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
-              <polyline points="3 7 12 13 21 7"></polyline>
-            </svg>
-            miguel.briseno.bustos@gmail.com
-          </a>
-          <div class="footer__social">
-            <a
-              href="https://calendar.app.google/iXRAPx6p2PgyBNuM9"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer__contact-item"
-            >
-              <svg
-                class="footer__icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <span data-i18n="footer.meeting">Agendar meeting</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <div class="container footer__bottom-row">
-          <p class="footer__copyright">
-            © <span id="footer-year"></span> MASolutions. <span data-i18n="footer.copyright">Todos los derechos reservados.</span>
-          </p>
-        </div>
-      </div>
-    </footer>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span class="footer__brand">
+          <img
+            src="./assets/logo.webp"
+            alt=""
+            class="footer__logo"
+            width="36"
+            height="20"
+            loading="lazy"
+            decoding="async"
+          />
+          masolutions · Desarrollo de software
+        </span>
+        <span>© <span id="footer-year">2026</span> masolutions. Todos los derechos reservados.</span>
+      </footer>
+    </div>
 
     <script type="module" src="./js/core/main.js"></script>
   </body>
