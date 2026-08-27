@@ -1,10 +1,72 @@
 const MESSAGES = {
-  required: 'Complete los campos obligatorios antes de enviar.',
-  email: 'Ingrese un correo electrónico válido.',
+  summary: 'Revise los campos marcados antes de enviar.',
   send: 'No pudimos enviar la solicitud. Intente nuevamente en unos minutos.',
 };
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Both sides reject empty labels ("a@.com", "a..b@c.com") and the TLD must be
+// alphabetic. Enough to catch real typos without rejecting valid addresses.
+const EMAIL_PATTERN = /^[^\s@.]+(\.[^\s@.]+)*@[^\s@.]+(\.[^\s@.]+)*\.[a-zA-Z]{2,}$/;
+
+// Letters from any alphabet plus the punctuation names actually use.
+const NAME_PATTERN = /^[\p{L}\p{M}][\p{L}\p{M}'’.\- ]*$/u;
+
+// Digits and the separators people type; anything else is a typo, not a phone.
+const PHONE_CHARS = /^[+()\d\s.-]+$/;
+
+// One validator per field id. Each returns the message to show, or '' when the
+// value is acceptable. An optional field returns '' for an empty value.
+const VALIDATORS = {
+  nombre(value) {
+    if (!value) return 'Escriba su nombre y apellido.';
+    if (value.length < 3) return 'El nombre es demasiado corto.';
+    if (!NAME_PATTERN.test(value)) {
+      return 'El nombre solo admite letras, espacios, apóstrofos y guiones.';
+    }
+    return '';
+  },
+
+  telefono(value) {
+    if (!value) return '';
+    if (!PHONE_CHARS.test(value)) {
+      return 'El teléfono solo admite dígitos y los signos + ( ) - .';
+    }
+
+    const digits = value.replace(/\D/g, '');
+
+    // An explicit country code that is not México: only E.164 length applies,
+    // because national numbering rules elsewhere are not ours to guess.
+    if (value.startsWith('+') && !digits.startsWith('52')) {
+      return digits.length >= 8 && digits.length <= 15
+        ? ''
+        : 'Escriba el número completo, con el código de país.';
+    }
+
+    // 52 followed by more than ten digits is the country code, not the number.
+    const national =
+      digits.startsWith('52') && digits.length > 10 ? digits.slice(2) : digits;
+
+    if (national.length !== 10) {
+      return 'Escriba los 10 dígitos con clave local. Ejemplo: 33 1217 0122.';
+    }
+    return '';
+  },
+
+  email(value) {
+    if (!value) return 'Escriba su correo electrónico.';
+    if (!EMAIL_PATTERN.test(value)) {
+      return 'Ese correo no es válido. Revise la arroba y el dominio.';
+    }
+    return '';
+  },
+
+  detalle(value) {
+    if (!value) return 'Cuéntenos brevemente qué necesita.';
+    if (value.length < 20) {
+      return 'Necesitamos algo más de detalle: al menos 20 caracteres.';
+    }
+    return '';
+  },
+};
 
 // The form action stays the plain endpoint so a no-JS submit still works;
 // fetch needs the /ajax/ variant, which is the only one that reports failure.
@@ -19,18 +81,22 @@ export function initContactForm() {
   const form = document.getElementById('contact-form');
   const success = document.getElementById('form-success');
   const successName = document.getElementById('form-success-name');
+  const successEmail = document.getElementById('form-success-email');
   const resetButton = document.getElementById('form-reset');
 
   if (!form || !success) return;
 
+  const fields = Object.keys(VALIDATORS)
+    .map((id) => form.querySelector(`#${id}`))
+    .filter(Boolean);
+
   const nombre = form.querySelector('#nombre');
   const email = form.querySelector('#email');
-  const detalle = form.querySelector('#detalle');
   const submitButton = form.querySelector('[type="submit"]');
 
-  // Without every required field the handler cannot validate, and swallowing
-  // the submit would leave the user with no feedback and no native fallback.
-  if (!nombre || !email || !detalle) return;
+  // Without every field the handler cannot validate, and swallowing the submit
+  // would leave the user with no feedback and no native fallback.
+  if (fields.length !== Object.keys(VALIDATORS).length) return;
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -42,13 +108,16 @@ export function initContactForm() {
       return;
     }
 
-    if (!nombre.value.trim() || !email.value.trim() || !detalle.value.trim()) {
-      showError(MESSAGES.required);
-      return;
-    }
+    // filter, not find: every field has to be marked, not just the first one.
+    const invalid = fields.filter((field) => {
+      const message = validate(field);
+      showFieldError(field, message);
+      return Boolean(message);
+    });
 
-    if (!EMAIL_PATTERN.test(email.value)) {
-      showError(MESSAGES.email);
+    if (invalid.length) {
+      showError(MESSAGES.summary);
+      invalid[0].focus();
       return;
     }
 
@@ -74,6 +143,7 @@ export function initContactForm() {
       }
 
       if (successName) successName.textContent = nombre.value.trim() || 'por escribirnos';
+      if (successEmail) successEmail.textContent = email.value.trim() || 'su correo';
       clearForm();
       form.hidden = true;
       success.hidden = false;
@@ -97,25 +167,38 @@ export function initContactForm() {
     });
   }
 
-  form.querySelectorAll('input, textarea').forEach((field) => {
-    field.addEventListener('blur', () => {
-      const invalid = field.hasAttribute('required') && !field.value.trim();
-      field.classList.toggle('form__control--invalid', invalid);
-    });
+  fields.forEach((field) => {
+    field.addEventListener('blur', () => showFieldError(field, validate(field)));
 
     field.addEventListener('input', () => {
-      field.classList.remove('form__control--invalid');
+      // Re-check only a field already flagged. Complaining while someone is
+      // still typing the first characters is noise, not help.
+      if (field.classList.contains('form__control--invalid')) {
+        showFieldError(field, validate(field));
+      }
     });
   });
 
-  // form.reset() restores values but fires no input event, so the invalid
-  // markers set on blur would survive into the next, empty form.
+  function validate(field) {
+    return VALIDATORS[field.id](field.value.trim());
+  }
+
+  function showFieldError(field, message) {
+    field.classList.toggle('form__control--invalid', Boolean(message));
+    field.setAttribute('aria-invalid', message ? 'true' : 'false');
+
+    const feedback = document.getElementById(`${field.id}-error`);
+    if (!feedback) return;
+    feedback.textContent = message;
+    feedback.hidden = !message;
+  }
+
+  // form.reset() restores values but fires no input event, so the messages set
+  // on blur would survive into the next, empty form.
   function clearForm() {
     form.reset();
     clearError();
-    form.querySelectorAll('.form__control--invalid').forEach((field) => {
-      field.classList.remove('form__control--invalid');
-    });
+    fields.forEach((field) => showFieldError(field, ''));
   }
 
   function clearError() {

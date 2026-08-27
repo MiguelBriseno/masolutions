@@ -980,8 +980,10 @@
                       placeholder="Nombre completo"
                       autocomplete="name"
                       maxlength="100"
+                      aria-describedby="nombre-error"
                       required
                     />
+                    <p class="form__feedback" id="nombre-error" hidden></p>
                   </div>
                   <div class="form__group">
                     <label class="form__label" for="telefono">Teléfono / WhatsApp</label>
@@ -990,10 +992,13 @@
                       id="telefono"
                       name="telefono"
                       type="tel"
+                      inputmode="tel"
                       placeholder="33 1217 0122"
                       autocomplete="tel"
                       maxlength="20"
+                      aria-describedby="telefono-error"
                     />
+                    <p class="form__feedback" id="telefono-error" hidden></p>
                   </div>
                   <div class="form__group form__group--full">
                     <label class="form__label" for="email">Correo electrónico</label>
@@ -1005,8 +1010,10 @@
                       placeholder="tu@empresa.com"
                       autocomplete="email"
                       maxlength="254"
+                      aria-describedby="email-error"
                       required
                     />
+                    <p class="form__feedback" id="email-error" hidden></p>
                   </div>
                   <div class="form__group form__group--full">
                     <label class="form__label" for="detalle">Descripción del proyecto</label>
@@ -1017,8 +1024,10 @@
                       rows="5"
                       maxlength="2000"
                       placeholder="Objetivo del proyecto, usuarios previstos y plazo estimado."
+                      aria-describedby="detalle-error"
                       required
                     ></textarea>
+                    <p class="form__feedback" id="detalle-error" hidden></p>
                   </div>
                 </div>
 
@@ -1032,17 +1041,43 @@
               </form>
 
               <div class="form__success" id="form-success" role="status" tabindex="-1" hidden>
+                <span class="form__success-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="24" height="24" focusable="false">
+                    <path class="form__success-check" d="M5 12.5 10 17.5 19 7" />
+                  </svg>
+                </span>
                 <span class="form__success-label">SOLICITUD RECIBIDA</span>
                 <h3 class="form__success-title">
                   Gracias, <span id="form-success-name">por escribirnos</span>
                 </h3>
                 <p class="form__success-text">
-                  Hemos registrado su solicitud. Le responderemos al correo
-                  indicado dentro de las próximas 48 horas hábiles.
+                  Le responderemos a
+                  <strong class="form__success-email" id="form-success-email"
+                    >su correo</strong
+                  >
+                  dentro de las próximas 48 horas hábiles.
                 </p>
-                <button type="button" class="form__success-reset" id="form-reset">
-                  Enviar otra solicitud
-                </button>
+                <ol class="form__success-steps">
+                  <li>Revisamos su solicitud y el alcance del proyecto.</li>
+                  <li>
+                    Recibirá una propuesta con alcance, plazos y presupuesto en
+                    menos de 48 horas.
+                  </li>
+                  <li>Si decide avanzar, arrancamos en ciclos de dos semanas.</li>
+                </ol>
+                <div class="form__success-actions">
+                  <a
+                    class="form__success-link"
+                    href="https://wa.me/523312170122"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Escribir por WhatsApp
+                  </a>
+                  <button type="button" class="form__success-reset" id="form-reset">
+                    Enviar otra solicitud
+                  </button>
+                </div>
               </div>
             </div>
           </div>
