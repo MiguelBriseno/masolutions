@@ -53,17 +53,98 @@ The site is static (GitHub Pages, no Actions workflow), so it cannot send mail
 itself: browsers speak no SMTP, and any mail credential shipped in the page
 would be public. FormSubmit receives the POST and relays it.
 
-Pending: the `action` still carries the destination address in clear text, where
-scrapers can read it. Submit the form once from production, confirm FormSubmit's
-activation email, and replace the address with the hash it returns —
+Pending: the `action` still carries the destination address in clear text. That
+address is now also published deliberately in the contact `mailto:` link and in
+the JSON-LD, so the hash swap is no longer about hiding it — it is about using
+the endpoint FormSubmit documents and being able to change the destination inbox
+without editing the page. Submit the form once from production, confirm
+FormSubmit's activation email, and replace the address with the hash it returns —
 `https://formsubmit.co/<hash>`. Host and CSP are unchanged by that swap, and
-`contact-form.js` posts to `form.action`, so nothing else needs editing. Step by
+`contact-form.js` derives its endpoint from `form.action`, so nothing else
+needs editing. Step by
 step instructions sit in a comment above the form in `index.html`.
 
 Do not route submissions through `repository_dispatch` to trigger a workflow:
 that needs a repo-scoped token in client-side code, which is strictly worse than
 an exposed address.
 
+## SEO, GEO and AEO
+
+Three files at the repo root are served as-is by GitHub Pages and must stay in
+sync with the page:
+
+- `robots.txt` — allows every crawler, names the AI assistant crawlers
+  explicitly (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) and points
+  to the sitemap.
+- `sitemap.xml` — one URL. Bump `<lastmod>` when the page content changes.
+- `llms.txt` — a plain-text summary of the company, services, process and FAQ
+  for answer engines. Adoption of this convention is still informal; it costs
+  nothing and no crawler is required to read it.
+
+**The FAQ answers are duplicated in three places** — the `<h3>`/`<p>` pairs in
+`index.html`, the `FAQPage` `mainEntity` inside the JSON-LD, and the
+"Respuestas frecuentes" section of `llms.txt`. Structured data that contradicts
+the visible page is a guidelines violation, so edit all three together or edit
+none. This has already gone wrong once: three questions were keyword-expanded
+in the JSON-LD only, leaving marked-up questions that appeared nowhere on the
+page. The marked-up question must match the rendered `<h3>` **verbatim** —
+check it, do not assume it. The same applies to the six services (visible cards, `hasOfferCatalog`,
+`llms.txt`) and the two testimonials (visible `<figure>`s, `review`).
+
+The JSON-LD is a single `@graph` with four nodes: `Organization` (services,
+reviews, contact point), `WebSite`, `WebPage`+`FAQPage` (the six questions) and
+a `HowTo` for the four-phase method. Nodes reference each other by `@id`, so
+keep the `https://masolutions.mx/#…` ids stable.
+
+No ratings or reviews are marked up, and none should be added. Reviews of the
+business, published by the business, on its own site are *self-serving*: Google
+excludes them from review snippets for `LocalBusiness` and its subtypes, and
+they are a known trigger for a spammy-structured-markup action. The two
+testimonials stay as visible `<figure>`/`<blockquote>` — that is the right place
+for them. `aggregateRating` is a harder no: the page shows no star ratings, and
+marking up a rating that is not visible is squarely prohibited.
+
+The four-phase method is an `ItemList`, not a `HowTo`. `HowTo` means
+instructions the reader carries out, its rich result was retired in 2023, and
+every `HowToStep` requires a `text` property. Do not "upgrade" it back.
+
+The public contact address is a personal Gmail, chosen by the owner over a
+`@masolutions.mx` mailbox. It appears in three places that must agree: the
+`mailto:` link, `Organization.email` plus its `contactPoint`, and `llms.txt`.
+
+The organisation is typed plain `Organization`, and **no postal address is
+published anywhere** — not in the page, not in the JSON-LD, not in `llms.txt`.
+The owner works from a private home; the address was added and then deliberately
+removed. Do not reintroduce it, and do not "upgrade" the type to
+`LocalBusiness` / `ProfessionalService`: both need a published address to mean
+anything, and publishing this one exposes a residence to every crawler that
+`robots.txt` invites in. Local reach is handled by the Google Business Profile
+as a service-area business instead, which shows the coverage area without the
+address.
+
+Opening hours therefore live on `contactPoint.hoursAvailable`, which is valid
+for `Organization`. `openingHoursSpecification` is not — it belongs to
+`LocalBusiness`/`Place` — so do not move them back.
+
+`areaServed` names México, Jalisco, Tala and Guadalajara. Keep it matching the
+service area declared in the Google Business Profile; a schema that contradicts
+the profile is a wasted signal.
+
+`sameAs` is empty. Add the Google Business Profile URL there once the listing is
+verified — that is the strongest entity link this site can currently earn.
+
+`assets/og-image.png` is deliberately PNG, not WebP — WhatsApp and several link
+unfurlers still fail to render WebP social cards. It is generated at 1200×630
+from the brand palette; regenerate it if the tagline or brand colour changes.
+
 ## Constraints
 
 The page CSP (in both `_headers` and the `index.html` meta tag) has no `style-src 'unsafe-inline'`, so inline `style` attributes are blocked. Every visual value must live in a stylesheet.
+
+`_headers` is aspirational, not live. It is a Cloudflare Pages / Netlify
+convention and GitHub Pages ignores it, so `X-Frame-Options`, `Referrer-Policy`,
+`Permissions-Policy` and `frame-ancestors` are never actually sent — and a
+`<meta>` CSP is specified to ignore `frame-ancestors` regardless. The page is
+therefore framable in practice. Only putting the site behind a host that honours
+the file (Cloudflare) would change that; until then, do not cite `_headers` as
+evidence that a header is set.

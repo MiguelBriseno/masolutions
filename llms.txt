@@ -1,0 +1,54 @@
+# MASolutions
+
+> Empresa mexicana de desarrollo de software a la medida. Diseña, desarrolla y
+> mantiene aplicaciones móviles (iOS y Android), aplicaciones web, sistemas
+> internos e integraciones por API para empresas. Sitio oficial:
+> https://masolutions.mx/
+
+## Datos de la empresa
+
+- Nombre: MASolutions
+- Sitio web: https://masolutions.mx/
+- Idioma de atención: español
+- Zona de servicio: todo México, con presencia local en Tala y la zona metropolitana de Guadalajara, Jalisco
+- Correo de contacto: miguel.briseno.bustos@gmail.com
+- Teléfono y WhatsApp: +52 33 1217 0122
+- Horario de atención: lunes a viernes, 9:00 a 18:00 (hora del centro de México)
+
+## Servicios
+
+- **Apps móviles**: aplicaciones nativas y multiplataforma para iOS y Android, del prototipo a la publicación en App Store y Google Play.
+- **Aplicaciones web**: portales, paneles de administración y plataformas SaaS con arquitecturas seguras y escalables.
+- **Software a la medida**: sistemas internos de inventarios, facturación, reportería y automatización de tareas.
+- **Integraciones y API**: interoperabilidad con pasarelas de pago, ERP, CRM y servicios de terceros mediante API documentadas y versionadas.
+- **Mantenimiento y soporte**: monitoreo, corrección de incidencias y evolución funcional posterior al lanzamiento, con niveles de servicio acordados.
+- **Consultoría técnica**: auditoría de arquitectura, selección tecnológica y acompañamiento a equipos con productos ya en operación.
+
+## Cómo trabaja MASolutions
+
+Metodología en cuatro fases: levantamiento de requerimientos, diseño y
+arquitectura, desarrollo y implementación. La propuesta formal —con alcance,
+plazos y presupuesto por escrito— se entrega en 48 horas tras la reunión
+inicial. El ciclo de entrega es de dos semanas, con avances demostrables en
+cada ciclo, y la documentación de entrega está incluida.
+
+## Respuestas frecuentes
+
+- **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. Tras la reunión inicial se entrega una propuesta sin costo, con precio cerrado y plazos comprometidos.
+- **¿Cuánto tarda en estar listo el proyecto?** Una primera versión funcional toma habitualmente entre 8 y 14 semanas, con avances demostrables cada dos semanas.
+- **¿Cómo es el seguimiento del proyecto?** Una reunión de avance por ciclo, acceso permanente al tablero de tareas y un informe al cierre de cada fase.
+- **¿Trabajan con proyectos ya empezados?** Sí. Se realiza una auditoría del código existente y se presenta un plan para continuar, corregir o migrar el desarrollo.
+- **¿Publican la app en las tiendas de aplicaciones?** Sí, se gestiona el proceso completo en App Store y Google Play: fichas, material gráfico y respuesta a las revisiones.
+- **¿Qué pasa después del lanzamiento?** Se ofrecen contratos de mantenimiento mensual que incluyen soporte, monitoreo y horas de desarrollo para nuevas funciones.
+
+## Proyectos representativos
+
+- **Tonalli ERP**: sistema de gestión con trazabilidad de lotes que sustituyó el control por hojas de cálculo.
+- **ActuarEnvíos**: plataforma logística de seguimiento de envíos que redujo las consultas telefónicas sobre el estado de un envío.
+- **Urban Reps**: producto digital desarrollado a la medida del cliente.
+
+## Contacto
+
+- Formulario de propuesta: https://masolutions.mx/#contacto
+- WhatsApp: https://wa.me/523312170122
+- Correo: miguel.briseno.bustos@gmail.com

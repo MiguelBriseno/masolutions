@@ -28,8 +28,10 @@
   max-width: 44ch;
 }
 
+/* An <address>, so the browser's italic default has to be undone. */
 .contact__channels {
   display: flex;
+  font-style: normal;
   flex-direction: column;
   gap: 10px;
   margin-top: 26px;

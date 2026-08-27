@@ -6,6 +6,15 @@ const MESSAGES = {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// The form action stays the plain endpoint so a no-JS submit still works;
+// fetch needs the /ajax/ variant, which is the only one that reports failure.
+// Works for both the address form and the opaque-hash form of the action.
+function ajaxEndpoint(action) {
+  const url = new URL(action, window.location.href);
+  if (!url.pathname.startsWith('/ajax/')) url.pathname = `/ajax${url.pathname}`;
+  return url.toString();
+}
+
 export function initContactForm() {
   const form = document.getElementById('contact-form');
   const success = document.getElementById('form-success');
@@ -17,6 +26,7 @@ export function initContactForm() {
   const nombre = form.querySelector('#nombre');
   const email = form.querySelector('#email');
   const detalle = form.querySelector('#detalle');
+  const submitButton = form.querySelector('[type="submit"]');
 
   // Without every required field the handler cannot validate, and swallowing
   // the submit would leave the user with no feedback and no native fallback.
@@ -43,15 +53,22 @@ export function initContactForm() {
     }
 
     form.classList.add('loading');
+    // .loading sets pointer-events: none, which stops the mouse but not a
+    // second Enter press while the request is still in flight.
+    if (submitButton) submitButton.disabled = true;
 
     try {
-      const response = await fetch(form.action, {
+      const response = await fetch(ajaxEndpoint(form.action), {
         method: 'POST',
         body: new FormData(form),
         headers: { Accept: 'application/json' },
       });
 
-      if (!response.ok) {
+      // FormSubmit answers 200 with a page even when it drops the message —
+      // an unconfirmed address, a spam rejection. Only the AJAX endpoint's
+      // JSON says what actually happened, so response.ok is not the test.
+      const result = await response.json().catch(() => null);
+      if (!response.ok || String(result?.success) !== 'true') {
         showError(MESSAGES.send);
         return;
       }
@@ -67,6 +84,7 @@ export function initContactForm() {
       showError(MESSAGES.send);
     } finally {
       form.classList.remove('loading');
+      if (submitButton) submitButton.disabled = false;
     }
   });
 
