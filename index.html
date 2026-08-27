@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,11 @@
       content="desarrollo de software, páginas web, landing pages, apps móviles, desarrollo móvil, APIs, backend, MASolutions"
     />
     <meta name="author" content="MASolutions" />
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#5b3df5" />
     <link rel="canonical" href="https://masolutions.mx/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,7 +42,14 @@
     <meta property="og:url" content="https://masolutions.mx/" />
     <meta
       property="og:image"
-      content="https://masolutions.mx/assets/og-image.webp"
+      content="https://masolutions.mx/assets/og-image.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="MASolutions — ingeniería de software para aplicaciones móviles y web"
     />
     <meta property="og:site_name" content="MASolutions" />
     <meta property="og:locale" content="es_MX" />
@@ -53,24 +64,289 @@
     />
     <meta
       name="twitter:image"
-      content="https://masolutions.mx/assets/og-image.webp"
+      content="https://masolutions.mx/assets/og-image.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="MASolutions — ingeniería de software para aplicaciones móviles y web"
     />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "MASolutions",
-        "url": "https://masolutions.mx/",
-        "logo": "https://masolutions.mx/assets/logo.webp",
-        "description": "MASolutions desarrolla aplicaciones web, móviles y APIs a la medida para empresas que buscan soluciones de software modernas y escalables.",
-        "contactPoint": [
+        "@graph": [
           {
-            "@type": "ContactPoint",
-            "email": "contacto@masolutions.com",
+            "@type": "Organization",
+            "@id": "https://masolutions.mx/#organization",
+            "name": "MASolutions",
+            "alternateName": "masolutions",
+            "url": "https://masolutions.mx/",
+            "description": "MASolutions desarrolla aplicaciones web, móviles y APIs a la medida para empresas que buscan soluciones de software modernas y escalables.",
+            "slogan": "Ingeniería de software para aplicaciones móviles y web",
+            "email": "miguel.briseno.bustos@gmail.com",
             "telephone": "+52-33-1217-0122",
-            "contactType": "sales",
-            "availableLanguage": ["es"]
+            "knowsLanguage": "es",
+            "areaServed": [
+              {
+                "@type": "Country",
+                "name": "México"
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Jalisco"
+              },
+              {
+                "@type": "City",
+                "name": "Tala"
+              },
+              {
+                "@type": "City",
+                "name": "Guadalajara"
+              }
+            ],
+            "logo": {
+              "@type": "ImageObject",
+              "@id": "https://masolutions.mx/#logo",
+              "url": "https://masolutions.mx/assets/logo.webp",
+              "contentUrl": "https://masolutions.mx/assets/logo.webp",
+              "width": 272,
+              "height": 150,
+              "caption": "MASolutions"
+            },
+            "image": {
+              "@id": "https://masolutions.mx/#logo"
+            },
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "sales",
+                "email": "miguel.briseno.bustos@gmail.com",
+                "telephone": "+52-33-1217-0122",
+                "availableLanguage": [
+                  "es"
+                ],
+                "areaServed": "MX",
+                "hoursAvailable": {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday"
+                  ],
+                  "opens": "09:00",
+                  "closes": "18:00"
+                }
+              }
+            ],
+            "knowsAbout": [
+              "Desarrollo de aplicaciones móviles",
+              "Desarrollo de aplicaciones web",
+              "Software a la medida",
+              "Integración de sistemas y APIs",
+              "Mantenimiento de software",
+              "Consultoría técnica y arquitectura de software"
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Áreas de trabajo y capacidades",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Apps móviles",
+                    "serviceType": "Desarrollo de aplicaciones móviles",
+                    "description": "Aplicaciones nativas y multiplataforma para iOS y Android, desde el prototipo hasta la publicación en tiendas.",
+                    "provider": {
+                      "@id": "https://masolutions.mx/#organization"
+                    },
+                    "areaServed": "MX"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Aplicaciones web",
+                    "serviceType": "Desarrollo de aplicaciones web",
+                    "description": "Portales, paneles de administración y plataformas SaaS, con arquitecturas seguras y preparadas para escalar.",
+                    "provider": {
+                      "@id": "https://masolutions.mx/#organization"
+                    },
+                    "areaServed": "MX"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Software a medida",
+                    "serviceType": "Desarrollo de software a la medida",
+                    "description": "Sistemas internos ajustados a los procesos de cada organización: inventarios, facturación, reportería y automatización de tareas.",
+                    "provider": {
+                      "@id": "https://masolutions.mx/#organization"
+                    },
+                    "areaServed": "MX"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Integraciones y API",
+                    "serviceType": "Integración de sistemas y desarrollo de APIs",
+                    "description": "Interoperabilidad con pasarelas de pago, ERP, CRM y servicios de terceros mediante API documentadas y versionadas.",
+                    "provider": {
+                      "@id": "https://masolutions.mx/#organization"
+                    },
+                    "areaServed": "MX"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Mantenimiento y soporte",
+                    "serviceType": "Mantenimiento y soporte de software",
+                    "description": "Monitoreo, corrección de incidencias y evolución funcional posterior al lanzamiento, con niveles de servicio acordados.",
+                    "provider": {
+                      "@id": "https://masolutions.mx/#organization"
+                    },
+                    "areaServed": "MX"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Consultoría técnica",
+                    "serviceType": "Consultoría técnica de software",
+                    "description": "Auditoría de arquitectura, selección tecnológica y acompañamiento a equipos con productos ya en operación.",
+                    "provider": {
+                      "@id": "https://masolutions.mx/#organization"
+                    },
+                    "areaServed": "MX"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://masolutions.mx/#website",
+            "url": "https://masolutions.mx/",
+            "name": "MASolutions",
+            "description": "Desarrollo de software a la medida: aplicaciones móviles, aplicaciones web e integraciones por API.",
+            "inLanguage": "es-MX",
+            "publisher": {
+              "@id": "https://masolutions.mx/#organization"
+            }
+          },
+          {
+            "@type": [
+              "WebPage",
+              "FAQPage"
+            ],
+            "@id": "https://masolutions.mx/#webpage",
+            "url": "https://masolutions.mx/",
+            "name": "MASOLUTIONS | Desarrollo de Software a la Medida",
+            "description": "MASolutions desarrolla páginas web, apps móviles y APIs a la medida. Creamos soluciones de software modernas, escalables y alineadas a los objetivos de tu negocio.",
+            "inLanguage": "es-MX",
+            "isPartOf": {
+              "@id": "https://masolutions.mx/#website"
+            },
+            "about": {
+              "@id": "https://masolutions.mx/#organization"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://masolutions.mx/#logo"
+            },
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "¿Cuánto cuesta un proyecto de desarrollo de software?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Depende del alcance definido. Tras la reunión inicial entregamos una propuesta sin costo, con precio cerrado y plazos comprometidos."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "¿Cuánto tarda en estar listo el proyecto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Una primera versión funcional toma habitualmente entre 8 y 14 semanas, con avances demostrables cada dos semanas."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "¿Cómo es el seguimiento del proyecto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Una reunión de avance por ciclo, acceso permanente al tablero de tareas y un informe al cierre de cada fase."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "¿Trabajan con proyectos ya empezados?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sí. Realizamos una auditoría del código existente y presentamos un plan para continuar, corregir o migrar el desarrollo."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "¿Publican la app en las tiendas de aplicaciones?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Gestionamos el proceso completo en App Store y Google Play: fichas, material gráfico y respuesta a las revisiones."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "¿Qué pasa después del lanzamiento?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Ofrecemos contratos de mantenimiento mensual que incluyen soporte, monitoreo y horas de desarrollo para nuevas funciones."
+                }
+              }
+            ]
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://masolutions.mx/#proceso",
+            "name": "Metodología de desarrollo de software en cuatro fases",
+            "description": "Las cuatro fases con las que MASolutions lleva un proyecto de software desde la idea hasta la puesta en producción.",
+            "itemListOrder": "https://schema.org/ItemListOrderAscending",
+            "numberOfItems": 4,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Levantamiento",
+                "description": "Relevamiento de requisitos, definición de alcance y estimación formal de costo y plazo."
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Diseño y arquitectura",
+                "description": "Flujos, interfaces navegables y definición técnica, aprobados antes de iniciar el desarrollo."
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Desarrollo",
+                "description": "Construcción iterativa con versiones de prueba y control de calidad al cierre de cada ciclo."
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Implementación",
+                "description": "Puesta en producción, publicación en tiendas, capacitación del equipo y documentación entregada."
+              }
+            ]
           }
         ]
       }
@@ -102,10 +378,10 @@
       </nav>
 
       <main id="contenido" tabindex="-1">
-        <section id="top" class="hero">
+        <section id="top" class="hero" aria-labelledby="hero-title">
           <div class="hero__content">
             <span class="pill pill--wide">DESARROLLO DE SOFTWARE A MEDIDA</span>
-            <h1 class="hero__title">
+            <h1 class="hero__title" id="hero-title">
               Ingeniería de software para aplicaciones móviles y web
             </h1>
             <p class="hero__lead">
@@ -146,9 +422,9 @@
           </div>
         </section>
 
-        <section id="servicios" class="section services">
+        <section id="servicios" class="section services" aria-labelledby="servicios-title">
           <span class="section__eyebrow">SERVICIOS</span>
-          <h2 class="section__title">Áreas de trabajo y capacidades</h2>
+          <h2 class="section__title" id="servicios-title">Áreas de trabajo y capacidades</h2>
           <div class="services__grid">
             <article class="card service-card">
               <div class="service-card__index">01</div>
@@ -201,9 +477,9 @@
           </div>
         </section>
 
-        <section id="proceso" class="section process">
+        <section id="proceso" class="section process" aria-labelledby="proceso-title">
           <span class="section__eyebrow">PROCESO</span>
-          <h2 class="section__title">Metodología en cuatro fases</h2>
+          <h2 class="section__title" id="proceso-title">Metodología en cuatro fases</h2>
           <div class="process__grid">
             <article class="card process__step">
               <span class="process__phase">FASE 01</span>
@@ -248,9 +524,9 @@
           </p>
         </section>
 
-        <section id="casos" class="section projects">
+        <section id="casos" class="section projects" aria-labelledby="casos-title">
           <span class="section__eyebrow">CASOS</span>
-          <h2 class="section__title">Proyectos representativos</h2>
+          <h2 class="section__title" id="casos-title">Proyectos representativos</h2>
           <div class="projects__grid">
             <article class="card project-card">
               <div class="mock mock--browser" aria-hidden="true">
@@ -443,8 +719,15 @@
           </div>
         </section>
 
-        <section id="testimonios" class="section testimonials">
-          <h2 class="section__eyebrow">TESTIMONIOS</h2>
+        <section
+          id="testimonios"
+          class="section testimonials"
+          aria-labelledby="testimonios-title"
+        >
+          <span class="section__eyebrow">TESTIMONIOS</span>
+          <h2 class="section__title" id="testimonios-title">
+            Opiniones de nuestros clientes
+          </h2>
           <div class="testimonials__grid">
             <figure class="card testimonial-card">
               <blockquote class="testimonial-card__quote">
@@ -477,11 +760,16 @@
           </div>
         </section>
 
-        <section id="faq" class="section faq">
-          <h2 class="section__eyebrow">PREGUNTAS FRECUENTES</h2>
+        <section id="faq" class="section faq" aria-labelledby="faq-title">
+          <span class="section__eyebrow">PREGUNTAS FRECUENTES</span>
+          <h2 class="section__title" id="faq-title">
+            Dudas habituales antes de iniciar un proyecto
+          </h2>
           <div class="faq__grid">
             <div>
-              <h3 class="faq__question">¿Cuánto cuesta un proyecto?</h3>
+              <h3 class="faq__question">
+                ¿Cuánto cuesta un proyecto de desarrollo de software?
+              </h3>
               <p class="faq__answer">
                 Depende del alcance definido. Tras la reunión inicial entregamos
                 una propuesta sin costo, con precio cerrado y plazos
@@ -489,7 +777,7 @@
               </p>
             </div>
             <div>
-              <h3 class="faq__question">¿Cuánto tarda en estar listo?</h3>
+              <h3 class="faq__question">¿Cuánto tarda en estar listo el proyecto?</h3>
               <p class="faq__answer">
                 Una primera versión funcional toma habitualmente entre 8 y 14
                 semanas, con avances demostrables cada dos semanas.
@@ -510,7 +798,9 @@
               </p>
             </div>
             <div>
-              <h3 class="faq__question">¿Publican la app en las tiendas?</h3>
+              <h3 class="faq__question">
+                ¿Publican la app en las tiendas de aplicaciones?
+              </h3>
               <p class="faq__answer">
                 Gestionamos el proceso completo en App Store y Google Play:
                 fichas, material gráfico y respuesta a las revisiones.
@@ -526,18 +816,18 @@
           </div>
         </section>
 
-        <section id="contacto" class="contact">
+        <section id="contacto" class="contact" aria-labelledby="contacto-title">
           <div class="contact__panel">
             <div>
               <span class="section__eyebrow">CONTACTO</span>
-              <h2 class="contact__title">Solicite una propuesta</h2>
+              <h2 class="contact__title" id="contacto-title">Solicite una propuesta</h2>
               <p class="contact__lead">
                 Describa brevemente el proyecto. Respondemos en menos de 48 horas
                 con una propuesta de alcance, plazos y presupuesto.
               </p>
-              <div class="contact__channels">
-                <a class="contact__channel" href="mailto:contacto@masolutions.com">
-                  contacto@masolutions.com
+              <address class="contact__channels">
+                <a class="contact__channel" href="mailto:miguel.briseno.bustos@gmail.com">
+                  miguel.briseno.bustos@gmail.com
                 </a>
                 <a
                   class="contact__channel"
@@ -548,15 +838,24 @@
                   WhatsApp 33 1217 0122
                 </a>
                 <span class="contact__hours">Lunes a viernes, 9:00 – 18:00</span>
-              </div>
+              </address>
             </div>
 
             <div>
               <!-- FormSubmit endpoint.
 
-                   TODO: the address in the action below is visible in the page
-                   source and will be harvested by scrapers. Replace it with
-                   FormSubmit's opaque hash:
+                   The same address is published on purpose in the mailto link
+                   above and in the JSON-LD, so swapping this action for the
+                   hash no longer hides anything. It is still worth doing: the
+                   hash is the endpoint FormSubmit documents, and it lets the
+                   destination inbox change without editing the page.
+
+                   Keep this action on the plain (non-/ajax/) endpoint so a
+                   no-JS submit still works. contact-form.js derives the
+                   /ajax/ variant from it for the fetch, because only that one
+                   reports whether the message was actually accepted.
+
+                   TODO: replace the address with FormSubmit's opaque hash:
 
                      1. Submit this form once from https://masolutions.mx/
                      2. Confirm the activation email FormSubmit sends back
