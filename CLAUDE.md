@@ -21,13 +21,19 @@ Visit `http://localhost:8000`.
 Single-page app with a module-based JS architecture and a sectioned CSS architecture.
 
 **Entry points:**
-- `index.html` — loads `css/base/main.css` and `js/core/main.js` as `type="module"`
+- `index.html` — links every stylesheet individually and loads `js/core/main.js` as `type="module"`
 - `js/core/main.js` — imports all component `init*()` functions and calls them on `DOMContentLoaded`
-- `css/base/main.css` — `@import`s all section-specific stylesheets
 
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
-**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` (currently `mockups.css`, the fake product screens drawn inside the case cards). Both directories are imported from `css/base/main.css`.
+**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` (currently `mockups.css`, the fake product screens drawn inside the case cards). Both directories are linked one `<link>` at a time from `index.html`, in
+cascade order (`reset` → `globals` → `animations` → layout → components).
+
+There is deliberately **no entry stylesheet full of `@import` rules**. An
+`@import` chain is render-blocking in two hops: the browser cannot even discover
+the imported files until the entry sheet has downloaded and parsed. Adding a
+stylesheet therefore means adding a `<link>` to `index.html` (and to `404.html`
+if that page needs it), not an `@import`.
 
 **Brand assets:** `assets/logo.webp` (nav/footer) and `assets/icon.webp` (favicon) are the same M mark, repainted to exactly `--color-primary` (#5b3df5). Regenerate both together if the brand colour ever changes, and keep the favicon's mark filling most of its square canvas — it renders at 16px in a browser tab.
 

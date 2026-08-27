@@ -352,7 +352,23 @@
       }
     </script>
 
-    <link rel="stylesheet" href="./css/base/main.css" />
+    <!-- Linked one by one on purpose. A single entry stylesheet full of
+         @import rules is a render-blocking chain: the browser cannot even
+         discover these files until the entry sheet has downloaded and parsed.
+         Cascade order is the load order below, so keep base first. -->
+    <link rel="stylesheet" href="./css/base/reset.css" />
+    <link rel="stylesheet" href="./css/base/globals.css" />
+    <link rel="stylesheet" href="./css/base/animations.css" />
+    <link rel="stylesheet" href="./css/layout/header.css" />
+    <link rel="stylesheet" href="./css/layout/hero.css" />
+    <link rel="stylesheet" href="./css/layout/services.css" />
+    <link rel="stylesheet" href="./css/layout/process.css" />
+    <link rel="stylesheet" href="./css/layout/projects.css" />
+    <link rel="stylesheet" href="./css/layout/testimonials.css" />
+    <link rel="stylesheet" href="./css/layout/faq.css" />
+    <link rel="stylesheet" href="./css/layout/contact.css" />
+    <link rel="stylesheet" href="./css/layout/footer.css" />
+    <link rel="stylesheet" href="./css/components/mockups.css" />
   </head>
 
   <body>
