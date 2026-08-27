@@ -1,13 +1,7 @@
+import { isMeasuredHost } from '../core/environment.js';
+
 const CLARITY_PROJECT_ID = 'y95cif49iw';
 const CLARITY_TAG_URL = `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`;
-
-// `python3 -m http.server` is the documented dev workflow, and Clarity has no
-// notion of environments: every local page view would upload a recording of
-// `http://localhost:8000/…` into the same project and skew the heatmaps and
-// session counts with developer traffic. Local hostnames are excluded rather
-// than production allow-listed, so a future domain change cannot silently
-// switch analytics off.
-const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]', '']);
 
 // Microsoft Clarity ships its loader as an inline <script>, which the page CSP
 // blocks: there is no `script-src 'unsafe-inline'` and adding one to admit an
@@ -15,7 +9,7 @@ const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]', '']);
 // therefore transcribed here, in a file served from 'self', and only the tag
 // host is allowed in the CSP.
 export function initClarity() {
-  if (LOCAL_HOSTS.has(window.location.hostname)) return;
+  if (!isMeasuredHost()) return;
   if (window.clarity) return;
 
   // Privacy extensions and enterprise policy scripts neutralize known analytics

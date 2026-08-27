@@ -99,6 +99,7 @@ four derive from `icon.webp`; regenerate them together with it.
 - **contact-form.js** — async `fetch` POST to FormSubmit with `FormData`, blur/input validation, and a success panel that replaces the form (with a reset button)
 - **animations.js** — `IntersectionObserver` adds `.visible` to `.animate-on-scroll` elements; CSS handles the transition, and it is skipped under `prefers-reduced-motion`
 - **analytics.js** — loads the Microsoft Clarity tag from a `'self'` module instead of the inline snippet the CSP blocks (see Analytics below)
+- **gtm.js** — same treatment for the Google Tag Manager container; `environment.js` holds the host guard both loaders share
 
 ## Analytics
 
@@ -153,6 +154,44 @@ records session replays of the visitor filling that form, and transmits them to
 a third party with no disclosure anywhere on the page. This is the owner's
 decision to make, not a change to be made for them. If a notice or consent
 banner is ever added, `initClarity()` is the single call to gate behind it.
+
+### Google Tag Manager
+
+Container `GTM-MNRGGGF9`, loaded from `js/components/gtm.js` for the same
+reason Clarity is: the snippet Google publishes is an inline `<script>` and
+there is no `script-src 'unsafe-inline'`. Google's documented alternative is a
+per-request **nonce**, which this site cannot produce — GitHub Pages serves
+static files and there is no server to generate one per response. A module
+served from `'self'` is what is left.
+
+The `<noscript>` iframe sits immediately after `<body>`. Google ships it with
+`style="display:none;visibility:hidden"`, blocked by the CSP, so the same two
+declarations live in `.gtm-noscript` in `globals.css`. It also needed a new
+`frame-src` directive: frames previously fell back to `default-src 'self'`.
+
+**GTM here is not a no-deploy tag manager, and that is the whole point of GTM.**
+The CSP allows Google's own measurement origins, so a GA4 or Google Ads tag
+configured in the UI will work. Anything else will not: a Custom HTML tag
+injects an inline script and is blocked outright, and any third-party pixel
+(Meta, LinkedIn, TikTok, Hotjar…) is blocked until its origin is added to the
+CSP in **both** `index.html` and `_headers` and the change is deployed. Google's
+CSP guide does not cover custom or third-party tags at all. The failure is
+silent — the tag reports as fired in GTM's preview while the browser blocks the
+request — so check the console before believing a new tag works.
+
+Origins allowed for GTM and GA4: `https://www.googletagmanager.com` in
+`script-src`, `img-src`, `connect-src` and `frame-src`, plus
+`https://*.google-analytics.com`, `https://*.analytics.google.com`,
+`https://*.g.doubleclick.net` and `https://www.google.com`. Deliberately **not**
+included, because no Ads campaign runs yet: `pagead2.googlesyndication.com`,
+`www.googleadservices.com` and the `https://*.google.<TLD>` ccTLD wildcards.
+Add them if remarketing or conversion tracking is ever turned on.
+
+At install time the container was **empty** — `"tags":[]`, `"rules":[]` — so it
+downloads ~328 KB of runtime and measures nothing until tags are configured.
+
+**Do not add Clarity as a tag inside GTM.** It is already loaded directly by
+`analytics.js`; a second copy through the container would double-count sessions.
 
 ## Contact form delivery
 
