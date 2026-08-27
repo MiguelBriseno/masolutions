@@ -57,9 +57,18 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
-**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` (currently `mockups.css`, the fake product screens drawn inside the case cards). Both directories are linked one `<link>` at a time from `index.html`, in
+**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` — `mockups.css` (the fake product screens), `cards.css` (the grid cards' hover treatment) and `action-bar.css` (the fixed mobile CTA). Both directories are linked one `<link>` at a time from `index.html`, in
 cascade order (`reset` → `globals` → `animations` → `background` → layout →
 components).
+
+**`cards.css` must stay after `animations.css` in that order, and its
+`transition` shorthand must keep restating the reveal's own
+`opacity`/`transform` timings.** One element cannot have two owners for
+`transition`: `.animate-on-scroll` declares it for the scroll reveal and the
+hover rule declares it for the lift, and whichever wins the cascade silently
+cancels the other. For the same reason the hover lift uses `translate`, not
+`transform` — the reveal already owns `transform`, and independent properties
+compose where a shared one would not.
 
 `css/base/background.css` draws the drifting aurora behind the whole page as
 two `body` pseudo-elements at `z-index: -1`. It carries no markup because the
@@ -95,9 +104,67 @@ four derive from `icon.webp`; regenerate them together with it.
 
 ## Key Components
 
-- **navbar.js** — active nav link highlighting via `IntersectionObserver` (the nav is static, not sticky; smooth scrolling is native `scroll-behavior`)
+- **navbar.js** — three jobs: active nav link highlighting, the sticky header's
+  scrolled state, and the mobile disclosure menu. Smooth scrolling is native
+  `scroll-behavior`.
 - **contact-form.js** — async `fetch` POST to FormSubmit with `FormData`, blur/input validation, and a success panel that replaces the form (with a reset button)
 - **animations.js** — `IntersectionObserver` adds `.visible` to `.animate-on-scroll` elements; CSS handles the transition, and it is skipped under `prefers-reduced-motion`
+- **action-bar.js** — parks the fixed mobile CTA off screen while the hero or
+  the contact section is visible, and toggles `inert` with it
+
+**The header is sticky and lives outside `.container`.** The bar has to span the
+full viewport; wrapped in the 1180px column it would stop short at both sides on
+any wide screen and read as a rendering bug. `.site-header > .container > .nav`
+is the shape, and the same restructure has *not* been applied to `404.html` —
+that page ships no JavaScript, so a sticky header there could never get its
+scrolled state, and its two links fit the row unaided.
+
+Two consequences that are easy to break:
+
+- Anchor targets need `scroll-margin-top` (set on `section[id]` and `#contenido`
+  in `globals.css`), or every in-page jump lands with the heading hidden under
+  the bar.
+- Any mobile-only rule for `.nav__link` must be scoped to `.nav__menu`. On
+  `404.html` the links are direct children of `.nav` with no menu wrapper, so an
+  unscoped rule leaks a stray divider into the middle of that page's row.
+
+Below 860px the header CTA is dropped on purpose and `action-bar.css` takes
+over. Two competing calls to action on one phone screen only split the click.
+
+**Nothing the visitor needs may be hidden by CSS that only JavaScript can
+undo.** The mobile menu is the case that made this a rule. Collapsing the links
+behind the hamburger from a plain media query meant that any failure to run
+`main.js` — a fetch error, a throw earlier in the chain — left a phone visitor
+with the logo, no links, no CTA and a button that did nothing.
+
+The contract now is:
+
+- Every rule that collapses the header is gated on `.nav[data-enhanced]`, and
+  `navbar.js` sets that attribute as its **last** step, only after the toggle
+  and the panel are bound. Unenhanced, the links wrap under the brand and the
+  header CTA stays full width — which is what `404.html` gets too, since it is
+  never enhanced.
+- `initMobileMenu` runs *before* the active-link highlight and the header's
+  scrolled state. It is the only one of the three that owns navigation; the
+  other two are decoration and must not be able to take it down with them.
+- The action bar is the mirror image: it ships `data-hidden inert` **in the
+  markup**. Parking it from the deferred module painted it on screen and then
+  slid it out on every load — and left it stuck over the page if the module
+  never ran. JS only ever *removes* those attributes.
+- `[data-hidden]` also sets `visibility: hidden`. `inert` alone is ignored by
+  Firefox below 112 and Safari below 15.5, and neither `opacity: 0` nor
+  `pointer-events: none` removes focusability, so a keyboard user on those
+  engines would tab into two invisible off-screen links.
+
+**The mockups animate on reveal** (`css/components/mockups.css`). Every keyframe
+declares only `from` and fills `backwards`, so the element's ordinary CSS *is*
+the resting state — with no animation running (reduced motion, no JS, an older
+engine) the screens simply render finished. Keep that property: a keyframe with
+a `to` would make the mockups depend on the animation having run. The whole
+block sits inside one `prefers-reduced-motion: no-preference` query rather than
+being switched off further down, so there is a single guard and no specificity
+duel to lose. The hero copy of the dashboard plays on load; the case cards play
+off `.project-card.visible`, which `animations.js` sets.
 
 ## Contact form delivery
 
@@ -149,17 +216,38 @@ publishing, monthly support). Do not add a claim there that appears nowhere
 else — no founding year, no team size, no client count — unless the owner
 supplies it, and then add it to both surfaces.
 
-**The named industry sectors are portfolio-derived, not aspirational.** The copy
-says the systems in production operate in agroindustria y trazabilidad de lotes,
-logística y distribución de última milla, and productos digitales de consumo.
-Those three exist because — and only because — the three case cards below them
-say so (Tonalli ERP, ActuarEnvíos, Urban Reps). They are repeated in the
-`#nosotros` prose, in `llms.txt` under "Quiénes somos" and "Sectores atendidos",
-in the meta description, in `Organization.description` and in `knowsAbout`.
-Adding a sector means the owner has a delivered case to back it; removing a case
-means removing its sector from every one of those surfaces. A vertical claimed
-with no project behind it is a false promise on the page and a contradicted
-signal in the schema.
+**The page segments by capability, not by sector — that axis is deliberate.**
+The H1, `slogan`, meta/`og`/`twitter` descriptions and `Organization.description`
+all name what gets built (aplicaciones móviles, web, sistemas internos,
+integraciones por API) and say **`para empresas de cualquier sector`**. They
+used to name verticals instead, and the owner asked for that filter to come off:
+a buyer outside the named industries was reading the headline as "not for me".
+
+Do not put a vertical back at the top of the funnel. If breadth ever needs
+restating, restate it on the capability axis — it is specific, it keeps the
+keywords, and it excludes nobody. `para cualquier industria` is the wrong fix:
+it is what every dev shop on earth says, and it hands the buyer the job of
+working out whether you can solve their problem.
+
+**Lower down, the named sectors stay — as evidence, never as scope.** They
+survive in exactly four places: `knowsAbout`, the `#nosotros` paragraph that
+opens *"Los sistemas que hemos puesto en producción operan en…"*, the same
+sentence in `llms.txt` under "Quiénes somos", and the `Sectores atendidos` line
+in `llms.txt` (which reads *cualquier sector* first and then names where systems
+are actually running). All four are phrased as delivery history, and each is
+backed by a case card below (Tonalli ERP, ActuarEnvíos, Urban Reps).
+
+That backing is the rule: adding a sector means the owner has a delivered case
+for it; removing a case means removing its sector from all four. A vertical
+claimed with no project behind it is a false promise on the page and a
+contradicted signal in the schema.
+
+**The hero type scale is tuned to the headline's length**, not chosen in the
+abstract — see the comment on `.hero__title` in `css/layout/hero.css`. The
+capability headline is 77 characters; at the previous `clamp()` it set six lines
+and 396px, which pushed the call to action below the fold on a 1366×768 laptop.
+Four lines is the budget. If the headline changes materially, measure the CTA
+against the fold again rather than assuming it still fits.
 
 **The page addresses the reader as `usted`, without exception** — headings,
 form labels, placeholders, disclaimers and the success panel included. This has
@@ -169,7 +257,7 @@ B2B page reads as careless, and the metadata is part of the page: `og:descriptio
 carried an imperative `Impulsa tu negocio` long after the visible copy had moved
 to `usted`.
 
-**The FAQ answers are duplicated in three places** — the `<h3>`/`<p>` pairs in
+**The FAQ answers are duplicated in three places** — the six `<details>` in
 `index.html`, the `FAQPage` `mainEntity` inside the JSON-LD, and the
 "Respuestas frecuentes" section of `llms.txt`. Structured data that contradicts
 the visible page is a guidelines violation, so edit all three together or edit
@@ -178,6 +266,16 @@ in the JSON-LD only, leaving marked-up questions that appeared nowhere on the
 page. The marked-up question must match the rendered `<h3>` **verbatim** —
 check it, do not assume it. The same applies to the six services (visible cards, `hasOfferCatalog`,
 `llms.txt`) and the two testimonials (visible `<figure>`s, `review`).
+
+The accordion markup is `<details class="faq__item" name="faq">` wrapping
+`<summary>` → `<h3 class="faq__question">` plus a decorative `<span>` marker. A
+heading is valid as the sole content of `<summary>`, and keeping the marker on
+the summary rather than inside the heading is what stops a chevron character
+from ever landing inside the text the `FAQPage` markup has to match. The shared
+`name` makes the six an exclusive group; engines without support just allow
+several open at once, which is the old behaviour. The grid is a single column on
+purpose — in two columns, opening an item on the left reflows the right-hand
+column and moves the question the reader was about to reach.
 
 The JSON-LD is a single `@graph` with four nodes: `Organization` (services,
 reviews, contact point), `WebSite`, `WebPage`+`FAQPage` (the six questions) and

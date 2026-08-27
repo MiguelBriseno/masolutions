@@ -1,15 +1,21 @@
 .hero {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
   gap: 48px;
   align-items: center;
-  padding: clamp(36px, 7vw, 64px) 0 var(--section-gap);
+  padding: clamp(30px, 6vw, 56px) 0 var(--section-gap);
 }
 
+/* The scale is tuned to the headline's length, not picked in the abstract. At
+   the previous clamp() this title set six lines and 396px of height, which
+   pushed the call to action off the fold on a 768px-tall laptop. Four lines is
+   the budget; if the copy gets materially longer, re-measure rather than
+   letting it wrap further. max-width is in ch so it keeps holding the measure
+   if the hero ever gets a wider column. */
 .hero__title {
-  font-size: clamp(40px, 5.4vw, 60px);
+  font-size: clamp(34px, 4.4vw, 50px);
   margin-top: 20px;
-  max-width: 20ch;
+  max-width: 22ch;
 }
 
 .hero__lead {
@@ -33,63 +39,104 @@
   margin-top: 18px;
 }
 
-/* Model panel */
-.hero__panel {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 26px;
-  box-shadow: var(--shadow-md);
+/* ---- Product visual ----
+   The mockups are the strongest asset on the page, so one of them opens it
+   instead of sitting four sections down. This one is deliberately generic
+   ("suempresa"): the three named mockups below belong to real clients and
+   naming one here would promote a single case above the others. */
+.hero__visual {
+  position: relative;
 }
 
-.hero__panel-label {
-  font-size: 11.5px;
+.hero__visual .mock {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 50px rgba(20, 20, 31, 0.1);
+}
+
+/* ---- Commitment strip ----
+   Spans both columns under the hero. The 1px grid gap over a border-coloured
+   background draws the dividers, so no cell needs its own border and none of
+   them double up at the seams. */
+.hero__facts {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
+  gap: 1px;
+  margin-top: 8px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.hero__fact {
+  background: var(--color-surface);
+  padding: 18px 20px;
+}
+
+.hero__fact-value {
+  display: block;
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero__fact-key {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
   color: var(--color-text-subtle);
 }
 
-.hero__panel-list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 14px;
-}
+/* ---- Entrance ----
+   The first 800ms decide whether the page feels alive, and until now they were
+   completely static. Each hero child rises in on its own delay.
 
-.hero__panel-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 14px;
-  padding-block: 14px;
-  border-top: 1px solid var(--color-border-soft);
-}
-
-.hero__panel-key {
-  font-size: 14.5px;
-  color: var(--color-text-muted);
-}
-
-.hero__panel-value {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 20px;
-  text-align: right;
-}
-
-/* The label/value pair stacks once the row can no longer hold both. */
-@media (max-width: 400px) {
-  .hero__panel {
-    padding: 20px;
+   This is a CSS animation with no JavaScript behind it and `backwards` fill, so
+   the resting state is the normal one: if the stylesheet never loads, or the
+   engine does not support the query, the hero simply appears — it can never get
+   stuck invisible the way a JS-driven reveal can. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__content > *,
+  .hero__visual,
+  .hero__facts {
+    animation: hero-rise 620ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
   }
 
-  .hero__panel-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
+  .hero__content > *:nth-child(1) { animation-delay: 60ms; }
+  .hero__content > *:nth-child(2) { animation-delay: 130ms; }
+  .hero__content > *:nth-child(3) { animation-delay: 200ms; }
+  .hero__content > *:nth-child(4) { animation-delay: 270ms; }
+  .hero__content > *:nth-child(5) { animation-delay: 330ms; }
+
+  .hero__visual {
+    animation-duration: 780ms;
+    animation-delay: 220ms;
   }
 
-  .hero__panel-value {
-    text-align: left;
-    font-size: 18px;
+  .hero__facts {
+    animation-delay: 420ms;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* The strip is the first thing to give up its row: four values side by side
+   stop being readable long before the hero columns collapse. */
+@media (max-width: 420px) {
+  .hero__fact {
+    padding: 15px 17px;
+  }
+
+  .hero__fact-value {
+    font-size: 20px;
   }
 }
