@@ -111,6 +111,8 @@ four derive from `icon.webp`; regenerate them together with it.
 - **animations.js** — `IntersectionObserver` adds `.visible` to `.animate-on-scroll` elements; CSS handles the transition, and it is skipped under `prefers-reduced-motion`
 - **action-bar.js** — parks the fixed mobile CTA off screen while the hero or
   the contact section is visible, and toggles `inert` with it
+- **analytics.js** — loads the Microsoft Clarity tag from a `'self'` module instead of the inline snippet the CSP blocks (see Analytics below)
+- **gtm.js** — same treatment for the Google Tag Manager container; `environment.js` holds the host guard both loaders share
 
 **The header is sticky and lives outside `.container`.** The bar has to span the
 full viewport; wrapped in the 1180px column it would stop short at both sides on
@@ -165,6 +167,119 @@ block sits inside one `prefers-reduced-motion: no-preference` query rather than
 being switched off further down, so there is a single guard and no specificity
 duel to lose. The hero copy of the dashboard plays on load; the case cards play
 off `.project-card.visible`, which `animations.js` sets.
+
+## Analytics
+
+Microsoft Clarity (project `y95cif49iw`) runs from
+`js/components/analytics.js`, not from the inline snippet Clarity hands out.
+The page CSP has no `script-src 'unsafe-inline'`, so that snippet is blocked
+outright — and opening inline scripts to admit an analytics tag would admit
+every injected script too. The module transcribes the vendor loader (queue shim
+plus an async `<script>` pointing at the tag) from a file served from `'self'`,
+and the CSP allows `https://*.clarity.ms` in `script-src`, `img-src` and
+`connect-src` — Clarity load-balances its tag and its ingestion across
+`scripts.`, `a.` and `c.clarity.ms`.
+
+`https://c.bing.com` is in `img-src` **only**, and it is not optional even
+though the string appears nowhere in `clarity.js`. The MUID sync pixel at
+`https://c.clarity.ms/c.gif` answers `302` to `https://c.bing.com/c.gif`, and
+CSP checks the destination of a redirect, not just the URL first requested —
+without that origin the pixel is blocked. It is deliberately absent from
+`connect-src`, and that is not a guess: the sync is
+`function sync(){(new Image).src="https://c.clarity.ms/c.gif"}` in the tag, an
+image load governed by `img-src`. The tag contains exactly one `new Image` and
+no `fetch`, `sendBeacon` or `XMLHttpRequest` at all, so no Clarity request can
+reach `c.bing.com` through `connect-src`.
+
+Keep the Clarity origins in sync between the `index.html` meta tag and
+`_headers`. The two policies are **not** otherwise identical: `frame-ancestors`
+stays `_headers`-only, because a `<meta>` CSP is specified to ignore it.
+
+The queue shim stays a `function`, not an arrow — it forwards `arguments`,
+which an arrow function does not have.
+
+The third-party loaders run **after** the page's own components in `main.js`,
+and each body is wrapped in `try`/`catch`. Privacy extensions neutralize known
+analytics globals by redefining `window.clarity` as non-writable, as a getter
+with no setter, or as a throwing Proxy; modules are strict mode, so **both**
+reading and assigning it can throw. That is why the duplicate-load guard sits
+inside the `try` rather than before it. Ordered first and unguarded, such a
+throw would take the navbar, the mobile menu, the action bar and the contact
+form — the site's only conversion path — down with it.
+
+Both loaders return early on local hosts via `isMeasuredHost()` in
+`js/core/environment.js` — the shared guard exists so the two cannot drift.
+It covers `localhost`, `0.0.0.0`, loopback, the RFC 1918 private ranges,
+link-local and `.local`/`.localhost`, not just `localhost`. The private ranges
+are not padding: checking the layout at 320px means `--bind 0.0.0.0` and
+opening `http://192.168.x.x:8000` on a real phone, and that session would
+otherwise be recorded into the production project.
+
+The `<noscript>` iframe is the one path this guard cannot cover — gating it
+would take JavaScript, which is the whole point of `<noscript>`. A developer
+browsing localhost with JavaScript disabled registers one pageview in the
+production container. Narrow enough to accept; worth knowing before someone
+hunts the phantom hit.
+
+`404.html` is deliberately left out: it runs no JavaScript at all and its CSP
+is `script-src 'none'`. Measuring broken inbound links would mean giving that
+page a script, which is a bigger change than the data is worth.
+
+**The site publishes no aviso de privacidad, and it needs one.** The contact
+form already collects nombre, telefono, email and detalle, which makes an aviso
+de privacidad a requirement under the LFPDPPP on its own — that gap predates
+Clarity. Clarity widens it: it sets first-party cookies (`_clck`, `_clsk`) and
+records session replays of the visitor filling that form, and transmits them to
+a third party with no disclosure anywhere on the page. This is the owner's
+decision to make, not a change to be made for them. If a notice or consent
+banner is ever added, `initClarity()` is the single call to gate behind it.
+
+### Google Tag Manager
+
+Container `GTM-MNRGGGF9`, loaded from `js/components/gtm.js` for the same
+reason Clarity is: the snippet Google publishes is an inline `<script>` and
+there is no `script-src 'unsafe-inline'`. Google's documented alternative is a
+per-request **nonce**, which this site cannot produce — GitHub Pages serves
+static files and there is no server to generate one per response. A module
+served from `'self'` is what is left.
+
+The `<noscript>` iframe sits immediately after `<body>`. Google ships it with
+`style="display:none;visibility:hidden"`, blocked by the CSP, so the same two
+declarations live in `.gtm-noscript` in `globals.css`. It also needed a new
+`frame-src` directive: frames previously fell back to `default-src 'self'`.
+
+**GTM here is not a no-deploy tag manager, and that is the whole point of GTM.**
+The CSP allows Google's own measurement origins, so a GA4 or Google Ads tag
+configured in the UI will work. Anything else will not: a Custom HTML tag
+injects an inline script and is blocked outright, and any third-party pixel
+(Meta, LinkedIn, TikTok, Hotjar…) is blocked until its origin is added to the
+CSP in **both** `index.html` and `_headers` and the change is deployed. Google's
+CSP guide does not cover custom or third-party tags at all. The failure is
+silent — the tag reports as fired in GTM's preview while the browser blocks the
+request — so check the console before believing a new tag works.
+
+Origins allowed for GTM and GA4: `https://www.googletagmanager.com` in
+`script-src`, `img-src`, `connect-src` and `frame-src`, plus
+`https://*.google-analytics.com`, `https://*.analytics.google.com`,
+`https://*.g.doubleclick.net` and `https://www.google.com`. Deliberately **not**
+included, because no Ads campaign runs yet: `pagead2.googlesyndication.com`,
+`www.googleadservices.com` and the `https://*.google.<TLD>` ccTLD wildcards.
+Add them if remarketing or conversion tracking is ever turned on.
+
+At install time the container was **empty** — `"tags":[]`, `"rules":[]` — so it
+downloads ~328 KB of runtime and measures nothing until tags are configured.
+
+**GTM Preview does not work under this policy**, which is awkward given that
+every tag added to an empty container needs validating. The debug overlay is
+served from origins the CSP does not allow: `https://tagmanager.google.com` in
+`script-src`, `style-src` and `frame-src`, plus `https://www.gstatic.com` and
+`https://ssl.gstatic.com` in `img-src`. They are left out on purpose — letting
+Google serve **styles** into the page permanently, to support a tool only the
+owner ever opens, is a poor trade. Add them temporarily on a branch to debug,
+and drop them before merging.
+
+**Do not add Clarity as a tag inside GTM.** It is already loaded directly by
+`analytics.js`; a second copy through the container would double-count sessions.
 
 ## Contact form delivery
 

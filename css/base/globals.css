@@ -123,6 +123,13 @@ button {
   background: var(--color-primary-tint);
 }
 
+/* Google Tag Manager's noscript iframe. Google ships it with an inline style
+   attribute, which the CSP blocks, so the same two declarations live here. */
+.gtm-noscript {
+  display: none;
+  visibility: hidden;
+}
+
 /* Above .site-header (30) and .action-bar (25): the skip link is the first
    thing a keyboard user reaches and must never appear behind either of them. */
 .skip-link {
