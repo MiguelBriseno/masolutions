@@ -5,6 +5,28 @@
 > internos e integraciones por API para empresas. Sitio oficial:
 > https://masolutions.mx/
 
+## Quiénes somos
+
+MASolutions es un estudio mexicano de desarrollo de software a la medida.
+Construye aplicaciones móviles para iOS y Android, aplicaciones web, sistemas
+internos e integraciones por API para empresas cuya operación todavía depende de
+hojas de cálculo y procesos manuales. Trabaja en remoto con clientes de todo el
+país y atiende de forma local en Tala y la zona metropolitana de Guadalajara,
+Jalisco. La atención, la propuesta y la documentación de entrega se hacen en
+español. Cada proyecto arranca con un levantamiento de requerimientos y termina
+con un sistema documentado, publicado y con soporte acordado; si el desarrollo ya
+está empezado, se audita el código existente y se presenta un plan para
+continuarlo, corregirlo o migrarlo.
+
+## Compromisos de trabajo
+
+- Propuesta formal por escrito: 48 horas
+- Alcance, precio y plazo: cerrados
+- Avances demostrables: cada 2 semanas
+- Documentación de entrega: incluida
+- Publicación en tiendas: App Store y Google Play
+- Soporte tras el lanzamiento: contrato mensual
+
 ## Datos de la empresa
 
 - Nombre: MASolutions

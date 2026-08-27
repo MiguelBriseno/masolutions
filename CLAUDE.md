@@ -87,6 +87,14 @@ sync with the page:
   for answer engines. Adoption of this convention is still informal; it costs
   nothing and no crawler is required to read it.
 
+**The "Nosotros" prose is duplicated in two places** — the `#nosotros` section
+in `index.html` and the "Quiénes somos" / "Compromisos de trabajo" sections of
+`llms.txt`. Every claim in it is one the rest of the page already makes (48-hour
+proposal, closed scope and price, two-week cycles, documentation included, store
+publishing, monthly support). Do not add a claim there that appears nowhere
+else — no founding year, no team size, no client count — unless the owner
+supplies it, and then add it to both surfaces.
+
 **The FAQ answers are duplicated in three places** — the `<h3>`/`<p>` pairs in
 `index.html`, the `FAQPage` `mainEntity` inside the JSON-LD, and the
 "Respuestas frecuentes" section of `llms.txt`. Structured data that contradicts
