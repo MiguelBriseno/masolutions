@@ -6,6 +6,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static landing page for masolutions.mx — vanilla HTML/CSS/ES6 JavaScript, **no build tools, no frameworks, no npm**.
 
+## Branching
+
+**Every change lands on its own branch. Never commit to `master`.** This holds
+for one-line fixes, copy tweaks and documentation edits just as much as for
+features — there is no change small enough to be an exception.
+
+Before the first edit of any task, branch:
+
+```bash
+git switch -c <type>/<short-kebab-description>   # feat/, fix/, docs/, chore/, perf/
+```
+
+Then commit there and open a pull request against `master`. `master` only ever
+moves through a merged PR.
+
+This is not ceremony on a static site. GitHub Pages deploys `master` directly —
+`source.branch: master`, no Actions workflow, no build step and no staging
+environment — so a commit pushed to `master` is **live on masolutions.mx within
+a minute**, with nothing between the typo and the visitor. The branch is the
+only place a change can be looked at before the public sees it.
+
+If work is already sitting uncommitted on `master`, do not commit it there and
+fix it afterwards. Branch first — `git switch -c` carries the uncommitted
+changes across untouched — and commit on the new branch.
+
+When a change builds on another branch that is still an open PR, branch from
+that branch and target the PR at it rather than at `master`. Chaining keeps each
+diff limited to its own concern; retargeting at `master` would replay the parent
+branch's commits inside the child's diff and make both unreviewable.
+
 ## Local Development
 
 ```bash
@@ -118,6 +148,26 @@ proposal, closed scope and price, two-week cycles, documentation included, store
 publishing, monthly support). Do not add a claim there that appears nowhere
 else — no founding year, no team size, no client count — unless the owner
 supplies it, and then add it to both surfaces.
+
+**The named industry sectors are portfolio-derived, not aspirational.** The copy
+says the systems in production operate in agroindustria y trazabilidad de lotes,
+logística y distribución de última milla, and productos digitales de consumo.
+Those three exist because — and only because — the three case cards below them
+say so (Tonalli ERP, ActuarEnvíos, Urban Reps). They are repeated in the
+`#nosotros` prose, in `llms.txt` under "Quiénes somos" and "Sectores atendidos",
+in the meta description, in `Organization.description` and in `knowsAbout`.
+Adding a sector means the owner has a delivered case to back it; removing a case
+means removing its sector from every one of those surfaces. A vertical claimed
+with no project behind it is a false promise on the page and a contradicted
+signal in the schema.
+
+**The page addresses the reader as `usted`, without exception** — headings,
+form labels, placeholders, disclaimers and the success panel included. This has
+already drifted once: the email placeholder read `tu@empresa.com` while the
+surrounding section used `Describa` and `Le responderemos`. Mixed register in a
+B2B page reads as careless, and the metadata is part of the page: `og:description`
+carried an imperative `Impulsa tu negocio` long after the visible copy had moved
+to `usted`.
 
 **The FAQ answers are duplicated in three places** — the `<h3>`/`<p>` pairs in
 `index.html`, the `FAQPage` `mainEntity` inside the JSON-LD, and the
