@@ -10,14 +10,16 @@ const CLARITY_TAG_URL = `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`;
 // host is allowed in the CSP.
 export function initClarity() {
   if (!isMeasuredHost()) return;
-  if (window.clarity) return;
 
   // Privacy extensions and enterprise policy scripts neutralize known analytics
-  // globals by redefining them as non-writable or as a getter with no setter.
-  // Modules are strict mode, so the assignment below throws a TypeError in that
-  // case — and `window.clarity` reads back as undefined, so the guard above
-  // does not catch it. Analytics is not worth taking the page down for.
+  // globals by redefining them as non-writable, as a getter with no setter, or
+  // as a throwing Proxy. Modules are strict mode, so both the read and the
+  // assignment below can throw — which is why the duplicate-load guard sits
+  // inside the try and not before it. Analytics is not worth taking the page
+  // down for, and a throw escaping here would also skip initGtm().
   try {
+    if (window.clarity) return;
+
     // Queue shim: calls made before the tag downloads are replayed by Clarity
     // from `.q`. It stays a `function` because it forwards `arguments` — an
     // arrow function has none.

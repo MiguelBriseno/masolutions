@@ -118,8 +118,11 @@ though the string appears nowhere in `clarity.js`. The MUID sync pixel at
 `https://c.clarity.ms/c.gif` answers `302` to `https://c.bing.com/c.gif`, and
 CSP checks the destination of a redirect, not just the URL first requested —
 without that origin the pixel is blocked. It is deliberately absent from
-`connect-src`: no upload was observed redirecting off `*.clarity.ms`. If
-recordings ever stop arriving, adding it back there is the first thing to try.
+`connect-src`, and that is not a guess: the sync is
+`function sync(){(new Image).src="https://c.clarity.ms/c.gif"}` in the tag, an
+image load governed by `img-src`. The tag contains exactly one `new Image` and
+no `fetch`, `sendBeacon` or `XMLHttpRequest` at all, so no Clarity request can
+reach `c.bing.com` through `connect-src`.
 
 Keep the Clarity origins in sync between the `index.html` meta tag and
 `_headers`. The two policies are **not** otherwise identical: `frame-ancestors`
@@ -128,19 +131,27 @@ stays `_headers`-only, because a `<meta>` CSP is specified to ignore it.
 The queue shim stays a `function`, not an arrow — it forwards `arguments`,
 which an arrow function does not have.
 
-`initClarity()` runs **last** in `main.js` and its body is wrapped in
-`try`/`catch`. Privacy extensions neutralize known analytics globals by
+The third-party loaders run **after** the page's own components in `main.js`,
+and each body is wrapped in `try`/`catch`. Privacy extensions neutralize known analytics globals by
 redefining `window.clarity` as non-writable or as a getter with no setter; in a
 module (strict mode) the assignment then throws, and the `if (window.clarity)`
 guard does not see it because the getter reads back as `undefined`. Ordered
 first and unguarded, that throw would take the navbar, the animations and the
 contact form — the site's only conversion path — down with it.
 
-It also returns early on `localhost`, `127.0.0.1` and `[::1]`. Clarity has no
-environment concept, so local page views would otherwise upload recordings of
-`http://localhost:8000/…` into the same project. Local hosts are excluded
-rather than production allow-listed, so changing the domain cannot silently
-switch analytics off.
+Both loaders return early on local hosts via `isMeasuredHost()` in
+`js/core/environment.js` — the shared guard exists so the two cannot drift.
+It covers `localhost`, `0.0.0.0`, loopback, the RFC 1918 private ranges,
+link-local and `.local`/`.localhost`, not just `localhost`. The private ranges
+are not padding: checking the layout at 320px means `--bind 0.0.0.0` and
+opening `http://192.168.x.x:8000` on a real phone, and that session would
+otherwise be recorded into the production project.
+
+The `<noscript>` iframe is the one path this guard cannot cover — gating it
+would take JavaScript, which is the whole point of `<noscript>`. A developer
+browsing localhost with JavaScript disabled registers one pageview in the
+production container. Narrow enough to accept; worth knowing before someone
+hunts the phantom hit.
 
 `404.html` is deliberately left out: it runs no JavaScript at all and its CSP
 is `script-src 'none'`. Measuring broken inbound links would mean giving that
@@ -189,6 +200,15 @@ Add them if remarketing or conversion tracking is ever turned on.
 
 At install time the container was **empty** — `"tags":[]`, `"rules":[]` — so it
 downloads ~328 KB of runtime and measures nothing until tags are configured.
+
+**GTM Preview does not work under this policy**, which is awkward given that
+every tag added to an empty container needs validating. The debug overlay is
+served from origins the CSP does not allow: `https://tagmanager.google.com` in
+`script-src`, `style-src` and `frame-src`, plus `https://www.gstatic.com` and
+`https://ssl.gstatic.com` in `img-src`. They are left out on purpose — letting
+Google serve **styles** into the page permanently, to support a tool only the
+owner ever opens, is a poor trade. Add them temporarily on a branch to debug,
+and drop them before merging.
 
 **Do not add Clarity as a tag inside GTM.** It is already loaded directly by
 `analytics.js`; a second copy through the container would double-count sessions.
