@@ -6,7 +6,7 @@
     <title>MASolutions | Desarrollo de Software a la Medida en Guadalajara</title>
     <meta
       name="description"
-      content="Software a la medida para agroindustria, logística y operación empresarial: apps iOS y Android, aplicaciones web e integraciones API. Guadalajara, Jalisco."
+      content="Software a la medida: apps iOS y Android, aplicaciones web, sistemas internos e integraciones API. Guadalajara, Jalisco."
     />
     <meta name="author" content="MASolutions" />
     <meta
@@ -35,7 +35,7 @@
     />
     <meta
       property="og:description"
-      content="Aplicaciones móviles, plataformas web e integraciones API a la medida para agroindustria, logística y operación empresarial. Propuesta formal en 48 horas."
+      content="Aplicaciones móviles, plataformas web, sistemas internos e integraciones API a la medida para empresas de cualquier sector. Propuesta formal en 48 horas."
     />
     <meta property="og:url" content="https://masolutions.mx/" />
     <meta
@@ -47,7 +47,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="MASolutions — ingeniería de software a la medida para la industria y la logística"
+      content="MASolutions — ingeniería de software a la medida: aplicaciones móviles, web e integraciones"
     />
     <meta property="og:site_name" content="MASolutions" />
     <meta property="og:locale" content="es_MX" />
@@ -66,7 +66,7 @@
     />
     <meta
       name="twitter:image:alt"
-      content="MASolutions — ingeniería de software a la medida para la industria y la logística"
+      content="MASolutions — ingeniería de software a la medida: aplicaciones móviles, web e integraciones"
     />
 
     <script type="application/ld+json">
@@ -79,8 +79,8 @@
             "name": "MASolutions",
             "alternateName": "masolutions",
             "url": "https://masolutions.mx/",
-            "description": "MASolutions es una firma mexicana de ingeniería de software a la medida: aplicaciones móviles iOS y Android, plataformas web, sistemas internos e integraciones por API para agroindustria, logística y operación empresarial.",
-            "slogan": "Ingeniería de software a la medida para la industria y la logística",
+            "description": "MASolutions es una firma mexicana de ingeniería de software a la medida: aplicaciones móviles iOS y Android, plataformas web, sistemas internos e integraciones por API para empresas de cualquier sector.",
+            "slogan": "Ingeniería de software a la medida: aplicaciones móviles, web e integraciones",
             "email": "miguel.briseno.bustos@gmail.com",
             "telephone": "+52-33-1217-0122",
             "knowsLanguage": "es",
@@ -256,7 +256,7 @@
             "@id": "https://masolutions.mx/#webpage",
             "url": "https://masolutions.mx/",
             "name": "MASolutions | Desarrollo de Software a la Medida en Guadalajara",
-            "description": "Software a la medida para agroindustria, logística y operación empresarial: apps iOS y Android, aplicaciones web e integraciones API. Guadalajara, Jalisco.",
+            "description": "Software a la medida: apps iOS y Android, aplicaciones web, sistemas internos e integraciones API. Guadalajara, Jalisco.",
             "inLanguage": "es-MX",
             "datePublished": "2026-08-26",
             "dateModified": "2026-08-27",
@@ -377,6 +377,10 @@
     <link rel="stylesheet" href="./css/layout/contact.css" />
     <link rel="stylesheet" href="./css/layout/footer.css" />
     <link rel="stylesheet" href="./css/components/mockups.css" />
+    <!-- cards.css restates the scroll-reveal transition it overrides, so it has
+         to stay after animations.css. -->
+    <link rel="stylesheet" href="./css/components/cards.css" />
+    <link rel="stylesheet" href="./css/components/action-bar.css" />
   </head>
 
   <body>
@@ -393,39 +397,69 @@
       ></iframe>
     </noscript>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <div class="container">
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="#top" class="nav__brand">
-          <img
-            src="./assets/logo.webp"
-            alt=""
-            class="nav__logo"
-            width="52"
-            height="29"
-            decoding="async"
-          />
-          <span class="nav__brand-name">masolutions</span>
-        </a>
-        <a href="#nosotros" class="nav__link">Nosotros</a>
-        <a href="#servicios" class="nav__link">Servicios</a>
-        <a href="#proceso" class="nav__link">Proceso</a>
-        <a href="#casos" class="nav__link">Casos</a>
-        <a href="#faq" class="nav__link">Preguntas</a>
-        <a href="#contacto" class="btn btn--primary btn--sm">Solicitar propuesta</a>
-      </nav>
 
+    <!-- 1px probe navbar.js watches to tell whether the page has scrolled. -->
+    <span class="header-sentinel" aria-hidden="true"></span>
+
+    <!-- The header sits outside .container so the sticky bar spans the whole
+         viewport instead of stopping at the 1180px content column. -->
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav" aria-label="Navegación principal">
+          <a href="#top" class="nav__brand">
+            <img
+              src="./assets/logo.webp"
+              alt=""
+              class="nav__logo"
+              width="52"
+              height="29"
+              decoding="async"
+            />
+            <span class="nav__brand-name">masolutions</span>
+          </a>
+
+          <button
+            class="nav__toggle"
+            id="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+            aria-label="Abrir menú de navegación"
+          >
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+          </button>
+
+          <div class="nav__menu" id="nav-menu">
+            <a href="#nosotros" class="nav__link">Nosotros</a>
+            <a href="#servicios" class="nav__link">Servicios</a>
+            <a href="#proceso" class="nav__link">Proceso</a>
+            <a href="#casos" class="nav__link">Casos</a>
+            <a href="#faq" class="nav__link">Preguntas</a>
+          </div>
+
+          <a href="#contacto" class="btn btn--primary btn--sm nav__cta"
+            >Solicitar propuesta</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
       <main id="contenido" tabindex="-1">
         <section id="top" class="hero" aria-labelledby="hero-title">
           <div class="hero__content">
             <span class="pill pill--wide">INGENIERÍA DE SOFTWARE A LA MEDIDA</span>
             <h1 class="hero__title" id="hero-title">
-              Ingeniería de software a la medida para la industria y la logística
+              Ingeniería de software a la medida: aplicaciones móviles, web e
+              integraciones
             </h1>
             <p class="hero__lead">
               Diseñamos, desarrollamos y mantenemos aplicaciones móviles,
-              plataformas web y sistemas internos para empresas de agroindustria,
-              logística y operación intensiva en procesos. Alcance cerrado,
-              plazos comprometidos y entregas verificables cada dos semanas.
+              plataformas web, sistemas internos e integraciones por API para
+              empresas de cualquier sector. Alcance cerrado, plazos
+              comprometidos y entregas verificables cada dos semanas.
             </p>
             <div class="hero__actions">
               <a href="#contacto" class="btn btn--primary">Solicitar una propuesta</a>
@@ -437,34 +471,107 @@
             </p>
           </div>
 
-          <div class="hero__panel">
-            <span class="hero__panel-label">MODELO DE TRABAJO</span>
-            <div class="hero__panel-list">
-              <div class="hero__panel-row">
-                <span class="hero__panel-key">Primera propuesta</span>
-                <span class="hero__panel-value">48 h</span>
-              </div>
-              <div class="hero__panel-row">
-                <span class="hero__panel-key">Ciclo de entrega</span>
-                <span class="hero__panel-value">2 semanas</span>
-              </div>
-              <div class="hero__panel-row">
-                <span class="hero__panel-key">Plataformas</span>
-                <span class="hero__panel-value">iOS · Android · Web</span>
-              </div>
-              <div class="hero__panel-row">
-                <span class="hero__panel-key">Documentación de entrega</span>
-                <span class="hero__panel-value">Incluida</span>
+          <!-- Illustrative operations dashboard, drawn in markup like the case
+               mockups below (see css/components/mockups.css). The domain here
+               is deliberately generic — "suempresa", orders, on-time rate — so
+               the hero shows what the work looks like without promoting one of
+               the three named client systems above the other two. -->
+          <div class="hero__visual">
+            <div class="mock mock--browser mock--hero" aria-hidden="true">
+              <div class="mock__window">
+                <div class="mock__chrome">
+                  <span class="mock__dot"></span>
+                  <span class="mock__dot"></span>
+                  <span class="mock__dot"></span>
+                  <span class="mock__url">panel.suempresa.mx/operacion</span>
+                </div>
+                <div class="mock__app">
+                  <div class="mock__sidebar">
+                    <span class="mock__sidebar-brand">PANEL</span>
+                    <span class="mock__sidebar-item mock__sidebar-item--active"></span>
+                    <span class="mock__sidebar-item"></span>
+                    <span class="mock__sidebar-item"></span>
+                    <span class="mock__sidebar-item"></span>
+                    <span class="mock__sidebar-item"></span>
+                  </div>
+                  <div class="mock__main">
+                    <div class="mock__kpis">
+                      <div class="mock__kpi">
+                        <div class="mock__kpi-label">ÓRDENES ABIERTAS</div>
+                        <div class="mock__kpi-value">312</div>
+                      </div>
+                      <div class="mock__kpi">
+                        <div class="mock__kpi-label">EN PROCESO</div>
+                        <div class="mock__kpi-value">87</div>
+                      </div>
+                      <div class="mock__kpi">
+                        <div class="mock__kpi-label">ENTREGA A TIEMPO</div>
+                        <div class="mock__kpi-value mock__kpi-value--accent">96%</div>
+                      </div>
+                    </div>
+                    <div class="mock__chart">
+                      <div class="mock__chart-label">ÓRDENES COMPLETADAS POR SEMANA</div>
+                      <div class="mock__bars">
+                        <span class="mock__bar"></span>
+                        <span class="mock__bar"></span>
+                        <span class="mock__bar"></span>
+                        <span class="mock__bar"></span>
+                        <span class="mock__bar"></span>
+                        <span class="mock__bar mock__bar--active"></span>
+                        <span class="mock__bar"></span>
+                      </div>
+                    </div>
+                    <div class="mock__rows">
+                      <div class="mock__row">
+                        <span class="mock__row-key">OP-4821</span>
+                        <span class="mock__row-meta">Planta norte</span>
+                        <span class="mock__row-tag mock__row-tag--ok">CERRADA</span>
+                      </div>
+                      <div class="mock__row">
+                        <span class="mock__row-key">OP-4822</span>
+                        <span class="mock__row-meta">Almacén central</span>
+                        <span class="mock__row-tag">EN PROCESO</span>
+                      </div>
+                      <div class="mock__row">
+                        <span class="mock__row-key">OP-4823</span>
+                        <span class="mock__row-meta">Ruta 12</span>
+                        <span class="mock__row-tag">EN PROCESO</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- The commitments that used to sit in the hero's side panel. They
+               are still on the page, as a strip under both columns, so the
+               visual could take the column without any claim being dropped. -->
+          <ul class="hero__facts">
+            <li class="hero__fact">
+              <span class="hero__fact-value">48 h</span>
+              <span class="hero__fact-key">Primera propuesta</span>
+            </li>
+            <li class="hero__fact">
+              <span class="hero__fact-value">2 semanas</span>
+              <span class="hero__fact-key">Ciclo de entrega</span>
+            </li>
+            <li class="hero__fact">
+              <span class="hero__fact-value">iOS · Android · Web</span>
+              <span class="hero__fact-key">Plataformas</span>
+            </li>
+            <li class="hero__fact">
+              <span class="hero__fact-value">Incluida</span>
+              <span class="hero__fact-key">Documentación de entrega</span>
+            </li>
+          </ul>
         </section>
 
         <section id="nosotros" class="section about" aria-labelledby="nosotros-title">
           <span class="section__eyebrow">NOSOTROS</span>
           <h2 class="section__title" id="nosotros-title">
-            Desarrollo de software a la medida desde Jalisco para toda la
-            industria mexicana
+            Desarrollo de software a la medida desde Jalisco para empresas de
+            todo México
           </h2>
 
           <div class="about__layout">
@@ -878,63 +985,89 @@
           <h2 class="section__title" id="faq-title">
             Dudas habituales antes de iniciar un proyecto
           </h2>
+          <!-- <details>, not six open blocks. The question text inside each
+               <h3> is what the FAQPage markup in the JSON-LD above has to match
+               verbatim, so it is unchanged: only the wrapper around it moved.
+               A heading is valid as the sole content of <summary>.
+
+               name="faq" makes the six an exclusive group — one open at a time.
+               Engines that do not support it just let several open at once,
+               which is the old behaviour and harmless. -->
           <div class="faq__grid">
-            <div>
-              <h3 class="faq__question">
-                ¿Cuánto cuesta un proyecto de desarrollo de software?
-              </h3>
+            <details class="faq__item" name="faq" open>
+              <summary class="faq__summary">
+                <h3 class="faq__question">
+                  ¿Cuánto cuesta un proyecto de desarrollo de software?
+                </h3>
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
               <p class="faq__answer">
                 Depende del alcance definido. Tras la reunión inicial entregamos
                 una propuesta sin costo, con precio cerrado, entregables
                 detallados y plazos comprometidos por escrito.
               </p>
-            </div>
-            <div>
-              <h3 class="faq__question">
-                ¿Cuánto tiempo tarda el desarrollo de un proyecto?
-              </h3>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary class="faq__summary">
+                <h3 class="faq__question">
+                  ¿Cuánto tiempo tarda el desarrollo de un proyecto?
+                </h3>
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
               <p class="faq__answer">
                 Una primera versión funcional en producción toma habitualmente
                 entre 8 y 14 semanas, con avances demostrables cada dos semanas.
               </p>
-            </div>
-            <div>
-              <h3 class="faq__question">
-                ¿Cómo se da seguimiento al avance del proyecto?
-              </h3>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary class="faq__summary">
+                <h3 class="faq__question">
+                  ¿Cómo se da seguimiento al avance del proyecto?
+                </h3>
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
               <p class="faq__answer">
                 Una reunión de avance por ciclo, acceso permanente al tablero de
                 tareas y un informe escrito al cierre de cada fase.
               </p>
-            </div>
-            <div>
-              <h3 class="faq__question">
-                ¿Trabajan con proyectos de software ya iniciados?
-              </h3>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary class="faq__summary">
+                <h3 class="faq__question">
+                  ¿Trabajan con proyectos de software ya iniciados?
+                </h3>
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
               <p class="faq__answer">
                 Sí. Auditamos el código existente, documentamos su estado real
                 y presentamos un plan para continuarlo, corregirlo o migrarlo.
               </p>
-            </div>
-            <div>
-              <h3 class="faq__question">
-                ¿Publican la aplicación en App Store y Google Play?
-              </h3>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary class="faq__summary">
+                <h3 class="faq__question">
+                  ¿Publican la aplicación en App Store y Google Play?
+                </h3>
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
               <p class="faq__answer">
                 Sí. Gestionamos el proceso completo en App Store y Google Play:
                 fichas de tienda, material gráfico y respuesta a las revisiones.
               </p>
-            </div>
-            <div>
-              <h3 class="faq__question">
-                ¿Qué incluye el soporte después del lanzamiento?
-              </h3>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary class="faq__summary">
+                <h3 class="faq__question">
+                  ¿Qué incluye el soporte después del lanzamiento?
+                </h3>
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
               <p class="faq__answer">
                 Contratos de mantenimiento mensual con soporte, monitoreo,
                 atención de incidencias y horas de desarrollo para nuevas
                 funciones.
               </p>
-            </div>
+            </details>
           </div>
         </section>
 
@@ -1139,6 +1272,34 @@
         </span>
         <span>© <span id="footer-year">2026</span> masolutions. Todos los derechos reservados.</span>
       </footer>
+    </div>
+
+    <!-- Mobile call to action. Below 860px the header CTA is dropped and the
+         form is six screens down, so this follows the reader instead. It is
+         styled `display: none` above that width, and action-bar.js parks it
+         while the hero or the contact section is visible — both already show
+         the same button.
+
+         It ships with `data-hidden inert` already set. Parking it from the
+         deferred module instead would paint it on screen first and then slide
+         it out on every load, and if the module never runs the bar would be
+         stuck over the page with nothing to move it. -->
+    <div class="action-bar" data-hidden inert>
+      <a href="#contacto" class="btn btn--primary action-bar__cta">Solicitar propuesta</a>
+      <a
+        class="action-bar__wa"
+        href="https://wa.me/523312170122"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Escribir por WhatsApp al 33 1217 0122"
+      >
+        <svg class="action-bar__wa-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm5.8 14.15c-.24.68-1.4 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.75-1.09-4.5-3.9-4.64-4.08-.13-.18-1.1-1.47-1.1-2.8s.7-1.99.94-2.26c.25-.27.54-.34.72-.34.18 0 .36 0 .52.01.17.01.39-.06.61.47.24.53.79 1.86.86 2 .07.13.12.29.02.47-.1.18-.15.29-.29.45-.15.16-.31.36-.44.48-.15.13-.3.28-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.15.46.13.63-.07.18-.2.72-.85.92-1.14.19-.29.39-.24.65-.14.27.09 1.7.8 1.99.95.29.14.48.22.55.34.07.12.07.68-.16 1.36z"
+          />
+        </svg>
+        WhatsApp
+      </a>
     </div>
 
     <script type="module" src="./js/core/main.js"></script>

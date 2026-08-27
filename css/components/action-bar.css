@@ -1,0 +1,100 @@
+/* Fixed call to action for narrow viewports.
+
+   On a phone the header CTA is dropped (see header.css) and the contact form is
+   six screens down, so a visitor convinced in the first ten seconds had nowhere
+   to act. This bar follows them.
+
+   It is hidden — not absent — while the hero or the contact section is on
+   screen: both already carry the same action, and a floating duplicate of a
+   button the reader can already see is just something covering the page. */
+.action-bar {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .action-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 25;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px var(--container-pad);
+    /* Keeps the buttons clear of the iOS home indicator. */
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.92);
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -4px 24px rgba(20, 20, 31, 0.08);
+    transition: transform 280ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 200ms ease,
+      visibility 280ms;
+  }
+
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .action-bar {
+      background: rgba(255, 255, 255, 0.76);
+      -webkit-backdrop-filter: saturate(1.7) blur(14px);
+      backdrop-filter: saturate(1.7) blur(14px);
+    }
+  }
+
+  /* `inert` (set alongside data-hidden) takes the links out of the tab order
+     and the accessibility tree, but it is ignored by Firefox before 112 and
+     Safari before 15.5 — and neither opacity nor pointer-events removes
+     focusability, so on those engines a keyboard user would tab into two
+     invisible links parked off screen. `visibility` covers them, and unlike
+     `display` it still lets the slide-out run: transitioned to `hidden` it
+     holds until the end of the duration. */
+  .action-bar[data-hidden] {
+    transform: translateY(130%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .action-bar__cta {
+    flex: 1;
+  }
+
+  .action-bar__wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .action-bar__wa:hover {
+    color: var(--color-text);
+  }
+
+  .action-bar__wa-icon {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    fill: var(--color-primary-dark);
+  }
+
+  /* The bar floats over the page, so the footer needs room to clear it. */
+  body {
+    padding-bottom: 76px;
+  }
+}
+
+@media (max-width: 860px) and (prefers-reduced-motion: reduce) {
+  .action-bar {
+    transition: opacity 200ms ease;
+  }
+
+  .action-bar[data-hidden] {
+    transform: none;
+  }
+}

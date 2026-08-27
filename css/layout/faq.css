@@ -1,17 +1,123 @@
+/* Six always-open question/answer pairs were a wall of text: nothing to scan,
+   nothing to skip. They are <details> now.
+
+   Single column on purpose. In two columns, expanding an item on the left
+   reflows the right-hand column too, so every answer the reader opens moves
+   the question they were about to read next.
+
+   The rows run the full width of the section — every other section on the page
+   fills the container, and a narrower band here reads as a mistake rather than
+   a decision. Line length is held back on .faq__answer instead, which is the
+   only part that suffers from a long measure: the question is one short line
+   and the marker belongs at the far edge of the row. */
 .faq__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
-  gap: 30px 44px;
   margin-top: 28px;
+  border-top: 1px solid var(--color-border);
 }
 
+.faq__item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* list-style covers Firefox and modern Chrome; the -webkit- pseudo-element
+   below is still needed for older WebKit, which ignores it. */
+.faq__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-block: 19px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq__summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq__summary:hover .faq__question {
+  color: var(--color-primary-dark);
+}
+
+/* The marker sits on the summary rather than inside the <h3>, so it never ends
+   up inside the heading text that the FAQPage markup has to match verbatim. */
 .faq__question {
-  font-size: 19px;
-  margin-bottom: 8px;
+  font-size: 18px;
+  margin: 0;
+  transition: color var(--transition-fast);
+}
+
+.faq__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-soft);
+  transition: background var(--transition-fast);
+}
+
+/* A plus that loses its vertical stroke when open, rather than a chevron that
+   spins: the horizontal bar stays put, so the state change reads as one small
+   movement instead of a rotation. */
+.faq__icon::before,
+.faq__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 2px;
+  margin: -1px 0 0 -5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-dark);
+  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.faq__icon::after {
+  transform: rotate(90deg);
+}
+
+.faq__item[open] .faq__icon {
+  background: var(--color-primary);
+}
+
+.faq__item[open] .faq__icon::before,
+.faq__item[open] .faq__icon::after {
+  background: var(--color-on-primary);
+  transform: rotate(0deg);
 }
 
 .faq__answer {
   font-size: 15px;
   line-height: 1.65;
+  max-width: 68ch;
+  padding-bottom: 22px;
   color: var(--color-text-soft);
+}
+
+/* <details> cannot transition its own height without interpolate-size, which
+   is not universal yet. Fading the answer in gives the same impression of the
+   panel opening and works everywhere. */
+@media (prefers-reduced-motion: no-preference) {
+  .faq__item[open] .faq__answer {
+    animation: faq-answer-in 260ms ease-out;
+  }
+}
+
+@keyframes faq-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__question,
+  .faq__icon,
+  .faq__icon::before,
+  .faq__icon::after {
+    transition: none;
+  }
 }
