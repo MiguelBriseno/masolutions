@@ -1,22 +1,25 @@
 # MASolutions
 
-> Empresa mexicana de desarrollo de software a la medida. Diseña, desarrolla y
-> mantiene aplicaciones móviles (iOS y Android), aplicaciones web, sistemas
-> internos e integraciones por API para empresas. Sitio oficial:
-> https://masolutions.mx/
+> Firma mexicana de ingeniería de software a la medida. Diseña, desarrolla y
+> mantiene aplicaciones móviles (iOS y Android), plataformas web, sistemas
+> internos e integraciones por API para agroindustria, logística y operación
+> empresarial. Sitio oficial: https://masolutions.mx/
 
 ## Quiénes somos
 
-MASolutions es un estudio mexicano de desarrollo de software a la medida.
-Construye aplicaciones móviles para iOS y Android, aplicaciones web, sistemas
-internos e integraciones por API para empresas cuya operación todavía depende de
-hojas de cálculo y procesos manuales. Trabaja en remoto con clientes de todo el
-país y atiende de forma local en Tala y la zona metropolitana de Guadalajara,
-Jalisco. La atención, la propuesta y la documentación de entrega se hacen en
-español. Cada proyecto arranca con un levantamiento de requerimientos y termina
-con un sistema documentado, publicado y con soporte acordado; si el desarrollo ya
-está empezado, se audita el código existente y se presenta un plan para
-continuarlo, corregirlo o migrarlo.
+MASolutions es una firma mexicana de ingeniería de software a la medida.
+Construye aplicaciones móviles para iOS y Android, plataformas web, sistemas
+internos e integraciones por API para organizaciones cuya operación crítica
+todavía depende de hojas de cálculo, correo y registros en papel. Los sistemas
+que ha puesto en producción operan en agroindustria y trazabilidad de lotes, en
+logística y distribución de última milla, y en productos digitales de consumo.
+Trabaja en remoto con clientes de todo el país y atiende de forma presencial en
+Tala y la zona metropolitana de Guadalajara, Jalisco. La atención comercial, la
+propuesta y la documentación técnica se entregan en español. Cada proyecto
+arranca con un levantamiento de requerimientos y cierra con un sistema
+documentado, publicado y con soporte contratado; si el desarrollo ya está en
+curso, se audita el código existente, se documenta su estado real y se presenta
+un plan técnico para continuarlo, corregirlo o migrarlo.
 
 ## Compromisos de trabajo
 
@@ -33,41 +36,43 @@ continuarlo, corregirlo o migrarlo.
 - Sitio web: https://masolutions.mx/
 - Idioma de atención: español
 - Zona de servicio: todo México, con presencia local en Tala y la zona metropolitana de Guadalajara, Jalisco
+- Sectores atendidos: agroindustria, logística y distribución, productos digitales de consumo
 - Correo de contacto: miguel.briseno.bustos@gmail.com
 - Teléfono y WhatsApp: +52 33 1217 0122
 - Horario de atención: lunes a viernes, 9:00 a 18:00 (hora del centro de México)
 
 ## Servicios
 
-- **Apps móviles**: aplicaciones nativas y multiplataforma para iOS y Android, del prototipo a la publicación en App Store y Google Play.
-- **Aplicaciones web**: portales, paneles de administración y plataformas SaaS con arquitecturas seguras y escalables.
-- **Software a la medida**: sistemas internos de inventarios, facturación, reportería y automatización de tareas.
-- **Integraciones y API**: interoperabilidad con pasarelas de pago, ERP, CRM y servicios de terceros mediante API documentadas y versionadas.
-- **Mantenimiento y soporte**: monitoreo, corrección de incidencias y evolución funcional posterior al lanzamiento, con niveles de servicio acordados.
-- **Consultoría técnica**: auditoría de arquitectura, selección tecnológica y acompañamiento a equipos con productos ya en operación.
+- **Aplicaciones móviles**: desarrollo nativo y multiplataforma para iOS y Android, del prototipo funcional a la publicación en App Store y Google Play.
+- **Aplicaciones web**: portales, paneles de operación y plataformas SaaS multiusuario, con control de acceso por rol y arquitectura preparada para escalar.
+- **Software a la medida**: sistemas internos que sustituyen la hoja de cálculo — inventarios, trazabilidad de lotes, facturación, reportería operativa y automatización de tareas.
+- **Integraciones y API**: interoperabilidad con ERP, CRM, pasarelas de pago y servicios de terceros mediante API documentadas, versionadas y monitoreadas.
+- **Mantenimiento y soporte**: monitoreo, atención de incidencias y evolución funcional posterior al lanzamiento, bajo contrato mensual con niveles de servicio acordados.
+- **Consultoría técnica**: auditoría de arquitectura y de código, selección tecnológica y acompañamiento a equipos internos con producto ya en operación.
 
 ## Cómo trabaja MASolutions
 
 Metodología en cuatro fases: levantamiento de requerimientos, diseño y
-arquitectura, desarrollo y implementación. La propuesta formal —con alcance,
+arquitectura, desarrollo e implementación. La propuesta formal —con alcance,
 plazos y presupuesto por escrito— se entrega en 48 horas tras la reunión
-inicial. El ciclo de entrega es de dos semanas, con avances demostrables en
-cada ciclo, y la documentación de entrega está incluida.
+inicial, sin costo ni compromiso. El ciclo de entrega es de dos semanas, con
+avances demostrables en cada ciclo, y la documentación técnica de entrega está
+incluida.
 
 ## Respuestas frecuentes
 
-- **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. Tras la reunión inicial se entrega una propuesta sin costo, con precio cerrado y plazos comprometidos.
-- **¿Cuánto tarda en estar listo el proyecto?** Una primera versión funcional toma habitualmente entre 8 y 14 semanas, con avances demostrables cada dos semanas.
-- **¿Cómo es el seguimiento del proyecto?** Una reunión de avance por ciclo, acceso permanente al tablero de tareas y un informe al cierre de cada fase.
-- **¿Trabajan con proyectos ya empezados?** Sí. Se realiza una auditoría del código existente y se presenta un plan para continuar, corregir o migrar el desarrollo.
-- **¿Publican la app en las tiendas de aplicaciones?** Sí, se gestiona el proceso completo en App Store y Google Play: fichas, material gráfico y respuesta a las revisiones.
-- **¿Qué pasa después del lanzamiento?** Se ofrecen contratos de mantenimiento mensual que incluyen soporte, monitoreo y horas de desarrollo para nuevas funciones.
+- **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. Tras la reunión inicial se entrega una propuesta sin costo, con precio cerrado, entregables detallados y plazos comprometidos por escrito.
+- **¿Cuánto tiempo tarda el desarrollo de un proyecto?** Una primera versión funcional en producción toma habitualmente entre 8 y 14 semanas, con avances demostrables cada dos semanas.
+- **¿Cómo se da seguimiento al avance del proyecto?** Una reunión de avance por ciclo, acceso permanente al tablero de tareas y un informe escrito al cierre de cada fase.
+- **¿Trabajan con proyectos de software ya iniciados?** Sí. Se audita el código existente, se documenta su estado real y se presenta un plan para continuarlo, corregirlo o migrarlo.
+- **¿Publican la aplicación en App Store y Google Play?** Sí, se gestiona el proceso completo: fichas de tienda, material gráfico y respuesta a las revisiones.
+- **¿Qué incluye el soporte después del lanzamiento?** Contratos de mantenimiento mensual con soporte, monitoreo, atención de incidencias y horas de desarrollo para nuevas funciones.
 
 ## Proyectos representativos
 
-- **Tonalli ERP**: sistema de gestión con trazabilidad de lotes que sustituyó el control por hojas de cálculo.
-- **ActuarEnvíos**: plataforma logística de seguimiento de envíos que redujo las consultas telefónicas sobre el estado de un envío.
-- **Urban Reps**: producto digital desarrollado a la medida del cliente.
+- **Tonalli ERP**: sistema de gestión para la industria tequilera, con control de producción, inventario de agave y trazabilidad lote a lote, que sustituyó el control por hojas de cálculo.
+- **ActuarEnvíos**: plataforma de logística y última milla, con alta de guías, seguimiento de unidades en ruta y estado de entrega en tiempo real, que redujo las consultas telefónicas sobre el estado de un envío.
+- **Urban Reps**: aplicación móvil de calistenia para iOS y Android, con rutinas progresivas, registro de series y seguimiento del avance del usuario.
 
 ## Contacto
 
