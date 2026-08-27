@@ -47,6 +47,23 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 - **contact-form.js** — async `fetch` POST to FormSubmit with `FormData`, blur/input validation, and a success panel that replaces the form (with a reset button)
 - **animations.js** — `IntersectionObserver` adds `.visible` to `.animate-on-scroll` elements; CSS handles the transition, and it is skipped under `prefers-reduced-motion`
 
+## Contact form delivery
+
+The site is static (GitHub Pages, no Actions workflow), so it cannot send mail
+itself: browsers speak no SMTP, and any mail credential shipped in the page
+would be public. FormSubmit receives the POST and relays it.
+
+Pending: the `action` still carries the destination address in clear text, where
+scrapers can read it. Submit the form once from production, confirm FormSubmit's
+activation email, and replace the address with the hash it returns —
+`https://formsubmit.co/<hash>`. Host and CSP are unchanged by that swap, and
+`contact-form.js` posts to `form.action`, so nothing else needs editing. Step by
+step instructions sit in a comment above the form in `index.html`.
+
+Do not route submissions through `repository_dispatch` to trigger a workflow:
+that needs a repo-scoped token in client-side code, which is strictly worse than
+an exposed address.
+
 ## Constraints
 
 The page CSP (in both `_headers` and the `index.html` meta tag) has no `style-src 'unsafe-inline'`, so inline `style` attributes are blocked. Every visual value must live in a stylesheet.

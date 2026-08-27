@@ -552,6 +552,23 @@
             </div>
 
             <div>
+              <!-- FormSubmit endpoint.
+
+                   TODO: the address in the action below is visible in the page
+                   source and will be harvested by scrapers. Replace it with
+                   FormSubmit's opaque hash:
+
+                     1. Submit this form once from https://masolutions.mx/
+                     2. Confirm the activation email FormSubmit sends back
+                     3. That email carries a random hash
+                     4. Swap ONLY the last path segment of the action for it,
+                        so the URL reads https://formsubmit.co/<hash>
+
+                   That is the whole change. The host stays the same, so the CSP
+                   (connect-src and form-action, in the meta tag above and in
+                   _headers) already allows it, and contact-form.js posts to
+                   form.action instead of a hardcoded URL, so no JS is touched.
+                   Delivery keeps going to the same inbox either way. -->
               <form
                 class="form"
                 id="contact-form"
@@ -561,8 +578,6 @@
                 <input type="hidden" name="_subject" value="Nueva solicitud desde masolutions.mx" />
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_template" value="table" />
-                <!-- TODO: Replace email in form action with FormSubmit.co encrypted hash.
-                     Submit once, verify via email, then use the hash URL to prevent harvesting. -->
                 <input
                   type="text"
                   name="_honey"
