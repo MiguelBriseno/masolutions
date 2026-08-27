@@ -1,0 +1,79 @@
+/* Living background — a slow aurora that drifts behind the whole page.
+
+   Both layers are body pseudo-elements on purpose: the page CSP has no
+   style-src 'unsafe-inline', and this way the effect needs no extra markup in
+   index.html or 404.html. `z-index: -1` paints them above the canvas
+   background but below every element in the flow, and `pointer-events: none`
+   keeps them out of hit-testing so nothing on the page becomes unclickable.
+
+   Only `transform` is animated. Animating the gradients themselves
+   (background-position, or the stops) would repaint a full-viewport area on
+   every frame; moving the layer as a whole stays on the compositor. */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  /* Oversized so the layer never exposes an empty edge while it drifts. */
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  background-image:
+    radial-gradient(38% 42% at 18% 22%, var(--color-aurora-primary), transparent 62%),
+    radial-gradient(32% 38% at 82% 14%, var(--color-aurora-violet), transparent 60%),
+    radial-gradient(40% 40% at 66% 78%, var(--color-aurora-blue), transparent 65%);
+  animation: aurora-drift 34s ease-in-out infinite alternate;
+}
+
+body::after {
+  background-image:
+    radial-gradient(30% 34% at 8% 70%, var(--color-aurora-violet), transparent 60%),
+    radial-gradient(34% 30% at 92% 56%, var(--color-aurora-primary), transparent 62%);
+  animation: aurora-drift-slow 52s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+  from {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+    opacity: 0.75;
+  }
+
+  50% {
+    transform: translate3d(4%, 3%, 0) scale(1.1);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate3d(-2%, 5%, 0) scale(1.03);
+    opacity: 0.85;
+  }
+}
+
+/* Counter-moves the first layer so the two never travel as one block. */
+@keyframes aurora-drift-slow {
+  from {
+    transform: translate3d(3%, 2%, 0) scale(1.06);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: translate3d(-4%, -3%, 0) scale(1);
+    opacity: 0.7;
+  }
+
+  to {
+    transform: translate3d(2%, -5%, 0) scale(1.09);
+    opacity: 1;
+  }
+}
+
+/* The gradients stay — they are part of the design. Only the motion goes. */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+}

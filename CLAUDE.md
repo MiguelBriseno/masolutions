@@ -28,7 +28,15 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
 **CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` (currently `mockups.css`, the fake product screens drawn inside the case cards). Both directories are linked one `<link>` at a time from `index.html`, in
-cascade order (`reset` → `globals` → `animations` → layout → components).
+cascade order (`reset` → `globals` → `animations` → `background` → layout →
+components).
+
+`css/base/background.css` draws the drifting aurora behind the whole page as
+two `body` pseudo-elements at `z-index: -1`. It carries no markup because the
+CSP forbids inline styles and because `404.html` gets the same treatment from
+the same file. Only `transform` is animated — animating the gradient stops or
+`background-position` would repaint the full viewport every frame — and
+`prefers-reduced-motion` drops the motion while keeping the gradients.
 
 There is deliberately **no entry stylesheet full of `@import` rules**. An
 `@import` chain is render-blocking in two hops: the browser cannot even discover
