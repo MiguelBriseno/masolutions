@@ -10,9 +10,10 @@ function initFooterYear() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initClarity();
   initNavbar();
   initAnimations();
   initContactForm();
   initFooterYear();
+  // Last: a third-party tag must never come before the page's own behaviour.
+  initClarity();
 });

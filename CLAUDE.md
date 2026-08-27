@@ -108,21 +108,51 @@ The page CSP has no `script-src 'unsafe-inline'`, so that snippet is blocked
 outright — and opening inline scripts to admit an analytics tag would admit
 every injected script too. The module transcribes the vendor loader (queue shim
 plus an async `<script>` pointing at the tag) from a file served from `'self'`,
-and the CSP allows only `https://*.clarity.ms` and `https://c.bing.com`. Both
-hosts are needed: Clarity load-balances its tag and its ingestion across
-`a.clarity.ms` … `z.clarity.ms`, and `c.bing.com` receives part of the beacon.
-Keep the meta CSP in `index.html` and `_headers` identical.
+and the CSP allows `https://*.clarity.ms` in `script-src`, `img-src` and
+`connect-src` — Clarity load-balances its tag and its ingestion across
+`scripts.`, `a.` and `c.clarity.ms`.
+
+`https://c.bing.com` is in `img-src` **only**, and it is not optional even
+though the string appears nowhere in `clarity.js`. The MUID sync pixel at
+`https://c.clarity.ms/c.gif` answers `302` to `https://c.bing.com/c.gif`, and
+CSP checks the destination of a redirect, not just the URL first requested —
+without that origin the pixel is blocked. It is deliberately absent from
+`connect-src`: no upload was observed redirecting off `*.clarity.ms`. If
+recordings ever stop arriving, adding it back there is the first thing to try.
+
+Keep the Clarity origins in sync between the `index.html` meta tag and
+`_headers`. The two policies are **not** otherwise identical: `frame-ancestors`
+stays `_headers`-only, because a `<meta>` CSP is specified to ignore it.
 
 The queue shim stays a `function`, not an arrow — it forwards `arguments`,
 which an arrow function does not have.
+
+`initClarity()` runs **last** in `main.js` and its body is wrapped in
+`try`/`catch`. Privacy extensions neutralize known analytics globals by
+redefining `window.clarity` as non-writable or as a getter with no setter; in a
+module (strict mode) the assignment then throws, and the `if (window.clarity)`
+guard does not see it because the getter reads back as `undefined`. Ordered
+first and unguarded, that throw would take the navbar, the animations and the
+contact form — the site's only conversion path — down with it.
+
+It also returns early on `localhost`, `127.0.0.1` and `[::1]`. Clarity has no
+environment concept, so local page views would otherwise upload recordings of
+`http://localhost:8000/…` into the same project. Local hosts are excluded
+rather than production allow-listed, so changing the domain cannot silently
+switch analytics off.
 
 `404.html` is deliberately left out: it runs no JavaScript at all and its CSP
 is `script-src 'none'`. Measuring broken inbound links would mean giving that
 page a script, which is a bigger change than the data is worth.
 
-Clarity sets first-party cookies (`_clck`, `_clsk`) and records sessions. There
-is no consent banner on the page; if one is ever added, `initClarity()` is the
-single call to gate behind it.
+**The site publishes no aviso de privacidad, and it needs one.** The contact
+form already collects nombre, telefono, email and detalle, which makes an aviso
+de privacidad a requirement under the LFPDPPP on its own — that gap predates
+Clarity. Clarity widens it: it sets first-party cookies (`_clck`, `_clsk`) and
+records session replays of the visitor filling that form, and transmits them to
+a third party with no disclosure anywhere on the page. This is the owner's
+decision to make, not a change to be made for them. If a notice or consent
+banner is ever added, `initClarity()` is the single call to gate behind it.
 
 ## Contact form delivery
 
