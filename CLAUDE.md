@@ -21,15 +21,29 @@ Visit `http://localhost:8000`.
 Single-page app with a module-based JS architecture and a sectioned CSS architecture.
 
 **Entry points:**
-- `index.html` — loads `css/base/main.css` and `js/core/main.js` as `type="module"`
+- `index.html` — links every stylesheet individually and loads `js/core/main.js` as `type="module"`
 - `js/core/main.js` — imports all component `init*()` functions and calls them on `DOMContentLoaded`
-- `css/base/main.css` — `@import`s all section-specific stylesheets
+- `404.html` — GitHub Pages serves it for any unknown path; `noindex, follow`, no JS
 
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
-**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` (currently `mockups.css`, the fake product screens drawn inside the case cards). Both directories are imported from `css/base/main.css`.
+**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` (currently `mockups.css`, the fake product screens drawn inside the case cards). Both directories are linked one `<link>` at a time from `index.html`, in
+cascade order (`reset` → `globals` → `animations` → layout → components).
+
+There is deliberately **no entry stylesheet full of `@import` rules**. An
+`@import` chain is render-blocking in two hops: the browser cannot even discover
+the imported files until the entry sheet has downloaded and parsed. Adding a
+stylesheet therefore means adding a `<link>` to `index.html` (and to `404.html`
+if that page needs it), not an `@import`.
 
 **Brand assets:** `assets/logo.webp` (nav/footer) and `assets/icon.webp` (favicon) are the same M mark, repainted to exactly `--color-primary` (#5b3df5). Regenerate both together if the brand colour ever changes, and keep the favicon's mark filling most of its square canvas — it renders at 16px in a browser tab.
+
+`apple-touch-icon.png` (180), `icon-192.png` and `icon-512.png` are `icon.webp`
+flattened onto white — iOS composites a transparent touch icon onto black, so
+they cannot stay transparent. `icon-maskable-512.png` is different on purpose:
+Android crops maskable icons to a shape, so the mark is repainted white at 55%
+of the canvas on a solid `--color-primary` square, inside the 80% safe zone. All
+four derive from `icon.webp`; regenerate them together with it.
 
 **Responsive:** grids use `repeat(auto-fit, minmax(min(Xpx, 100%), 1fr))`. The `min()` is not optional — a bare `minmax(330px, 1fr)` forces horizontal overflow on every viewport narrower than the track. Layout is verified from 320px to 1440px.
 
@@ -70,7 +84,7 @@ an exposed address.
 
 ## SEO, GEO and AEO
 
-Three files at the repo root are served as-is by GitHub Pages and must stay in
+These files at the repo root are served as-is by GitHub Pages and must stay in
 sync with the page:
 
 - `robots.txt` — allows every crawler, names the AI assistant crawlers
@@ -80,6 +94,22 @@ sync with the page:
 - `llms.txt` — a plain-text summary of the company, services, process and FAQ
   for answer engines. Adoption of this convention is still informal; it costs
   nothing and no crawler is required to read it.
+- `site.webmanifest` — `display: "browser"` on purpose. This is a marketing
+  page, not an installable app; the manifest is there for the Android tab
+  colour, name and icons, and asking for `standalone` would only advertise an
+  app experience that does not exist.
+- `404.html` — GitHub Pages serves it for unknown paths. It is `noindex,
+  follow`: a soft 404 that gets indexed splits the site's signals across a page
+  with no content. It also runs no JavaScript, which is why its footer carries
+  no year.
+
+**The "Nosotros" prose is duplicated in two places** — the `#nosotros` section
+in `index.html` and the "Quiénes somos" / "Compromisos de trabajo" sections of
+`llms.txt`. Every claim in it is one the rest of the page already makes (48-hour
+proposal, closed scope and price, two-week cycles, documentation included, store
+publishing, monthly support). Do not add a claim there that appears nowhere
+else — no founding year, no team size, no client count — unless the owner
+supplies it, and then add it to both surfaces.
 
 **The FAQ answers are duplicated in three places** — the `<h3>`/`<p>` pairs in
 `index.html`, the `FAQPage` `mainEntity` inside the JSON-LD, and the
@@ -130,8 +160,24 @@ for `Organization`. `openingHoursSpecification` is not — it belongs to
 service area declared in the Google Business Profile; a schema that contradicts
 the profile is a wasted signal.
 
-`sameAs` is empty. Add the Google Business Profile URL there once the listing is
-verified — that is the strongest entity link this site can currently earn.
+`sameAs` carries one URL: the verified Google Business Profile, as its canonical
+Maps place URL —
+`https://www.google.com/maps/place/?q=place_id:ChIJWdP7cpGxKIQRUDx3ueF6TWk`.
+
+That exact form is deliberate. A `share.google` or `maps.app.goo.gl` link is a
+JavaScript redirect that can rot and cannot be resolved without hitting Google's
+bot protection; a `search?kgmid=…` link is a results page, not a profile. The
+`place_id` form is the one Google documents in the Maps URLs API and it is
+stable. The listing's other identifiers, if they are ever needed:
+CID `7587856057086983248` (hex `0x8428b19172fbd359:0x694d7ae1b9773c50`) and
+Knowledge Graph MID `/g/11nvhy9fht`.
+
+The same URL is repeated in `llms.txt` under Contacto, so change both together.
+
+Note what `sameAs` is and is not: the authoritative link between the listing and
+this site is the **website field inside the Business Profile itself**. `sameAs`
+corroborates it from this side; it does not create it. If more profiles are ever
+opened (LinkedIn, GitHub, Facebook), add them to the same array.
 
 `assets/og-image.png` is deliberately PNG, not WebP — WhatsApp and several link
 unfurlers still fail to render WebP social cards. It is generated at 1200×630

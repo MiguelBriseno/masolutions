@@ -1,0 +1,77 @@
+.about__layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 28px;
+  align-items: start;
+  margin-top: 34px;
+}
+
+.about__lead {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.about__text {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-top: 16px;
+  color: var(--color-text-soft);
+}
+
+.about__panel {
+  padding: 26px;
+}
+
+.about__panel-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-text-subtle);
+}
+
+.about__facts {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+.about__fact {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  padding-block: 13px;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.about__fact-key {
+  font-size: 14.5px;
+  color: var(--color-text-muted);
+}
+
+.about__fact-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  text-align: right;
+  color: var(--color-text);
+}
+
+/* The key/value pair stacks once the row can no longer hold both. */
+@media (max-width: 400px) {
+  .about__panel {
+    padding: 20px;
+  }
+
+  .about__fact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .about__fact-value {
+    text-align: left;
+  }
+}

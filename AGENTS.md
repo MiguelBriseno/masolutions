@@ -264,7 +264,9 @@ Define all colors, spacing, and other tokens in `:root`:
 1. Create `js/components/component-name.js`
 2. Export an `initComponentName()` function
 3. Import and call in `js/core/main.js`
-4. Add CSS in appropriate `css/layout/` or `css/components/` file
+4. Add CSS in the appropriate `css/layout/` or `css/components/` file, then
+   link it from `index.html` in cascade order — there is no entry stylesheet
+   with `@import` rules, because that chain blocks rendering twice over
 
 ---
 
