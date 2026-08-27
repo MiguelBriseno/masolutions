@@ -1,0 +1,55 @@
+/* Hover treatment for the four card types that sit in grids. Before this the
+   whole page was inert to the pointer: a grep for ':hover' across css/layout
+   and css/components returned two matches, both inside the contact form's
+   success panel.
+
+   Two details are deliberate:
+
+   1. The lift uses `translate`, not `transform`. The scroll reveal in
+      animations.css already owns `transform` on these exact elements, and a
+      shared property means whichever rule wins the cascade silently cancels the
+      other. `translate` is an independent property, so the two compose.
+
+   2. The transition restates the reveal's own opacity/transform timings. This
+      file loads after animations.css, so a bare `transition` here would replace
+      `.animate-on-scroll`'s and make the cards pop in with no fade at all.
+
+   .about__panel is excluded on purpose. It is a static information panel, not
+   one of a set, and lifting it would promise an interaction that is not there. */
+@media (hover: hover) {
+  .card:is(.service-card, .process__step, .project-card, .testimonial-card) {
+    transition: opacity 0.5s ease, transform 0.5s ease,
+      translate 240ms cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 240ms ease,
+      border-color 240ms ease;
+  }
+
+  .card:is(.service-card, .process__step, .project-card, .testimonial-card):hover {
+    translate: 0 -4px;
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-tint);
+  }
+
+  /* The index badge and the avatar are the one coloured element in their card,
+     so they are what the eye tracks; deepening them on hover ties the whole
+     card to the pointer. */
+  .service-card__index,
+  .testimonial-card__avatar {
+    transition: background var(--transition-fast), color var(--transition-fast);
+  }
+
+  .service-card:hover .service-card__index,
+  .testimonial-card:hover .testimonial-card__avatar {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .card:is(.service-card, .process__step, .project-card, .testimonial-card) {
+    transition: box-shadow 240ms ease, border-color 240ms ease;
+  }
+
+  .card:is(.service-card, .process__step, .project-card, .testimonial-card):hover {
+    translate: none;
+  }
+}

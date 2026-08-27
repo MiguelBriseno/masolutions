@@ -1,9 +1,46 @@
+/* The header lives OUTSIDE .container so its translucent bar spans the whole
+   viewport; the .container inside keeps the row aligned with the page grid.
+   A bar clipped to 1180px would leave the page scrolling past it at the sides
+   on any wide screen, which reads as a rendering bug. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  /* Fallback first: --color-bg (#f7f7fb) at 88%, for engines without
+     color-mix(). The @supports block below upgrades it. */
+  background: rgba(247, 247, 251, 0.88);
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* With blur available the bar can be far more transparent, so the aurora keeps
+   drifting behind it instead of being flattened out by an opaque strip. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header {
+    background: rgba(247, 247, 251, 0.62);
+    background: color-mix(in srgb, var(--color-bg) 62%, transparent);
+    -webkit-backdrop-filter: saturate(1.7) blur(14px);
+    backdrop-filter: saturate(1.7) blur(14px);
+  }
+}
+
+/* navbar.js adds this once the page has scrolled past the sentinel. At the very
+   top the header should be invisible against the page; only once content runs
+   underneath does it need an edge. */
+.site-header--scrolled {
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 1px 20px rgba(20, 20, 31, 0.05);
+}
+
 .nav {
   display: flex;
   align-items: center;
   gap: 26px;
+  /* 404.html has no menu wrapper, so its links are direct children and still
+     need somewhere to go on a narrow screen. */
   flex-wrap: wrap;
-  padding-block: 20px;
+  padding-block: 14px;
 }
 
 .nav__brand {
@@ -31,10 +68,20 @@
   letter-spacing: -0.01em;
 }
 
+.nav__menu {
+  display: flex;
+  align-items: center;
+  /* wrap matters only in the unenhanced state, where these five links stay in
+     the row on a narrow screen instead of collapsing into the panel. */
+  flex-wrap: wrap;
+  gap: 26px;
+}
+
 .nav__link {
   font-size: 14.5px;
   color: var(--color-text-muted);
   text-decoration: none;
+  position: relative;
 }
 
 .nav__link:hover,
@@ -42,36 +89,174 @@
   color: var(--color-primary-dark);
 }
 
-/* Touch devices need a bigger hit area than the type size alone provides. */
+/* The active marker is an underline drawn from the centre out. It is a
+   pseudo-element rather than a border so nothing in the row shifts when it
+   appears — a 2px border would nudge the whole nav by 2px on every scroll. */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.nav__link.active::after,
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Hamburger. Hidden until navbar.js has actually bound it — see the
+   [data-enhanced] rules at the mobile breakpoint below — so a dead button never
+   appears, whether on 404.html (which ships no JavaScript) or on this page if
+   the module fails to load. */
+.nav__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast);
+}
+
+.nav__toggle:hover {
+  border-color: var(--color-primary);
+}
+
+.nav__toggle-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 160ms ease;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 @media (pointer: coarse) {
   .nav__link {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
   }
+
+  /* The 44px touch target centres the label inside a much taller box, so an
+     underline pinned to the bottom of that box would float ~17px under the word
+     it belongs to. Derived from the rule above rather than eyeballed: half the
+     leftover space, less the 4px gap the underline should keep. */
+  .nav__link::after {
+    bottom: calc((44px - 1.6em) / 2 - 4px);
+  }
 }
 
-/* Below this width the single row no longer holds: the brand takes its own
-   row and the links wrap beneath it, with the CTA spanning the full width so
-   it stays the obvious action. */
-@media (max-width: 760px) {
+/* Below this width the row can no longer hold five links plus a call to
+   action. The links collapse into a disclosure panel and the header CTA is
+   dropped: the fixed action bar at the bottom of the viewport is the mobile
+   call to action, and two competing ones would only split the click.
+
+   ALL OF THAT IS GATED ON [data-enhanced], which navbar.js sets on .nav only
+   once it has found the toggle and the panel and bound them. Collapsing the
+   menu from CSS alone would mean that any failure to run the module — a fetch
+   error, a throw earlier in the chain — leaves a phone visitor with the logo
+   and nothing else: no links, no call to action, and a hamburger that does
+   nothing. Hidden by default is only safe when something is guaranteed to
+   reveal it, and a deferred ES module is not a guarantee.
+
+   Unenhanced, the links simply wrap under the brand and the header CTA stays,
+   which is what this page did before the panel existed and what 404.html
+   still does. */
+@media (max-width: 860px) {
   .nav {
-    gap: 4px 20px;
-    padding-block: 16px;
+    gap: 12px;
+    padding-block: 12px;
   }
 
-  .nav__brand {
+  .nav[data-enhanced] .nav__toggle {
+    display: inline-flex;
+  }
+
+  .nav[data-enhanced] .nav__cta {
+    display: none;
+  }
+
+  /* No JavaScript: the brand takes its own row and the surviving CTA spans the
+     width, so the row never degrades into a cramped wrap. This is also the only
+     rule 404.html gets here, since that page is never enhanced. */
+  .nav:not([data-enhanced]) .nav__brand {
     margin-right: 0;
     width: 100%;
-    margin-bottom: 8px;
   }
 
-  .nav__link {
-    font-size: 15px;
-  }
-
-  .nav .btn {
+  .nav:not([data-enhanced]) .btn {
     width: 100%;
-    margin-top: 12px;
+  }
+
+  /* Anchored to .site-header rather than .nav so the panel spans the full
+     viewport width, matching the bar above it. */
+  .nav[data-enhanced] .nav__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 4px var(--container-pad) 16px;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .nav[data-enhanced] .nav__menu[data-open] {
+    display: flex;
+  }
+
+  /* Scoped to the open panel on purpose, twice over: 404.html ships no menu
+     wrapper — its one link is a direct child of .nav — and the unenhanced state
+     keeps the links in a wrapped row, where a divider above each one would read
+     as stray rules across the header rather than list separators. */
+  .nav[data-enhanced] .nav__menu .nav__link {
+    font-size: 16px;
+    padding-block: 14px;
+    border-top: 1px solid var(--color-border-soft);
+  }
+
+  .nav:not([data-enhanced]) .nav__menu {
+    gap: 4px 18px;
+  }
+
+  /* The centre-out underline is a desktop affordance; in a stacked list it
+     would read as a stray rule between rows. */
+  .nav__menu .nav__link::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__link::after,
+  .nav__toggle-bar {
+    transition: none;
   }
 }

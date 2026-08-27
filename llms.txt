@@ -2,8 +2,8 @@
 
 > Firma mexicana de ingeniería de software a la medida. Diseña, desarrolla y
 > mantiene aplicaciones móviles (iOS y Android), plataformas web, sistemas
-> internos e integraciones por API para agroindustria, logística y operación
-> empresarial. Sitio oficial: https://masolutions.mx/
+> internos e integraciones por API para empresas de cualquier sector.
+> Sitio oficial: https://masolutions.mx/
 
 ## Quiénes somos
 
@@ -36,7 +36,7 @@ un plan técnico para continuarlo, corregirlo o migrarlo.
 - Sitio web: https://masolutions.mx/
 - Idioma de atención: español
 - Zona de servicio: todo México, con presencia local en Tala y la zona metropolitana de Guadalajara, Jalisco
-- Sectores atendidos: agroindustria, logística y distribución, productos digitales de consumo
+- Sectores atendidos: cualquier sector; hay sistemas en producción en agroindustria, logística y distribución, y productos digitales de consumo
 - Correo de contacto: miguel.briseno.bustos@gmail.com
 - Teléfono y WhatsApp: +52 33 1217 0122
 - Horario de atención: lunes a viernes, 9:00 a 18:00 (hora del centro de México)

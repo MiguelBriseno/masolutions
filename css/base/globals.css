@@ -123,11 +123,13 @@ button {
   background: var(--color-primary-tint);
 }
 
+/* Above .site-header (30) and .action-bar (25): the skip link is the first
+   thing a keyboard user reaches and must never appear behind either of them. */
 .skip-link {
-  position: absolute;
+  position: fixed;
   left: 8px;
   top: -100px;
-  z-index: 10;
+  z-index: 60;
   padding: 11px 18px;
   background: var(--color-primary);
   color: var(--color-on-primary);
@@ -259,4 +261,23 @@ button {
   .btn {
     min-height: 44px;
   }
+}
+
+/* Anchor targets must clear the sticky header, otherwise every in-page jump
+   lands with the section heading hidden underneath it. Roughly the header's
+   own height plus breathing room. */
+:where(section[id], #contenido) {
+  scroll-margin-top: 84px;
+}
+
+/* A 1px probe at the very top of the document. navbar.js watches it with an
+   IntersectionObserver to decide whether the header has anything scrolling
+   under it — cheaper and smoother than a scroll listener, which fires on every
+   frame just to read one boolean. */
+.header-sentinel {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }

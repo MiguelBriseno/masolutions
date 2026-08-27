@@ -445,3 +445,222 @@
 .mock__bar:nth-of-type(5) { height: 64%; }
 .mock__bar:nth-of-type(6) { height: 88%; }
 .mock__bar:nth-of-type(7) { height: 52%; }
+
+
+/* ---- Hero variant ----
+   The same component on a taller stage, opening the page. The type sizes here
+   are absolute pixels everywhere else in this file, so the handful that would
+   read as accidental at hero scale are restated rather than scaled. */
+.mock--hero {
+  height: 348px;
+  padding: 20px 20px 0;
+}
+
+.mock--hero .mock__url {
+  height: 15px;
+  font-size: 8.5px;
+}
+
+/* The taller URL bar makes the chrome 30px instead of 28px, and .mock__app
+   subtracts that height to fill the rest of the window. 7px padding + the 15px
+   URL bar (its 1px border is inside that height, box-sizing is border-box) +
+   7px padding + the chrome's own 1px bottom border. Left at 28px the app runs
+   past the bottom edge; overshoot the other way and a strip of .mock
+   background shows under it. */
+.mock--hero .mock__app {
+  height: calc(100% - 30px);
+}
+
+.mock--hero .mock__sidebar {
+  width: 74px;
+}
+
+.mock--hero .mock__sidebar-brand {
+  font-size: 9px;
+}
+
+.mock--hero .mock__kpi-label,
+.mock--hero .mock__chart-label {
+  font-size: 8px;
+}
+
+.mock--hero .mock__kpi-value {
+  font-size: 17px;
+}
+
+/* ---- Order rows (hero dashboard) ---- */
+.mock__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mock__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--mock-panel-border);
+  border-radius: 5px;
+}
+
+.mock__row-key {
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.mock__row-meta {
+  font-size: 7.5px;
+  color: var(--color-text-faint);
+}
+
+.mock__row-tag {
+  margin-left: auto;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 7px;
+  font-weight: 600;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+.mock__row-tag--ok {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+
+/* ---- Motion ----
+   Until now these screens were completely static: 450 lines of CSS drawing a
+   dashboard whose chart never drew itself. Everything below animates them once,
+   on reveal.
+
+   The whole block is wrapped in `prefers-reduced-motion: no-preference` instead
+   of being switched off further down, so there is exactly one guard and no
+   specificity duel to lose. Every keyframe declares only `from` and fills
+   `backwards`, which means the element's normal CSS is the resting state: with
+   no animation running — reduced motion, no JavaScript, an old engine — the
+   mockups simply render finished.
+
+   Two play hooks: `.project-card.visible` (animations.js sets it when the card
+   scrolls into view) and `.mock--hero`, which is above the fold and plays on
+   load. --mock-delay holds the hero back until its own entrance has finished. */
+.mock {
+  --mock-delay: 0ms;
+}
+
+.mock--hero {
+  --mock-delay: 620ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Bars grow from the baseline. scaleY rather than height: it stays off the
+     layout path, and at a 2px corner radius the distortion is invisible. */
+  :is(.project-card.visible, .mock--hero) .mock__bar {
+    transform-origin: bottom;
+    animation: mock-bar-grow 620ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
+
+  :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(1) { animation-delay: calc(var(--mock-delay) + 180ms); }
+  :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(2) { animation-delay: calc(var(--mock-delay) + 235ms); }
+  :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(3) { animation-delay: calc(var(--mock-delay) + 290ms); }
+  :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(4) { animation-delay: calc(var(--mock-delay) + 345ms); }
+  :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(5) { animation-delay: calc(var(--mock-delay) + 400ms); }
+  :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(6) { animation-delay: calc(var(--mock-delay) + 455ms); }
+  :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(7) { animation-delay: calc(var(--mock-delay) + 510ms); }
+
+  /* Figures count up into place. */
+  :is(.project-card.visible, .mock--hero) .mock__kpi-value,
+  :is(.project-card.visible, .mock--hero) .mock__set-value {
+    animation: mock-rise 500ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
+
+  :is(.project-card.visible, .mock--hero) .mock__kpi:nth-child(1) .mock__kpi-value { animation-delay: calc(var(--mock-delay) + 60ms); }
+  :is(.project-card.visible, .mock--hero) .mock__kpi:nth-child(2) .mock__kpi-value { animation-delay: calc(var(--mock-delay) + 140ms); }
+  :is(.project-card.visible, .mock--hero) .mock__kpi:nth-child(3) .mock__kpi-value { animation-delay: calc(var(--mock-delay) + 220ms); }
+
+  :is(.project-card.visible, .mock--hero) .mock__row {
+    animation: mock-rise 460ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
+
+  :is(.project-card.visible, .mock--hero) .mock__row:nth-child(1) { animation-delay: calc(var(--mock-delay) + 460ms); }
+  :is(.project-card.visible, .mock--hero) .mock__row:nth-child(2) { animation-delay: calc(var(--mock-delay) + 540ms); }
+  :is(.project-card.visible, .mock--hero) .mock__row:nth-child(3) { animation-delay: calc(var(--mock-delay) + 620ms); }
+
+  /* The delivery route draws itself. --mock-route-length is a deliberate
+     over-estimate of the path: dasharray only has to be at least the real
+     length for the line to be fully hidden at offset 0, and rounding up costs
+     nothing while measuring exactly would break the moment the curve is
+     edited. */
+  .project-card.visible .mock__route path:first-of-type {
+    --mock-route-length: 230;
+    stroke-dasharray: var(--mock-route-length);
+    animation: mock-route-draw 1200ms ease-out backwards 120ms;
+  }
+
+  .project-card.visible .mock__route circle,
+  .project-card.visible .mock__route path:last-of-type {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: mock-pop 420ms cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+  }
+
+  .project-card.visible .mock__route circle:nth-of-type(1) { animation-delay: 200ms; }
+  .project-card.visible .mock__route circle:nth-of-type(2) { animation-delay: 760ms; }
+  .project-card.visible .mock__route path:last-of-type { animation-delay: 1180ms; }
+
+  /* The tracking timeline fills in from the top, like events arriving. */
+  .project-card.visible .mock__event {
+    animation: mock-rise 460ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
+
+  .project-card.visible .mock__event:nth-child(1) { animation-delay: 220ms; }
+  .project-card.visible .mock__event:nth-child(2) { animation-delay: 340ms; }
+  .project-card.visible .mock__event:nth-child(3) { animation-delay: 460ms; }
+  .project-card.visible .mock__event:nth-child(4) { animation-delay: 580ms; }
+
+  /* Phone app: the set progress bar fills to the width it already declares. */
+  .project-card.visible .mock__progress-fill {
+    animation: mock-fill 900ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards 300ms;
+  }
+
+  .project-card.visible .mock__exercise {
+    animation: mock-rise 460ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
+
+  .project-card.visible .mock__exercise:nth-child(1) { animation-delay: 460ms; }
+  .project-card.visible .mock__exercise:nth-child(2) { animation-delay: 560ms; }
+}
+
+@keyframes mock-bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes mock-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes mock-route-draw {
+  from {
+    stroke-dashoffset: var(--mock-route-length);
+  }
+}
+
+@keyframes mock-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+
+@keyframes mock-fill {
+  from {
+    width: 0;
+  }
+}
