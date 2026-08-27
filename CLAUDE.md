@@ -27,7 +27,11 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
-**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`), mobile-first responsive (`@media (min-width: ...)`). Each page section has its own stylesheet in `css/layout/`.
+**CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` (currently `mockups.css`, the fake product screens drawn inside the case cards). Both directories are imported from `css/base/main.css`.
+
+**Brand assets:** `assets/logo.webp` (nav/footer) and `assets/icon.webp` (favicon) are the same M mark, repainted to exactly `--color-primary` (#5b3df5). Regenerate both together if the brand colour ever changes, and keep the favicon's mark filling most of its square canvas — it renders at 16px in a browser tab.
+
+**Responsive:** grids use `repeat(auto-fit, minmax(min(Xpx, 100%), 1fr))`. The `min()` is not optional — a bare `minmax(330px, 1fr)` forces horizontal overflow on every viewport narrower than the track. Layout is verified from 320px to 1440px.
 
 ## Conventions (from AGENTS.md)
 
@@ -39,6 +43,27 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 
 ## Key Components
 
-- **navbar.js** — mobile menu toggle, scroll-based `scrolled` class (at 50px), smooth anchor scrolling with header offset, active link highlighting, language toggle (es/en, in-memory only)
-- **contact-form.js** — async `fetch` POST with `FormData`, real-time blur/input validation, success (5s auto-hide) and error (4s) feedback
-- **animations.js** — `IntersectionObserver` adds `.animate-on-scroll` trigger class; CSS handles the actual animation
+- **navbar.js** — active nav link highlighting via `IntersectionObserver` (the nav is static, not sticky; smooth scrolling is native `scroll-behavior`)
+- **contact-form.js** — async `fetch` POST to FormSubmit with `FormData`, blur/input validation, and a success panel that replaces the form (with a reset button)
+- **animations.js** — `IntersectionObserver` adds `.visible` to `.animate-on-scroll` elements; CSS handles the transition, and it is skipped under `prefers-reduced-motion`
+
+## Contact form delivery
+
+The site is static (GitHub Pages, no Actions workflow), so it cannot send mail
+itself: browsers speak no SMTP, and any mail credential shipped in the page
+would be public. FormSubmit receives the POST and relays it.
+
+Pending: the `action` still carries the destination address in clear text, where
+scrapers can read it. Submit the form once from production, confirm FormSubmit's
+activation email, and replace the address with the hash it returns —
+`https://formsubmit.co/<hash>`. Host and CSP are unchanged by that swap, and
+`contact-form.js` posts to `form.action`, so nothing else needs editing. Step by
+step instructions sit in a comment above the form in `index.html`.
+
+Do not route submissions through `repository_dispatch` to trigger a workflow:
+that needs a repo-scoped token in client-side code, which is strictly worse than
+an exposed address.
+
+## Constraints
+
+The page CSP (in both `_headers` and the `index.html` meta tag) has no `style-src 'unsafe-inline'`, so inline `style` attributes are blocked. Every visual value must live in a stylesheet.

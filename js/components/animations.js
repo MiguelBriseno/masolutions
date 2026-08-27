@@ -1,103 +1,44 @@
+const ANIMATED_GROUPS = [
+  { selector: '.service-card', delay: 100 },
+  { selector: '.process__step', delay: 120 },
+  { selector: '.project-card', delay: 120 },
+  { selector: '.testimonial-card', delay: 100 },
+  { selector: '.faq__grid > *', delay: 60 },
+];
+
+const STAGGER_CAP = 4;
+
 export function initAnimations() {
-  // First, add animate-on-scroll class to all elements that need it
-  // This MUST happen before setting up the IntersectionObserver
-  
-  // Stats items
-  document.querySelectorAll('.stats__item').forEach((item, index) => {
-    item.classList.add('animate-on-scroll');
-    item.style.transitionDelay = `${index * 100}ms`;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const delayFor = new WeakMap();
+
+  ANIMATED_GROUPS.forEach(({ selector, delay }) => {
+    document.querySelectorAll(selector).forEach((element) => {
+      element.classList.add('animate-on-scroll');
+      delayFor.set(element, delay);
+    });
   });
 
-  // Service cards
-  document.querySelectorAll('.service-card').forEach((item, index) => {
-    item.classList.add('animate-on-scroll');
-    item.style.transitionDelay = `${index * 100}ms`;
-  });
+  const animated = document.querySelectorAll('.animate-on-scroll');
+  if (animated.length === 0) return;
 
-  // Testimonial cards
-  document.querySelectorAll('.testimonial-card').forEach((item, index) => {
-    item.classList.add('animate-on-scroll');
-    item.style.transitionDelay = `${index * 100}ms`;
-  });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      // Stagger only within the batch entering the viewport together. Indexing
+      // across the whole document would leave a lone card waiting out the delay
+      // of every sibling above it — very visible in a one-column phone layout.
+      const entering = entries.filter((entry) => entry.isIntersecting);
 
-  // Project cards
-  document.querySelectorAll('.project-card').forEach((item, index) => {
-    item.classList.add('animate-on-scroll');
-    item.style.transitionDelay = `${index * 100}ms`;
-  });
-
-  // Process steps
-  document.querySelectorAll('.process__step').forEach((item, index) => {
-    item.classList.add('animate-on-scroll');
-    item.style.transitionDelay = `${index * 120}ms`;
-  });
-
-  // Hero content animation - starts visible
-  const heroContent = document.querySelector('.hero__content');
-  if (heroContent) {
-    heroContent.classList.add('animate-on-scroll', 'visible');
-  }
-
-  // Now set up the IntersectionObserver AFTER classes are added
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
+      entering.forEach((entry, index) => {
+        const step = delayFor.get(entry.target) ?? 0;
+        entry.target.style.transitionDelay = `${Math.min(index, STAGGER_CAP) * step}ms`;
         entry.target.classList.add('visible');
-        
-        // Special handling for stats numbers
-        if (entry.target.classList.contains('stats__item')) {
-          animateStats(entry.target);
-        }
-        
         observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
+      });
+    },
+    { threshold: 0.1 }
+  );
 
-  // Observe all animated elements
-  const animatedElements = document.querySelectorAll('.animate-on-scroll');
-  animatedElements.forEach(el => observer.observe(el));
-
-  // Check for elements already in viewport
-  setTimeout(() => {
-    animatedElements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) {
-        observer.observe(el);
-      }
-    });
-  }, 100);
-}
-
-function animateStats(item) {
-  const numberEl = item.querySelector('.stats__number');
-  if (!numberEl) return;
-
-  const target = parseInt(numberEl.dataset.count, 10);
-  const duration = 2000;
-  const start = 0;
-  const startTime = performance.now();
-
-  function updateNumber(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    
-    // Easing function (easeOutQuart)
-    const easeOut = 1 - Math.pow(1 - progress, 4);
-    const current = Math.floor(start + (target - start) * easeOut);
-    
-    numberEl.textContent = current;
-
-    if (progress < 1) {
-      requestAnimationFrame(updateNumber);
-    }
-  }
-
-  requestAnimationFrame(updateNumber);
+  animated.forEach((element) => observer.observe(element));
 }
