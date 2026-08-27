@@ -15,6 +15,12 @@
   --color-primary-tint: #ddd4ff;
   --color-primary-faint: #f6f4ff;
 
+  /* Animated background — kept very low alpha on purpose: the aurora is
+     texture behind the content, not a second brand colour competing with it. */
+  --color-aurora-primary: rgba(91, 61, 245, 0.20);
+  --color-aurora-violet: rgba(147, 89, 246, 0.17);
+  --color-aurora-blue: rgba(61, 139, 245, 0.14);
+
   /* Text */
   --color-text: #14141f;
   --color-text-muted: #4b4b60;
