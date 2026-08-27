@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página no encontrada | MASolutions</title>
+    <meta
+      name="description"
+      content="La dirección solicitada no existe en masolutions.mx. Vuelva al inicio para ver los servicios de desarrollo de software."
+    />
+    <!-- A soft 404 that gets indexed splits the site's signals across a page
+         with no content, so this one is kept out of the index deliberately. -->
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#5b3df5" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./assets/icon.webp" type="image/webp" sizes="256x256" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'none'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;"
+    />
+    <link rel="stylesheet" href="./css/base/reset.css" />
+    <link rel="stylesheet" href="./css/base/globals.css" />
+    <link rel="stylesheet" href="./css/layout/header.css" />
+    <link rel="stylesheet" href="./css/layout/error.css" />
+    <link rel="stylesheet" href="./css/layout/footer.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="/" class="nav__brand">
+          <img
+            src="./assets/logo.webp"
+            alt=""
+            class="nav__logo"
+            width="52"
+            height="29"
+            decoding="async"
+          />
+          <span class="nav__brand-name">masolutions</span>
+        </a>
+        <a href="/#servicios" class="nav__link">Servicios</a>
+        <a href="/#contacto" class="btn btn--primary btn--sm">Solicitar propuesta</a>
+      </nav>
+
+      <main class="error">
+        <div>
+          <p class="error__code">404</p>
+          <h1 class="error__title">Esta página no existe</h1>
+          <p class="error__text">
+            La dirección que abrió no corresponde a ninguna sección del sitio.
+            Puede volver al inicio o escribirnos directamente para describir su
+            proyecto.
+          </p>
+          <div class="error__actions">
+            <a href="/" class="btn btn--primary">Volver al inicio</a>
+            <a href="/#contacto" class="btn btn--secondary">Solicitar una propuesta</a>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <span class="footer__brand">
+          <img
+            src="./assets/logo.webp"
+            alt=""
+            class="footer__logo"
+            width="36"
+            height="20"
+            loading="lazy"
+            decoding="async"
+          />
+          masolutions · Desarrollo de software
+        </span>
+        <!-- No year here: this page runs no JavaScript, so a hardcoded one
+             would silently go stale. -->
+        <span>© masolutions. Todos los derechos reservados.</span>
+      </footer>
+    </div>
+  </body>
+</html>

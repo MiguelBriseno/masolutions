@@ -23,6 +23,7 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 **Entry points:**
 - `index.html` — links every stylesheet individually and loads `js/core/main.js` as `type="module"`
 - `js/core/main.js` — imports all component `init*()` functions and calls them on `DOMContentLoaded`
+- `404.html` — GitHub Pages serves it for any unknown path; `noindex, follow`, no JS
 
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
@@ -36,6 +37,13 @@ stylesheet therefore means adding a `<link>` to `index.html` (and to `404.html`
 if that page needs it), not an `@import`.
 
 **Brand assets:** `assets/logo.webp` (nav/footer) and `assets/icon.webp` (favicon) are the same M mark, repainted to exactly `--color-primary` (#5b3df5). Regenerate both together if the brand colour ever changes, and keep the favicon's mark filling most of its square canvas — it renders at 16px in a browser tab.
+
+`apple-touch-icon.png` (180), `icon-192.png` and `icon-512.png` are `icon.webp`
+flattened onto white — iOS composites a transparent touch icon onto black, so
+they cannot stay transparent. `icon-maskable-512.png` is different on purpose:
+Android crops maskable icons to a shape, so the mark is repainted white at 55%
+of the canvas on a solid `--color-primary` square, inside the 80% safe zone. All
+four derive from `icon.webp`; regenerate them together with it.
 
 **Responsive:** grids use `repeat(auto-fit, minmax(min(Xpx, 100%), 1fr))`. The `min()` is not optional — a bare `minmax(330px, 1fr)` forces horizontal overflow on every viewport narrower than the track. Layout is verified from 320px to 1440px.
 
@@ -76,7 +84,7 @@ an exposed address.
 
 ## SEO, GEO and AEO
 
-Three files at the repo root are served as-is by GitHub Pages and must stay in
+These files at the repo root are served as-is by GitHub Pages and must stay in
 sync with the page:
 
 - `robots.txt` — allows every crawler, names the AI assistant crawlers
@@ -86,6 +94,14 @@ sync with the page:
 - `llms.txt` — a plain-text summary of the company, services, process and FAQ
   for answer engines. Adoption of this convention is still informal; it costs
   nothing and no crawler is required to read it.
+- `site.webmanifest` — `display: "browser"` on purpose. This is a marketing
+  page, not an installable app; the manifest is there for the Android tab
+  colour, name and icons, and asking for `standalone` would only advertise an
+  app experience that does not exist.
+- `404.html` — GitHub Pages serves it for unknown paths. It is `noindex,
+  follow`: a soft 404 that gets indexed splits the site's signals across a page
+  with no content. It also runs no JavaScript, which is why its footer carries
+  no year.
 
 **The "Nosotros" prose is duplicated in two places** — the `#nosotros` section
 in `index.html` and the "Quiénes somos" / "Compromisos de trabajo" sections of

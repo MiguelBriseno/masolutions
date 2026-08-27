@@ -1,0 +1,36 @@
+.error {
+  display: grid;
+  place-items: center;
+  min-height: 70vh;
+  text-align: center;
+  padding-block: var(--section-gap);
+}
+
+.error__code {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(56px, 12vw, 96px);
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.error__title {
+  font-size: clamp(24px, 4vw, 32px);
+  margin-top: 16px;
+}
+
+.error__text {
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 46ch;
+  margin: 14px auto 0;
+  color: var(--color-text-muted);
+}
+
+.error__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
