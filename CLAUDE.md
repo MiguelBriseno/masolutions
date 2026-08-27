@@ -160,8 +160,24 @@ for `Organization`. `openingHoursSpecification` is not — it belongs to
 service area declared in the Google Business Profile; a schema that contradicts
 the profile is a wasted signal.
 
-`sameAs` is empty. Add the Google Business Profile URL there once the listing is
-verified — that is the strongest entity link this site can currently earn.
+`sameAs` carries one URL: the verified Google Business Profile, as its canonical
+Maps place URL —
+`https://www.google.com/maps/place/?q=place_id:ChIJWdP7cpGxKIQRUDx3ueF6TWk`.
+
+That exact form is deliberate. A `share.google` or `maps.app.goo.gl` link is a
+JavaScript redirect that can rot and cannot be resolved without hitting Google's
+bot protection; a `search?kgmid=…` link is a results page, not a profile. The
+`place_id` form is the one Google documents in the Maps URLs API and it is
+stable. The listing's other identifiers, if they are ever needed:
+CID `7587856057086983248` (hex `0x8428b19172fbd359:0x694d7ae1b9773c50`) and
+Knowledge Graph MID `/g/11nvhy9fht`.
+
+The same URL is repeated in `llms.txt` under Contacto, so change both together.
+
+Note what `sameAs` is and is not: the authoritative link between the listing and
+this site is the **website field inside the Business Profile itself**. `sameAs`
+corroborates it from this side; it does not create it. If more profiles are ever
+opened (LinkedIn, GitHub, Facebook), add them to the same array.
 
 `assets/og-image.png` is deliberately PNG, not WebP — WhatsApp and several link
 unfurlers still fail to render WebP social cards. It is generated at 1200×630
