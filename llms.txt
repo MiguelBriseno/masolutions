@@ -41,6 +41,15 @@ un plan técnico para continuarlo, corregirlo o migrarlo.
 - Teléfono y WhatsApp: +52 33 1217 0122
 - Horario de atención: lunes a viernes, 9:00 a 18:00 (hora del centro de México)
 
+## Por qué software a la medida
+
+Un sistema genérico obliga al equipo a trabajar como lo decidió el proveedor.
+El software a la medida parte de cómo opera la empresa hoy y automatiza
+exactamente eso.
+
+- Software genérico: los procesos se adaptan a la herramienta; exportaciones a hoja de cálculo y captura doble; licencias y módulos pensados para otros negocios; la hoja de ruta la decide el proveedor.
+- Software a la medida: diseñado sobre la operación real, a partir de un levantamiento con las áreas involucradas; integrado por API con ERP, CRM y pasarelas de pago; solo lo que la operación requiere, con alcance y precio cerrados; avances demostrables cada dos semanas y documentación incluida; evoluciona con el negocio bajo contrato de soporte mensual.
+
 ## Servicios
 
 - **Aplicaciones móviles**: desarrollo nativo y multiplataforma para iOS y Android, del prototipo funcional a la publicación en App Store y Google Play.

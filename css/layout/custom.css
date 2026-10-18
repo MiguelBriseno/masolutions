@@ -1,0 +1,158 @@
+/* "¿Por qué a la medida?" — the page's dark contrast band.
+
+   It is a rounded panel inside the content column rather than a full-bleed
+   strip: breaking out of .container with 100vw counts the scrollbar and
+   overflows the page horizontally, and the panel shape matches the contact
+   card at the bottom. */
+.custom {
+  padding-block: var(--section-gap);
+}
+
+.custom__panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(28px, 5vw, 56px);
+  border-radius: var(--radius-xl);
+  background: var(--color-ink);
+  color: var(--color-ink-text);
+  box-shadow: var(--shadow-float);
+}
+
+/* Two brand glows bleeding in from opposite corners. */
+.custom__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(50% 60% at 100% 0%, var(--color-ink-glow), transparent 70%),
+    radial-gradient(45% 55% at 0% 100%, var(--color-ink-glow-blue), transparent 70%);
+}
+
+.custom__eyebrow {
+  color: var(--color-ink-accent);
+}
+
+.custom__title {
+  color: var(--color-ink-text);
+  max-width: 22ch;
+}
+
+.custom__lead {
+  margin-top: 16px;
+  max-width: 60ch;
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--color-ink-muted);
+}
+
+.custom__compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.custom__column {
+  padding: 26px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-ink-border);
+}
+
+.custom__column--generic {
+  background: var(--color-ink);
+}
+
+/* Gradient edge: the brand gradient fills the border box, the raised ink
+   fills the padding box on top of it, so only the 1px border shows colour. */
+.custom__column--tailored {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--color-ink-raised), var(--color-ink-raised)) padding-box,
+    var(--gradient-brand) border-box;
+}
+
+.custom__column-title {
+  font-size: 19px;
+  color: var(--color-ink-text);
+}
+
+.custom__column--generic .custom__column-title {
+  color: var(--color-ink-muted);
+}
+
+.custom__list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  list-style: none;
+  padding: 0;
+}
+
+.custom__item {
+  position: relative;
+  padding-left: 30px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--color-ink-text);
+}
+
+.custom__column--generic .custom__item {
+  color: var(--color-ink-muted);
+}
+
+/* The markers are drawn, not typed, so no ✓/× glyph ends up in the text
+   a screen reader announces. */
+.custom__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.custom__column--generic .custom__item::before {
+  background:
+    linear-gradient(45deg, transparent 45%, var(--color-ink-muted) 45%, var(--color-ink-muted) 55%, transparent 55%) center / 9px 9px no-repeat,
+    linear-gradient(-45deg, transparent 45%, var(--color-ink-muted) 45%, var(--color-ink-muted) 55%, transparent 55%) center / 9px 9px no-repeat,
+    var(--color-ink-raised);
+}
+
+.custom__column--tailored .custom__item::before {
+  background: var(--gradient-brand);
+}
+
+/* The check mark: two borders of a rotated box, centred in the disc. */
+.custom__column--tailored .custom__item::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--color-on-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+  margin-top: 34px;
+}
+
+.custom__note {
+  font-size: 13.5px;
+  color: var(--color-ink-muted);
+}
+
+/* The default focus ring is brand purple, which vanishes on the ink panel. */
+.custom .btn--primary:focus-visible {
+  outline-color: var(--color-ink-accent);
+}

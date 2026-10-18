@@ -158,6 +158,25 @@ The contract now is:
   `pointer-events: none` removes focusability, so a keyboard user on those
   engines would tab into two invisible off-screen links.
 
+**"¿Por qué a la medida?" (`#a-la-medida`, `css/layout/custom.css`)** sits
+between the hero and Nosotros and is the page's one dark band. It is a rounded
+panel inside `.container`, not a full-bleed strip — a `100vw` breakout counts
+the scrollbar and overflows the page. Every line in its "Software a la medida"
+column restates a commitment the page already makes (levantamiento, API
+integrations, closed scope and price, two-week cycles, documentation, monthly
+support); the same no-new-claims rule as the Nosotros prose applies. Both
+columns are duplicated in the "Por qué software a la medida" section of
+`llms.txt` — edit the two together. The generic column describes off-the-shelf
+software in general and must not name or imply a competitor. It is not in the
+nav on purpose: six links would crowd the header row, and the section already
+sits directly under the hero.
+
+The hero's floating chips (`.hero__chip`) and the blueprint grid behind the
+mock stay **inside** the column below 1100px and only bleed past it above that
+width — at 320px the container padding is 20px, so any negative inline offset
+widens the page. The chips' idle bob animates `translate`, never `transform`,
+which the entrance animation already owns.
+
 **The mockups animate on reveal** (`css/components/mockups.css`). Every keyframe
 declares only `from` and fills `backwards`, so the element's ordinary CSS *is*
 the resting state — with no animation running (reduced motion, no JS, an older

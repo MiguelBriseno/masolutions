@@ -10,11 +10,43 @@
   box-shadow: none;
 }
 
+.process__step {
+  position: relative;
+}
+
 .process__phase {
+  display: inline-flex;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  background-image: var(--gradient-brand);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 13px;
-  color: var(--color-primary-dark);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--color-on-primary);
+}
+
+/* Connectors between consecutive phases, only once all four sit on one row.
+   Under that the grid wraps, and a connector off the end of a row would point
+   at nothing. A container query measures the grid itself, so the threshold is
+   exactly 4 × 230px tracks + 3 × 18px gaps = 974px, whatever the viewport,
+   scrollbar or container padding — keep it in step with the track minimum and
+   gap above. Engines without container queries simply draw no connectors. */
+.process__grid {
+  container-type: inline-size;
+}
+
+@container (min-width: 974px) {
+  .process__step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 34px;
+    left: 100%;
+    width: 18px;
+    height: 2px;
+    background: var(--gradient-brand);
+  }
 }
 
 .process__title {

@@ -259,7 +259,7 @@
             "description": "Software a la medida: apps iOS y Android, aplicaciones web, sistemas internos e integraciones API. Guadalajara, Jalisco.",
             "inLanguage": "es-MX",
             "datePublished": "2026-08-26",
-            "dateModified": "2026-08-27",
+            "dateModified": "2026-10-18",
             "isPartOf": {
               "@id": "https://masolutions.mx/#website"
             },
@@ -368,6 +368,7 @@
     <link rel="stylesheet" href="./css/base/background.css" />
     <link rel="stylesheet" href="./css/layout/header.css" />
     <link rel="stylesheet" href="./css/layout/hero.css" />
+    <link rel="stylesheet" href="./css/layout/custom.css" />
     <link rel="stylesheet" href="./css/layout/about.css" />
     <link rel="stylesheet" href="./css/layout/services.css" />
     <link rel="stylesheet" href="./css/layout/process.css" />
@@ -452,8 +453,8 @@
           <div class="hero__content">
             <span class="pill pill--wide">INGENIERÍA DE SOFTWARE A LA MEDIDA</span>
             <h1 class="hero__title" id="hero-title">
-              Ingeniería de software a la medida: aplicaciones móviles, web e
-              integraciones
+              Ingeniería de software <span class="text-gradient">a la medida</span>:
+              aplicaciones móviles, web e integraciones
             </h1>
             <p class="hero__lead">
               Diseñamos, desarrollamos y mantenemos aplicaciones móviles,
@@ -477,6 +478,26 @@
                the hero shows what the work looks like without promoting one of
                the three named client systems above the other two. -->
           <div class="hero__visual">
+            <!-- Two floating chips around the dashboard: one says "this is
+                 code we write", the other restates the two-week delivery
+                 cycle the page already commits to. Decorative, like the mock. -->
+            <div class="hero__chip hero__chip--code" aria-hidden="true">
+              <span class="hero__code-line"><span class="hero__code-key">const</span> sistema = <span class="hero__code-fn">aLaMedida</span>({</span>
+              <span class="hero__code-line hero__code-line--indent">operacion: <span class="hero__code-str">'su empresa'</span>,</span>
+              <span class="hero__code-line hero__code-line--indent">plataformas: [<span class="hero__code-str">'ios'</span>, <span class="hero__code-str">'android'</span>, <span class="hero__code-str">'web'</span>],</span>
+              <span class="hero__code-line">});</span>
+            </div>
+            <div class="hero__chip hero__chip--status" aria-hidden="true">
+              <span class="hero__chip-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
+                  <path d="M5 12.5 10 17.5 19 7" />
+                </svg>
+              </span>
+              <span>
+                <span class="hero__chip-title">Ciclo 06 entregado</span>
+                <span class="hero__chip-meta">Demo cada 2 semanas</span>
+              </span>
+            </div>
             <div class="mock mock--browser mock--hero" aria-hidden="true">
               <div class="mock__window">
                 <div class="mock__chrome">
@@ -567,6 +588,52 @@
           </ul>
         </section>
 
+        <!-- The positioning argument, on the page's one dark band. Every line
+             in the right-hand column restates a commitment made elsewhere on
+             the page (levantamiento, API integrations, closed scope and price,
+             two-week cycles, documentation, monthly support) — do not add a
+             claim here that the rest of the page does not already make. -->
+        <section id="a-la-medida" class="custom" aria-labelledby="a-la-medida-title">
+          <div class="custom__panel">
+            <span class="section__eyebrow custom__eyebrow">¿POR QUÉ A LA MEDIDA?</span>
+            <h2 class="section__title custom__title" id="a-la-medida-title">
+              Software que se adapta a su operación, no al revés
+            </h2>
+            <p class="custom__lead">
+              Un sistema genérico obliga a su equipo a trabajar como lo decidió
+              el proveedor. El software a la medida parte de cómo opera su
+              empresa hoy y automatiza exactamente eso.
+            </p>
+
+            <div class="custom__compare">
+              <div class="custom__column custom__column--generic">
+                <h3 class="custom__column-title">Software genérico</h3>
+                <ul class="custom__list">
+                  <li class="custom__item">Usted adapta sus procesos a la herramienta</li>
+                  <li class="custom__item">Exportaciones a hoja de cálculo y captura doble</li>
+                  <li class="custom__item">Licencias y módulos pensados para otros negocios</li>
+                  <li class="custom__item">La hoja de ruta la decide el proveedor</li>
+                </ul>
+              </div>
+              <div class="custom__column custom__column--tailored">
+                <h3 class="custom__column-title">Software a la medida</h3>
+                <ul class="custom__list">
+                  <li class="custom__item">Diseñado sobre su operación real, a partir de un levantamiento con sus áreas</li>
+                  <li class="custom__item">Integrado por API con su ERP, CRM y pasarelas de pago</li>
+                  <li class="custom__item">Solo lo que su operación requiere, con alcance y precio cerrados</li>
+                  <li class="custom__item">Avances demostrables cada dos semanas y documentación incluida</li>
+                  <li class="custom__item">Evoluciona con su negocio bajo contrato de soporte mensual</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="custom__actions">
+              <a href="#contacto" class="btn btn--primary">Solicitar una propuesta</a>
+              <span class="custom__note">Propuesta formal en 48 horas, sin costo ni compromiso</span>
+            </div>
+          </div>
+        </section>
+
         <section id="nosotros" class="section about" aria-labelledby="nosotros-title">
           <span class="section__eyebrow">NOSOTROS</span>
           <h2 class="section__title" id="nosotros-title">
@@ -640,7 +707,14 @@
           </h2>
           <div class="services__grid">
             <article class="card service-card">
-              <div class="service-card__index">01</div>
+              <div class="service-card__head">
+                <span class="service-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                    <rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.5h2" />
+                  </svg>
+                </span>
+                <span class="service-card__index">01</span>
+              </div>
               <h3 class="service-card__title">Aplicaciones móviles</h3>
               <p class="service-card__text">
                 Desarrollo nativo y multiplataforma para iOS y Android: del
@@ -648,7 +722,14 @@
               </p>
             </article>
             <article class="card service-card">
-              <div class="service-card__index">02</div>
+              <div class="service-card__head">
+                <span class="service-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                    <rect x="3" y="4" width="18" height="16" rx="2.5" /><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01" />
+                  </svg>
+                </span>
+                <span class="service-card__index">02</span>
+              </div>
               <h3 class="service-card__title">Aplicaciones web</h3>
               <p class="service-card__text">
                 Portales, paneles de operación y plataformas SaaS multiusuario,
@@ -657,7 +738,14 @@
               </p>
             </article>
             <article class="card service-card">
-              <div class="service-card__index">03</div>
+              <div class="service-card__head">
+                <span class="service-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                    <path d="M4 7h10M18 7h2M4 17h4M12 17h8" /><circle cx="16" cy="7" r="2" /><circle cx="10" cy="17" r="2" />
+                  </svg>
+                </span>
+                <span class="service-card__index">03</span>
+              </div>
               <h3 class="service-card__title">Software a la medida</h3>
               <p class="service-card__text">
                 Sistemas internos que sustituyen la hoja de cálculo:
@@ -666,7 +754,14 @@
               </p>
             </article>
             <article class="card service-card">
-              <div class="service-card__index">04</div>
+              <div class="service-card__head">
+                <span class="service-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                    <path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1" /><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" />
+                  </svg>
+                </span>
+                <span class="service-card__index">04</span>
+              </div>
               <h3 class="service-card__title">Integraciones y API</h3>
               <p class="service-card__text">
                 Interoperabilidad con ERP, CRM, pasarelas de pago y servicios
@@ -675,7 +770,14 @@
               </p>
             </article>
             <article class="card service-card">
-              <div class="service-card__index">05</div>
+              <div class="service-card__head">
+                <span class="service-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                    <path d="M3 12h4l2-5 4 10 2-5h6" />
+                  </svg>
+                </span>
+                <span class="service-card__index">05</span>
+              </div>
               <h3 class="service-card__title">Mantenimiento y soporte</h3>
               <p class="service-card__text">
                 Monitoreo, atención de incidencias y evolución funcional
@@ -684,7 +786,14 @@
               </p>
             </article>
             <article class="card service-card">
-              <div class="service-card__index">06</div>
+              <div class="service-card__head">
+                <span class="service-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                    <path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14" />
+                  </svg>
+                </span>
+                <span class="service-card__index">06</span>
+              </div>
               <h3 class="service-card__title">Consultoría técnica</h3>
               <p class="service-card__text">
                 Auditoría de arquitectura y de código, selección tecnológica y

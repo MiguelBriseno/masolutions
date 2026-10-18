@@ -1,4 +1,5 @@
 const ANIMATED_GROUPS = [
+  { selector: '.custom__column', delay: 120 },
   { selector: '.service-card', delay: 100 },
   { selector: '.process__step', delay: 120 },
   { selector: '.project-card', delay: 120 },
