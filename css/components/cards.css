@@ -42,14 +42,6 @@
     background: var(--color-primary);
     color: var(--color-on-primary);
   }
-
-  .service-card::before {
-    transition: transform 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
-  }
-
-  .service-card:hover::before {
-    transform: scaleX(1);
-  }
 }
 
 @media (hover: hover) and (prefers-reduced-motion: reduce) {
@@ -59,10 +51,5 @@
 
   .card:is(.service-card, .process__step, .project-card, .testimonial-card):hover {
     translate: none;
-  }
-
-  /* The top rule still appears on hover, it just does not sweep in. */
-  .service-card::before {
-    transition: none;
   }
 }

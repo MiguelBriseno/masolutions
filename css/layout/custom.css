@@ -9,26 +9,11 @@
 }
 
 .custom__panel {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   padding: clamp(28px, 5vw, 56px);
   border-radius: var(--radius-xl);
   background: var(--color-ink);
   color: var(--color-ink-text);
   box-shadow: var(--shadow-float);
-}
-
-/* Two brand glows bleeding in from opposite corners. */
-.custom__panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    radial-gradient(50% 60% at 100% 0%, var(--color-ink-glow), transparent 70%),
-    radial-gradient(45% 55% at 0% 100%, var(--color-ink-glow-blue), transparent 70%);
 }
 
 .custom__eyebrow {
@@ -65,13 +50,9 @@
   background: var(--color-ink);
 }
 
-/* Gradient edge: the brand gradient fills the border box, the raised ink
-   fills the padding box on top of it, so only the 1px border shows colour. */
 .custom__column--tailored {
-  border-color: transparent;
-  background:
-    linear-gradient(var(--color-ink-raised), var(--color-ink-raised)) padding-box,
-    var(--gradient-brand) border-box;
+  border-color: var(--color-primary);
+  background: var(--color-ink-raised);
 }
 
 .custom__column-title {
@@ -123,7 +104,7 @@
 }
 
 .custom__column--tailored .custom__item::before {
-  background: var(--gradient-brand);
+  background: var(--color-primary);
 }
 
 /* The check mark: two borders of a rotated box, centred in the disc. */

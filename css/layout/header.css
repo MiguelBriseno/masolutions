@@ -1,4 +1,4 @@
-/* The header lives OUTSIDE .container so its translucent bar spans the whole
+/* The header lives OUTSIDE .container so its bar spans the whole
    viewport; the .container inside keeps the row aligned with the page grid.
    A bar clipped to 1180px would leave the page scrolling past it at the sides
    on any wide screen, which reads as a rendering bug. */
@@ -6,23 +6,11 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  /* Fallback first: --color-bg (#f7f7fb) at 88%, for engines without
-     color-mix(). The @supports block below upgrades it. */
-  background: rgba(247, 247, 251, 0.88);
-  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  /* Solid, not frosted: a translucent bar let the dark "¿Por qué a la
+     medida?" panel and its headline show through behind the nav links. */
+  background: var(--color-bg);
   border-bottom: 1px solid transparent;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-/* With blur available the bar can be far more transparent, so the aurora keeps
-   drifting behind it instead of being flattened out by an opaque strip. */
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-header {
-    background: rgba(247, 247, 251, 0.62);
-    background: color-mix(in srgb, var(--color-bg) 62%, transparent);
-    -webkit-backdrop-filter: saturate(1.7) blur(14px);
-    backdrop-filter: saturate(1.7) blur(14px);
-  }
 }
 
 /* navbar.js adds this once the page has scrolled past the sentinel. At the very

@@ -14,45 +14,14 @@
   --color-primary-softer: #f2f0ff;
   --color-primary-tint: #ddd4ff;
   --color-primary-faint: #f6f4ff;
-  /* The two stops the brand gradient runs through after --color-primary.
-     Both are dark enough for white text: the gradient sits behind white 12.5–
-     15px labels (buttons, process pills), and every stop clears WCAG AA 4.5:1 —
-     #7f45f0 is 5.2:1 and #2f6fe0 is 4.7:1. A lighter blue such as #3d8bf5 is
-     3.4:1 and fails; re-check any stop you change. */
-  --color-violet: #7f45f0;
-  --color-accent-blue: #2f6fe0;
-
-  /* Brand gradient — the one place colour moves on the page: the hero accent,
-     the primary button, the process pills and the hover edge of the cards. */
-  --gradient-brand: linear-gradient(
-    120deg,
-    var(--color-primary) 0%,
-    var(--color-violet) 52%,
-    var(--color-accent-blue) 100%
-  );
-
-  /* Ink — the dark "¿Por qué a la medida?" band and the hero code chip.
-     Brand-tinted alphas are mixed from the brand tokens rather than retyped,
-     so a brand colour change carries through. */
+  /* Ink — the dark "¿Por qué a la medida?" band. */
   --color-ink: #12102a;
   --color-ink-raised: #1d1a3d;
   --color-ink-border: rgba(255, 255, 255, 0.1);
   --color-ink-text: #f3f1ff;
   --color-ink-muted: #b9b4d8;
   --color-ink-accent: #b7a8ff;
-  --color-ink-glow: color-mix(in srgb, var(--color-primary) 45%, transparent);
-  --color-ink-glow-blue: color-mix(in srgb, var(--color-accent-blue) 30%, transparent);
-  --color-grid-line: color-mix(in srgb, var(--color-primary) 7%, transparent);
-  --color-hero-glow: color-mix(in srgb, var(--color-violet) 22%, transparent);
   --color-btn-hover-overlay: rgba(20, 20, 31, 0.14);
-  --color-code-fn: #8fc1ff;
-  --color-code-string: #9be3b8;
-
-  /* Animated background — kept very low alpha on purpose: the aurora is
-     texture behind the content, not a second brand colour competing with it. */
-  --color-aurora-primary: rgba(91, 61, 245, 0.20);
-  --color-aurora-violet: rgba(147, 89, 246, 0.17);
-  --color-aurora-blue: rgba(61, 139, 245, 0.14);
 
   /* Text */
   --color-text: #14141f;
@@ -242,13 +211,12 @@ button {
 .btn--primary {
   padding: 13px 22px;
   background: var(--color-primary);
-  background-image: var(--gradient-brand);
   color: var(--color-on-primary);
   font-size: 15px;
   /* The second shadow is a full-cover inset overlay, transparent at rest.
-     Hover darkens the button by tinting it, because a swap to a second
-     gradient would snap: background-image does not interpolate, box-shadow
-     does. Both states list the same two shadows so they ease pairwise. */
+     Hover darkens the button by tinting it rather than swapping the
+     background, so the darkening eases with the shadow. Both states list the
+     same two shadows so they ease pairwise. */
   box-shadow: var(--shadow-brand), inset 0 0 0 100vmax transparent;
 }
 
@@ -279,22 +247,6 @@ button {
 .btn--sm {
   padding: 10px 17px;
   font-size: 14px;
-}
-
-/* Gradient accent for a few words inside a heading. The solid colour comes
-   first so an engine without background-clip: text still shows brand-coloured
-   text instead of a transparent gap. */
-.text-gradient {
-  color: var(--color-primary);
-}
-
-@supports (background-clip: text) or (-webkit-background-clip: text) {
-  .text-gradient {
-    background-image: var(--gradient-brand);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
 }
 
 /* Pills */
