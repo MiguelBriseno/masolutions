@@ -531,6 +531,24 @@
 }
 
 
+/* ---- Caption ----
+   Every mock carries client-style branding and figures, so each one says in
+   plain text that the data is illustrative. The mock itself is aria-hidden;
+   the caption is deliberately not, so assistive technology hears the same
+   disclaimer a sighted visitor reads. */
+.mock-caption {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-text-subtle);
+}
+
+.mock-caption--card {
+  margin-top: 0;
+  padding: 12px 22px 0;
+}
+
+
 /* ---- Motion ----
    Until now these screens were completely static: 450 lines of CSS drawing a
    dashboard whose chart never drew itself. Everything below animates them once,

@@ -23,8 +23,8 @@ un plan técnico para continuarlo, corregirlo o migrarlo.
 
 ## Compromisos de trabajo
 
-- Propuesta formal por escrito: 48 horas
-- Alcance, precio y plazo: cerrados
+- Propuesta formal por escrito: 48 h hábiles
+- Alcance, precio y plazo: cerrados al firmar la propuesta
 - Avances demostrables: cada 2 semanas
 - Documentación de entrega: incluida
 - Publicación en tiendas: App Store y Google Play
@@ -48,7 +48,7 @@ El software a la medida parte de cómo opera la empresa hoy y automatiza
 exactamente eso.
 
 - Software genérico: los procesos se adaptan a la herramienta; exportaciones a hoja de cálculo y captura doble; licencias y módulos pensados para otros negocios; la hoja de ruta la decide el proveedor.
-- Software a la medida: diseñado sobre la operación real, a partir de un levantamiento con las áreas involucradas; integrado por API con ERP, CRM y pasarelas de pago; solo lo que la operación requiere, con alcance y precio cerrados; avances demostrables cada dos semanas y documentación incluida; evoluciona con el negocio bajo contrato de soporte mensual.
+- Software a la medida: diseñado sobre la operación real, a partir de un levantamiento con las áreas involucradas; integrado por API con ERP, CRM y pasarelas de pago; solo lo que la operación requiere, con alcance y precio cerrados al firmar la propuesta; avances demostrables cada dos semanas y documentación incluida; evoluciona con el negocio bajo contrato de soporte mensual.
 
 ## Servicios
 
@@ -63,14 +63,14 @@ exactamente eso.
 
 Metodología en cuatro fases: levantamiento de requerimientos, diseño y
 arquitectura, desarrollo e implementación. La propuesta formal —con alcance,
-plazos y presupuesto por escrito— se entrega en 48 horas tras la reunión
-inicial, sin costo ni compromiso. El ciclo de entrega es de dos semanas, con
+plazos y presupuesto por escrito— se entrega en menos de 48 horas hábiles
+desde la solicitud, sin costo ni compromiso. El ciclo de entrega es de dos semanas, con
 avances demostrables en cada ciclo, y la documentación técnica de entrega está
 incluida.
 
 ## Respuestas frecuentes
 
-- **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. Tras la reunión inicial se entrega una propuesta sin costo, con precio cerrado, entregables detallados y plazos comprometidos por escrito.
+- **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. En menos de 48 horas hábiles desde la solicitud se entrega una propuesta sin costo, con entregables detallados; al firmarla, alcance, precio y plazo quedan cerrados por escrito.
 - **¿Cuánto tiempo tarda el desarrollo de un proyecto?** Una primera versión funcional en producción toma habitualmente entre 8 y 14 semanas, con avances demostrables cada dos semanas.
 - **¿Cómo se da seguimiento al avance del proyecto?** Una reunión de avance por ciclo, acceso permanente al tablero de tareas y un informe escrito al cierre de cada fase.
 - **¿Trabajan con proyectos de software ya iniciados?** Sí. Se audita el código existente, se documenta su estado real y se presenta un plan para continuarlo, corregirlo o migrarlo.
@@ -79,8 +79,8 @@ incluida.
 
 ## Proyectos representativos
 
-- **Tonalli ERP**: sistema de gestión para la industria tequilera, con control de producción, inventario de agave y trazabilidad lote a lote, que sustituyó el control por hojas de cálculo.
-- **ActuarEnvíos**: plataforma de logística y última milla, con alta de guías, seguimiento de unidades en ruta y estado de entrega en tiempo real, que redujo las consultas telefónicas sobre el estado de un envío.
+- **Tonalli ERP**: sistema de gestión para la industria tequilera, con control de producción, inventario de agave y trazabilidad lote a lote.
+- **ActuarEnvíos**: plataforma de logística y última milla, con alta de guías, seguimiento de unidades en ruta y estado de entrega en tiempo real.
 - **Urban Reps**: aplicación móvil de calistenia para iOS y Android, con rutinas progresivas, registro de series y seguimiento del avance del usuario.
 
 ## Contacto
