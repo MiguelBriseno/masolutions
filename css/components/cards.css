@@ -60,4 +60,9 @@
   .card:is(.service-card, .process__step, .project-card, .testimonial-card):hover {
     translate: none;
   }
+
+  /* The top rule still appears on hover, it just does not sweep in. */
+  .service-card::before {
+    transition: none;
+  }
 }

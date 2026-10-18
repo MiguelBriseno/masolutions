@@ -72,12 +72,12 @@
   mask-image: radial-gradient(closest-side, #000 55%, transparent);
 }
 
+/* A soft radial gradient rather than a blurred shape: `filter: blur()` on a
+   layer this size is an expensive raster on low-end phones, right during the
+   hero's first paint. */
 .hero__visual::after {
-  inset: 12% 8%;
-  background: var(--gradient-brand);
-  filter: blur(60px);
-  opacity: 0.35;
-  border-radius: 50%;
+  inset: -6% 0;
+  background: radial-gradient(closest-side, var(--color-hero-glow), transparent);
 }
 
 .hero__visual .mock {
