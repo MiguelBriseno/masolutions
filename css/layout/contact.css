@@ -16,7 +16,6 @@
 
 .contact__title {
   font-size: var(--text-xl);
-  margin-top: var(--space-3);
   max-width: 20ch;
 }
 

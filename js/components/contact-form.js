@@ -47,7 +47,7 @@ const VALIDATORS = {
       digits.startsWith('52') && digits.length > 10 ? digits.slice(2) : digits;
 
     if (national.length !== 10) {
-      return 'Escriba los 10 dígitos con clave local. Ejemplo: 33 1217 0122.';
+      return 'Escriba los 10 dígitos con clave local. Ejemplo: 33 1234 5678.';
     }
     return '';
   },

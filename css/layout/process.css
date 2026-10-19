@@ -11,25 +11,15 @@
   box-shadow: none;
 }
 
-.process__phase {
-  display: inline-flex;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-pill);
-  background: var(--color-primary);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: var(--text-xs);
-  letter-spacing: 0.04em;
-  color: var(--color-on-primary);
-}
-
 /* Connectors between consecutive phases, only once all four sit on one row.
    Under that the grid wraps, and a connector off the end of a row would point
    at nothing. A container query measures the grid itself, so the threshold is
    exactly 4 × 230px tracks + 3 × 20px gaps (--space-5) = 980px, whatever the
    viewport, scrollbar or container padding — keep it in step with the track
    minimum and gap above; a container query cannot read a custom property.
-   The connector's top offset centres it on the phase pill, so it is a literal. Engines without container queries simply draw no connectors. */
+   The connector's top offset centres it on the first line of the phase title:
+   the card's top padding plus half a title line (--text-lg at the global
+   heading line-height of 1.1). Derived, so it follows either token. Engines without container queries simply draw no connectors. */
 .process__grid {
   container-type: inline-size;
 }
@@ -38,7 +28,7 @@
   .process__step:not(:last-child)::after {
     content: "";
     position: absolute;
-    top: 34px;
+    top: calc(var(--space-6) + var(--text-lg) * 1.1 / 2);
     left: 100%;
     width: var(--space-5);
     height: 1px;
@@ -48,7 +38,7 @@
 
 .process__title {
   font-size: var(--text-lg);
-  margin: var(--space-3) 0 var(--space-2);
+  margin: 0 0 var(--space-2);
 }
 
 .process__text {
