@@ -46,25 +46,64 @@
   --font-body: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: "Space Grotesk", system-ui, sans-serif;
 
+  /* Type scale. Every font-size outside mockups.css (a deliberate scale model)
+     and the 404 page's own display sizes comes from here. --text-body stays at
+     16px for body copy: form inputs set below 16px make iOS zoom on focus. */
+  --text-xs: 12px;
+  --text-sm: 13.5px;
+  --text-base: 15px;
+  --text-body: 16px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: clamp(28px, 3.4vw, 38px);
+  --text-display: clamp(34px, 4.4vw, 50px);
+
+  /* Spacing, on a 4px base. Padding, margin, gap and inset all map to the
+     nearest step; 1–2px hairlines stay literal. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+
   /* Radii */
-  --radius-sm: 9px;
+  --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-lg: 20px;
   --radius-pill: 999px;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(20, 20, 31, 0.05);
   --shadow-md: 0 8px 24px rgba(20, 20, 31, 0.06);
-  --shadow-lg: 0 10px 30px rgba(20, 20, 31, 0.06);
+  --shadow-lg: 0 24px 60px -18px color-mix(in srgb, var(--color-primary-darker) 35%, transparent);
   --shadow-brand: 0 10px 26px -8px color-mix(in srgb, var(--color-primary) 55%, transparent);
   --shadow-brand-strong: 0 16px 34px -10px color-mix(in srgb, var(--color-primary) 70%, transparent);
-  --shadow-float: 0 24px 60px -18px color-mix(in srgb, var(--color-primary-darker) 35%, transparent);
+  /* Directional edges for the two bars pinned to the viewport: the header's
+     falls below it, the action bar's rises above it. */
+  --shadow-header: 0 1px 20px rgba(20, 20, 31, 0.05);
+  --shadow-action-bar: 0 -4px 24px rgba(20, 20, 31, 0.08);
 
-  /* Transitions */
-  --transition-fast: 150ms ease;
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 240ms;
+  --duration-slow: 500ms;
+  --transition-fast: var(--duration-fast) ease;
+
+  /* Layering. The skip link sits above both fixed bars: it is the first thing
+     a keyboard user reaches and must never appear behind either of them. */
+  --z-skip: 60;
+  --z-header: 30;
+  --z-action-bar: 25;
 
   /* Layout */
+  /* Minimum touch target in the primary axis on coarse pointers. */
+  --touch-target: 44px;
   --container-max: 1180px;
   --container-pad: clamp(20px, 5vw, 56px);
   --section-gap: clamp(40px, 7vw, 56px);
@@ -78,7 +117,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 1.6;
   text-wrap: pretty;
   /* Long unbroken strings (URLs, emails) must never widen the page. */
@@ -91,11 +130,6 @@ h1,
 h2,
 h3 {
   overflow-wrap: break-word;
-}
-
-h1,
-h2,
-h3 {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.025em;
@@ -135,25 +169,25 @@ button {
   visibility: hidden;
 }
 
-/* Above .site-header (30) and .action-bar (25): the skip link is the first
-   thing a keyboard user reaches and must never appear behind either of them. */
+/* Layered above .site-header and .action-bar; see --z-skip. top: -100px only
+   parks it off screen until focus brings it in. */
 .skip-link {
   position: fixed;
-  left: 8px;
+  left: var(--space-2);
   top: -100px;
-  z-index: 60;
-  padding: 11px 18px;
+  z-index: var(--z-skip);
+  padding: var(--space-3) var(--space-5);
   background: var(--color-primary);
   color: var(--color-on-primary);
   border-radius: var(--radius-sm);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: none;
   transition: top var(--transition-fast);
 }
 
 .skip-link:focus-visible {
-  top: 8px;
+  top: var(--space-2);
   color: var(--color-on-primary);
 }
 
@@ -169,12 +203,15 @@ button {
   padding-block: var(--section-gap);
 }
 
-/* Used both as a <span> and as the section's <h2>, so every property the
-   global heading rule sets is restated here to keep it tag-agnostic. */
+/* The one eyebrow style on the page: section labels, the Nosotros panel label
+   and the success panel label all use it, recolouring with a modifier class
+   where needed. Used both as a <span> and as a section's <h2>, so every
+   property the global heading rule sets is restated here to keep it
+   tag-agnostic. */
 .section__eyebrow {
   display: block;
   font-family: var(--font-body);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
   font-weight: 600;
   line-height: 1.6;
   letter-spacing: 0.08em;
@@ -183,15 +220,15 @@ button {
 }
 
 .section__title {
-  font-size: clamp(28px, 3.4vw, 38px);
-  margin-top: 12px;
+  font-size: var(--text-xl);
+  margin-top: var(--space-3);
   max-width: 24ch;
 }
 
 .section__note {
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   color: var(--color-text-subtle);
-  margin-top: 20px;
+  margin-top: var(--space-5);
 }
 
 /* Buttons */
@@ -209,10 +246,10 @@ button {
 }
 
 .btn--primary {
-  padding: 13px 22px;
+  padding: var(--space-3) var(--space-6);
   background: var(--color-primary);
   color: var(--color-on-primary);
-  font-size: 15px;
+  font-size: var(--text-base);
   /* The second shadow is a full-cover inset overlay, transparent at rest.
      Hover darkens the button by tinting it rather than swapping the
      background, so the darkening eases with the shadow. Both states list the
@@ -226,11 +263,11 @@ button {
 }
 
 .btn--secondary {
-  padding: 13px 22px;
+  padding: var(--space-3) var(--space-6);
   background: var(--color-surface);
   border: 1px solid var(--color-border-strong);
   color: var(--color-text);
-  font-size: 15px;
+  font-size: var(--text-base);
   font-weight: 500;
 }
 
@@ -245,29 +282,29 @@ button {
 }
 
 .btn--sm {
-  padding: 10px 17px;
-  font-size: 14px;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
 }
 
 /* Pills */
 .pill {
   display: inline-flex;
-  padding: 5px 11px;
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary-dark);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
 .pill--wide {
-  padding: 6px 12px;
+  padding: var(--space-2) var(--space-3);
   letter-spacing: 0.06em;
 }
 
 .pill--muted {
   background: var(--color-primary-softer);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 /* Cards */
@@ -278,16 +315,17 @@ button {
   box-shadow: var(--shadow-sm);
 }
 
-/* Touch devices need a target of at least ~44px in the primary axis. */
+/* Touch devices need a target of at least --touch-target in the primary axis. */
 @media (pointer: coarse) {
   .btn {
-    min-height: 44px;
+    min-height: var(--touch-target);
   }
 }
 
 /* Anchor targets must clear the sticky header, otherwise every in-page jump
    lands with the section heading hidden underneath it. Roughly the header's
-   own height plus breathing room. */
+   own height plus breathing room — derived from the header, not a spacing
+   step, so it stays a literal. */
 :where(section[id], #contenido) {
   scroll-margin-top: 84px;
 }

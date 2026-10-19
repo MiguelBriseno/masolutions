@@ -6,6 +6,8 @@
   padding-block: var(--section-gap);
 }
 
+/* The 404 page keeps its own display sizes: the code and title are set for a
+   page with nothing else on it, outside the --text-* scale. */
 .error__code {
   font-family: var(--font-display);
   font-weight: 600;
@@ -16,21 +18,21 @@
 
 .error__title {
   font-size: clamp(24px, 4vw, 32px);
-  margin-top: 16px;
+  margin-top: var(--space-4);
 }
 
 .error__text {
-  font-size: 16px;
+  font-size: var(--text-base);
   line-height: 1.7;
   max-width: 46ch;
-  margin: 14px auto 0;
+  margin: var(--space-4) auto 0;
   color: var(--color-text-muted);
 }
 
 .error__actions {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: var(--space-3);
   flex-wrap: wrap;
-  margin-top: 28px;
+  margin-top: var(--space-7);
 }

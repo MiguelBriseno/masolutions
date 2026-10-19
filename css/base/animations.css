@@ -1,8 +1,8 @@
 /* Scroll reveal — animations.js adds .visible, the transition lives here. */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(var(--space-5));
+  transition: opacity var(--duration-slow) ease, transform var(--duration-slow) ease;
 }
 
 .animate-on-scroll.visible {

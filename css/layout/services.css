@@ -1,12 +1,12 @@
 .services__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 18px;
-  margin-top: 34px;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
 }
 
 .service-card {
-  padding: 24px;
+  padding: var(--space-6);
 }
 
 .service-card__icon {
@@ -28,12 +28,12 @@
 }
 
 .service-card__title {
-  font-size: 18px;
-  margin: 16px 0 8px;
+  font-size: var(--text-md);
+  margin: var(--space-4) 0 var(--space-2);
 }
 
 .service-card__text {
-  font-size: 14.5px;
+  font-size: var(--text-base);
   line-height: 1.65;
   color: var(--color-text-soft);
 }

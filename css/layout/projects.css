@@ -1,8 +1,8 @@
 .projects__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
-  gap: 18px;
-  margin-top: 34px;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
 }
 
 .project-card {
@@ -10,16 +10,16 @@
 }
 
 .project-card__body {
-  padding: 20px 22px 24px;
+  padding: var(--space-5) var(--space-6) var(--space-6);
 }
 
 .project-card__title {
-  font-size: 19px;
-  margin: 14px 0 8px;
+  font-size: var(--text-lg);
+  margin: var(--space-4) 0 var(--space-2);
 }
 
 .project-card__text {
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 1.6;
   color: var(--color-text-soft);
 }

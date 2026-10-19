@@ -61,6 +61,16 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 cascade order (`reset` → `globals` → `animations` → layout →
 components).
 
+**Token scales** (all in `:root` of `globals.css`): spacing `--space-1`…`--space-10`
+on a 4px base (4–64px; 1–2px hairlines stay literal), type `--text-xs`…`--text-lg`
+plus `--text-xl`/`--text-display` clamps and `--text-body: 16px` (kept for body
+copy so inputs never trigger iOS zoom), radius `--radius-sm/md/lg/pill`
+(8/14/20/999), shadow `--shadow-sm/md/lg` plus the brand and two bar-edge
+shadows, motion `--ease-out` and `--duration-fast/base/slow`, and `--z-*`
+layers. New values map to the nearest step rather than adding a literal.
+`mockups.css` is exempt for its miniature sizes, radii and `--mock-*` palette —
+it is a deliberate scale model — but uses the shared easing.
+
 **`cards.css` must stay after `animations.css` in that order, and its
 `transition` shorthand must keep restating the reveal's own
 `opacity`/`transform` timings.** One element cannot have two owners for

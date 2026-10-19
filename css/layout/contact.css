@@ -5,25 +5,25 @@
 .contact__panel {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
-  gap: 44px;
+  gap: var(--space-9);
   align-items: start;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: clamp(26px, 4vw, 44px);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-lg);
+  padding: clamp(var(--space-6), 4vw, var(--space-9));
+  box-shadow: var(--shadow-md);
 }
 
 .contact__title {
-  font-size: clamp(28px, 3.4vw, 38px);
-  margin-top: 12px;
+  font-size: var(--text-xl);
+  margin-top: var(--space-3);
   max-width: 20ch;
 }
 
 .contact__lead {
-  font-size: 16px;
+  font-size: var(--text-base);
   line-height: 1.65;
-  margin-top: 16px;
+  margin-top: var(--space-4);
   color: var(--color-text-muted);
   max-width: 44ch;
 }
@@ -33,9 +33,9 @@
   display: flex;
   font-style: normal;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 26px;
-  font-size: 15px;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  font-size: var(--text-base);
 }
 
 .contact__channel {
@@ -50,13 +50,13 @@
 .form__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .form__group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-2);
 }
 
 .form__group--full {
@@ -64,14 +64,14 @@
 }
 
 .form__label {
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-text-muted);
 }
 
 .form__control {
-  padding: 11px 13px;
-  font-size: 15px;
+  padding: var(--space-3);
+  font-size: var(--text-base);
   background: var(--color-surface-muted);
   border: 1px solid var(--color-border-input);
   border-radius: var(--radius-sm);
@@ -90,7 +90,7 @@
 /* Per-field message. Kept out of the flow when empty so the grid rows do not
    grow by a blank line for every field that happens to be valid. */
 .form__feedback {
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.45;
   color: var(--color-danger);
 }
@@ -106,16 +106,17 @@ textarea.form__control {
 .form__actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-4);
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: var(--space-5);
 }
 
 .form__disclaimer {
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   color: var(--color-text-subtle);
 }
 
+/* Parked far off screen for bots, not a spacing value. */
 .form__honeypot {
   position: absolute;
   left: -9999px;
@@ -129,13 +130,13 @@ textarea.form__control {
 }
 
 .form__error {
-  margin-bottom: 16px;
-  padding: 11px 14px;
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-sm);
   background: var(--color-danger-soft);
   border: 1px solid var(--color-danger);
   color: var(--color-danger);
-  font-size: 14px;
+  font-size: var(--text-sm);
 }
 
 /* ---- Success state ---- */
@@ -143,15 +144,15 @@ textarea.form__control {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 13px;
-  padding: clamp(24px, 3.4vw, 32px);
+  gap: var(--space-3);
+  padding: clamp(var(--space-6), 3.4vw, var(--space-7));
   background: linear-gradient(
     155deg,
     var(--color-primary-faint),
     var(--color-surface) 60%
   );
   border: 1px solid var(--color-primary-tint);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   animation: form-success-in 420ms ease both;
 }
@@ -183,19 +184,12 @@ textarea.form__control {
   animation: form-success-check 380ms ease 200ms forwards;
 }
 
-.form__success-label {
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--color-primary-dark);
-}
-
 .form__success-title {
-  font-size: clamp(22px, 2.6vw, 26px);
+  font-size: var(--text-lg);
 }
 
 .form__success-text {
-  font-size: 15px;
+  font-size: var(--text-base);
   line-height: 1.65;
   color: var(--color-text-muted);
 }
@@ -207,14 +201,14 @@ textarea.form__control {
 
 .form__success-steps {
   display: grid;
-  gap: 9px;
+  gap: var(--space-2);
   width: 100%;
-  margin: 4px 0 0;
-  padding: 16px 0 0;
+  margin: var(--space-1) 0 0;
+  padding: var(--space-4) 0 0;
   border-top: 1px solid var(--color-border);
   list-style: none;
   counter-reset: form-success-step;
-  font-size: 14.5px;
+  font-size: var(--text-base);
   line-height: 1.5;
   color: var(--color-text-muted);
 }
@@ -222,7 +216,7 @@ textarea.form__control {
 .form__success-steps li {
   position: relative;
   counter-increment: form-success-step;
-  padding-left: 30px;
+  padding-left: var(--space-7);
 }
 
 .form__success-steps li::before {
@@ -237,24 +231,24 @@ textarea.form__control {
   border-radius: var(--radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary-dark);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
   font-weight: 600;
 }
 
 .form__success-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--space-3);
   width: 100%;
-  margin-top: 6px;
+  margin-top: var(--space-2);
 }
 
 .form__success-link,
 .form__success-reset {
-  padding: 11px 18px;
+  padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-sm);
   font-weight: 500;
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-decoration: none;
   cursor: pointer;
   transition: background var(--transition-fast), border-color var(--transition-fast),
@@ -287,7 +281,7 @@ textarea.form__control {
 @keyframes form-success-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(var(--space-3));
   }
   to {
     opacity: 1;
@@ -316,7 +310,7 @@ textarea.form__control {
 
 @media (max-width: 560px) {
   .contact__panel {
-    gap: 32px;
+    gap: var(--space-7);
   }
 
   /* A full-width submit reads as the primary action and is easier to hit. */

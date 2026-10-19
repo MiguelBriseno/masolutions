@@ -18,14 +18,14 @@
    one of a set, and lifting it would promise an interaction that is not there. */
 @media (hover: hover) {
   .card:is(.service-card, .process__step, .project-card, .testimonial-card) {
-    transition: opacity 0.5s ease, transform 0.5s ease,
-      translate 240ms cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 240ms ease,
-      border-color 240ms ease;
+    transition: opacity var(--duration-slow) ease, transform var(--duration-slow) ease,
+      translate var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) ease, border-color var(--duration-base) ease;
   }
 
   .card:is(.service-card, .process__step, .project-card, .testimonial-card):hover {
-    translate: 0 -4px;
-    box-shadow: var(--shadow-lg);
+    translate: 0 calc(var(--space-1) * -1);
+    box-shadow: var(--shadow-md);
     border-color: var(--color-primary-tint);
   }
 
@@ -46,7 +46,7 @@
 
 @media (hover: hover) and (prefers-reduced-motion: reduce) {
   .card:is(.service-card, .process__step, .project-card, .testimonial-card) {
-    transition: box-shadow 240ms ease, border-color 240ms ease;
+    transition: box-shadow var(--duration-base) ease, border-color var(--duration-base) ease;
   }
 
   .card:is(.service-card, .process__step, .project-card, .testimonial-card):hover {
