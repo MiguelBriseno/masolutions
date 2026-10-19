@@ -305,8 +305,8 @@ reachable before the data is collected.
 
 Its text describes what the site actually does. **Any change to the data
 flow means editing the aviso in the same PR:** a new form field, a new
-analytics or chat tool, another processor (today: FormSubmit, Gmail, Microsoft
-Clarity, Cloudflare, GitHub), or turning GTM back on. The responsable is
+analytics or chat tool, another processor (today: FormSubmit, Gmail, Google Fonts,
+Microsoft Clarity, Cloudflare, GitHub), or turning GTM back on. The responsable is
 named as a persona física, Miguel Alberto Briseño Bustos with the trade name
 MASolutions, and the law requires a domicilio. That domicilio is a
 **domicilio para notificaciones supplied by the owner** (a virtual office, an
@@ -314,10 +314,23 @@ accountant's office or a PO box), never the residence, and it appears only
 in the aviso (see the address rule below). The text was drafted from the site's
 actual behaviour and approved by the owner on 2026-10-18.
 
+Two production details the aviso depends on:
+
+- **Its email links are wrapped in `<!--email_off-->`.** Cloudflare's Email
+  Address Obfuscation rewrites every address into a placeholder that a script
+  decodes, and this page's `script-src 'none'` blocks that script, so without
+  the wrapper the only channel for ARCO requests would read "[email protected]".
+- **Google Fonts is a processor** (every page sends the visitor's IP to
+  `fonts.googleapis.com`/`fonts.gstatic.com`), and Clarity's MUID sync sets
+  Microsoft cookies on `bing.com` and `clarity.ms`. Self-hosting the fonts
+  would remove the former; both are disclosed while they stay.
+
 **No consent banner, by the owner's decision (2026-10-18).** Clarity loads on
 every visit to the home page and starts recording before the visitor can read
 the aviso, so the aviso says so plainly. It tells the visitor that measurement
-starts on load, that blocking cookies beforehand prevents it, and that they can
+starts on load, that blocking cookies does **not** stop it (Clarity records
+without cookies, and only loses the link between sessions), that a tracking
+protection or content blocker that blocks `clarity.ms` does, and that they can
 ask by email for their measurement data to be deleted. Do not add a banner
 without the owner asking for one. If one is ever added, `initClarity()` is the
 single call to gate behind it, and the aviso's "Para qué los usamos" section
