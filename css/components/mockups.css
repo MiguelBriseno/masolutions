@@ -25,6 +25,32 @@
   --mock-brand-deep: #3a2a9b;
   --mock-brand-bar: #d9d2fb;
   --mock-brand-mid: #c9bff5;
+  --mock-shadow-window: 0 6px 18px color-mix(in srgb, var(--color-text) 10%, transparent);
+  --mock-shadow-phone: 0 8px 20px color-mix(in srgb, var(--color-text) 18%, transparent);
+  /* The phone body is the darkest thing on the stage in both themes, so it
+     cannot follow --color-text, which turns light in dark mode. */
+  --mock-phone-body: var(--color-text);
+}
+
+/* Dark theme for the same palette: chrome and dividers step up from the dark
+   stage instead of down from a light one, and the shadows go black because
+   --color-text is now light and would make them glow. */
+@media (prefers-color-scheme: dark) {
+  .mock {
+    --mock-window-border: #2e2a55;
+    --mock-chrome-bg: #1d1a3d;
+    --mock-chrome-border: #2a2650;
+    --mock-dot: #3a3566;
+    --mock-panel-border: #2a2650;
+    --mock-divider: #26224a;
+    --mock-map-bg: #1b1838;
+    --mock-map-grid: #26224a;
+    --mock-brand-bar: #3b3180;
+    --mock-brand-mid: #4a3fa0;
+    --mock-shadow-window: 0 6px 18px rgba(0, 0, 0, 0.4);
+    --mock-shadow-phone: 0 8px 20px rgba(0, 0, 0, 0.5);
+    --mock-phone-body: #08071a;
+  }
 }
 
 /* ---- Shared mockup stage ---- */
@@ -48,7 +74,7 @@
   background: var(--color-surface);
   border: 1px solid var(--mock-window-border);
   border-radius: 8px 8px 0 0;
-  box-shadow: 0 6px 18px rgba(20, 20, 31, 0.1);
+  box-shadow: var(--mock-shadow-window);
   overflow: hidden;
   height: 100%;
 }
@@ -108,11 +134,11 @@
 .mock__sidebar-item {
   height: 6px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.32);
+  background: color-mix(in srgb, var(--color-on-primary) 32%, transparent);
 }
 
 .mock__sidebar-item--active {
-  background: rgba(255, 255, 255, 0.85);
+  background: color-mix(in srgb, var(--color-on-primary) 85%, transparent);
 }
 
 .mock__main {
@@ -234,7 +260,7 @@
   display: block;
   position: absolute;
   inset: 0;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .mock__timeline {
@@ -290,10 +316,10 @@
 .mock__phone {
   width: 132px;
   height: 222px;
-  background: var(--color-text);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--mock-phone-body);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
   padding: 6px 6px 0;
-  box-shadow: 0 8px 20px rgba(20, 20, 31, 0.18);
+  box-shadow: var(--mock-shadow-phone);
 }
 
 .mock__screen {
@@ -342,7 +368,7 @@
 
 .mock__set-label {
   font-size: 6.5px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .mock__set-value {
@@ -356,7 +382,7 @@
 .mock__progress {
   height: 4px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.28);
+  background: color-mix(in srgb, var(--color-on-primary) 28%, transparent);
   margin-top: 7px;
 }
 
@@ -531,6 +557,24 @@
 }
 
 
+/* ---- Caption ----
+   Every mock carries client-style branding and figures, so each one says in
+   plain text that the data is illustrative. The mock itself is aria-hidden;
+   the caption is deliberately not, so assistive technology hears the same
+   disclaimer a sighted visitor reads. */
+.mock-caption {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-text-subtle);
+}
+
+.mock-caption--card {
+  margin-top: 0;
+  padding: 12px 22px 0;
+}
+
+
 /* ---- Motion ----
    Until now these screens were completely static: 450 lines of CSS drawing a
    dashboard whose chart never drew itself. Everything below animates them once,
@@ -545,7 +589,10 @@
 
    Two play hooks: `.project-card.visible` (animations.js sets it when the card
    scrolls into view) and `.mock--hero`, which is above the fold and plays on
-   load. --mock-delay holds the hero back until its own entrance has finished. */
+   load. --mock-delay holds the hero back until its own entrance has finished.
+
+   The curve is the shared --ease-out; the durations and delays are one
+   choreographed sequence per screen and stay literal. */
 .mock {
   --mock-delay: 0ms;
 }
@@ -559,7 +606,7 @@
      layout path, and at a 2px corner radius the distortion is invisible. */
   :is(.project-card.visible, .mock--hero) .mock__bar {
     transform-origin: bottom;
-    animation: mock-bar-grow 620ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+    animation: mock-bar-grow 620ms var(--ease-out) backwards;
   }
 
   :is(.project-card.visible, .mock--hero) .mock__bar:nth-of-type(1) { animation-delay: calc(var(--mock-delay) + 180ms); }
@@ -573,7 +620,7 @@
   /* Figures count up into place. */
   :is(.project-card.visible, .mock--hero) .mock__kpi-value,
   :is(.project-card.visible, .mock--hero) .mock__set-value {
-    animation: mock-rise 500ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+    animation: mock-rise var(--duration-slow) var(--ease-out) backwards;
   }
 
   :is(.project-card.visible, .mock--hero) .mock__kpi:nth-child(1) .mock__kpi-value { animation-delay: calc(var(--mock-delay) + 60ms); }
@@ -581,7 +628,7 @@
   :is(.project-card.visible, .mock--hero) .mock__kpi:nth-child(3) .mock__kpi-value { animation-delay: calc(var(--mock-delay) + 220ms); }
 
   :is(.project-card.visible, .mock--hero) .mock__row {
-    animation: mock-rise 460ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+    animation: mock-rise 460ms var(--ease-out) backwards;
   }
 
   :is(.project-card.visible, .mock--hero) .mock__row:nth-child(1) { animation-delay: calc(var(--mock-delay) + 460ms); }
@@ -612,7 +659,7 @@
 
   /* The tracking timeline fills in from the top, like events arriving. */
   .project-card.visible .mock__event {
-    animation: mock-rise 460ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+    animation: mock-rise 460ms var(--ease-out) backwards;
   }
 
   .project-card.visible .mock__event:nth-child(1) { animation-delay: 220ms; }
@@ -622,11 +669,11 @@
 
   /* Phone app: the set progress bar fills to the width it already declares. */
   .project-card.visible .mock__progress-fill {
-    animation: mock-fill 900ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards 300ms;
+    animation: mock-fill 900ms var(--ease-out) backwards 300ms;
   }
 
   .project-card.visible .mock__exercise {
-    animation: mock-rise 460ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+    animation: mock-rise 460ms var(--ease-out) backwards;
   }
 
   .project-card.visible .mock__exercise:nth-child(1) { animation-delay: 460ms; }

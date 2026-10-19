@@ -58,8 +58,44 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
 **CSS pattern:** BEM naming (`.block__element--modifier`), CSS custom properties for all tokens (defined in `:root` in `globals.css`). Each page section has its own stylesheet in `css/layout/`; reusable pieces that are not a section live in `css/components/` — `mockups.css` (the fake product screens), `cards.css` (the grid cards' hover treatment) and `action-bar.css` (the fixed mobile CTA). Both directories are linked one `<link>` at a time from `index.html`, in
-cascade order (`reset` → `globals` → `animations` → `background` → layout →
+cascade order (`reset` → `globals` → `animations` → layout →
 components).
+
+**Token scales** (all in `:root` of `globals.css`): spacing `--space-1`…`--space-10`
+on a 4px base (4–64px; 1–2px hairlines stay literal), type `--text-xs`…`--text-lg`
+plus `--text-xl`/`--text-display` clamps and `--text-body: 16px` (kept for body
+copy so inputs never trigger iOS zoom), radius `--radius-sm/md/lg/pill`
+(8/14/20/999), shadow `--shadow-sm/md/lg` plus the brand and two bar-edge
+shadows, motion `--ease-out` and `--duration-fast/base/slow`, and `--z-*`
+layers. New values map to the nearest step rather than adding a literal.
+`mockups.css` is exempt for its miniature sizes, radii and `--mock-*` palette —
+it is a deliberate scale model — but uses the shared easing.
+
+**Dark theme.** Follows the OS through one `@media (prefers-color-scheme: dark)`
+block right after `:root` in `globals.css`, redefining colour tokens (and the
+shadows built from colour) only — no rule anywhere else knows which theme is
+active. There is no toggle. Three things are easy to get wrong:
+
+- `--color-primary` stays `#5b3df5` as a **fill** (white on it is 6.12:1), but
+  `--color-primary-dark` — the token every link, eyebrow and pill uses as
+  *text* — lifts to the ink accent `#b7a8ff`. A new rule that puts text in
+  `--color-primary` will be ~3:1 in dark mode; use `--color-primary-dark`.
+- The brand colour used as a **line or marker** — focus rings, focused and
+  hovered borders, the tailored column's border, the open FAQ marker, the 404
+  code, the mock route — is `--color-accent` (with `--color-on-accent` for what
+  sits on it), not `--color-primary`, which is 2.9:1 on the dark surface.
+  Anything that has to clear 3:1 as a graphic goes through `--color-accent`.
+- Every text step down to `--color-text-faint` holds 4.5:1 on
+  `--color-primary-soft`, the darkest tint text sits on, in **both** themes.
+  Measure a new tint against the text tokens before using it.
+
+The `#a-la-medida` band moves from darker-than-page to raised above it (ink
+tokens remapped), and `mockups.css` carries its own dark block for the
+`--mock-*` palette, with `--mock-phone-body` split off because the phone was
+painted in `--color-text`, which turns light. The brand assets were not
+regenerated: the `--color-primary` mark on `#0f0e1f` is 3.11:1, above the 3:1
+for non-text graphics. Both pages ship `color-scheme` and a per-scheme
+`theme-color` meta.
 
 **`cards.css` must stay after `animations.css` in that order, and its
 `transition` shorthand must keep restating the reveal's own
@@ -69,13 +105,6 @@ hover rule declares it for the lift, and whichever wins the cascade silently
 cancels the other. For the same reason the hover lift uses `translate`, not
 `transform` — the reveal already owns `transform`, and independent properties
 compose where a shared one would not.
-
-`css/base/background.css` draws the drifting aurora behind the whole page as
-two `body` pseudo-elements at `z-index: -1`. It carries no markup because the
-CSP forbids inline styles and because `404.html` gets the same treatment from
-the same file. Only `transform` is animated — animating the gradient stops or
-`background-position` would repaint the full viewport every frame — and
-`prefers-reduced-motion` drops the motion while keeping the gradients.
 
 There is deliberately **no entry stylesheet full of `@import` rules**. An
 `@import` chain is render-blocking in two hops: the browser cannot even discover
@@ -162,20 +191,14 @@ The contract now is:
 between the hero and Nosotros and is the page's one dark band. It is a rounded
 panel inside `.container`, not a full-bleed strip — a `100vw` breakout counts
 the scrollbar and overflows the page. Every line in its "Software a la medida"
-column restates a commitment the page already makes (levantamiento, API
-integrations, closed scope and price, two-week cycles, documentation, monthly
-support); the same no-new-claims rule as the Nosotros prose applies. Both
+column restates a commitment the page already makes (interviews with the
+client's areas, connections to the systems they already use, closed scope and
+price, two-week cycles, documentation, monthly support); the same no-new-claims rule as the Nosotros prose applies. Both
 columns are duplicated in the "Por qué software a la medida" section of
 `llms.txt` — edit the two together. The generic column describes off-the-shelf
 software in general and must not name or imply a competitor. It is not in the
 nav on purpose: six links would crowd the header row, and the section already
 sits directly under the hero.
-
-The hero's floating chips (`.hero__chip`) and the blueprint grid behind the
-mock stay **inside** the column below 1100px and only bleed past it above that
-width — at 320px the container padding is 20px, so any negative inline offset
-widens the page. The chips' idle bob animates `translate`, never `transform`,
-which the entrance animation already owns.
 
 **The mockups animate on reveal** (`css/components/mockups.css`). Every keyframe
 declares only `from` and fills `backwards`, so the element's ordinary CSS *is*
@@ -353,7 +376,7 @@ supplies it, and then add it to both surfaces.
 **The page segments by capability, not by sector — that axis is deliberate.**
 The H1, `slogan`, meta/`og`/`twitter` descriptions and `Organization.description`
 all name what gets built (aplicaciones móviles, web, sistemas internos,
-integraciones por API) and say **`para empresas de cualquier sector`**. They
+integraciones entre sistemas) and say **`para empresas de cualquier sector`**. They
 used to name verticals instead, and the owner asked for that filter to come off:
 a buyer outside the named industries was reading the headline as "not for me".
 
@@ -413,7 +436,7 @@ column and moves the question the reader was about to reach.
 
 The JSON-LD is a single `@graph` with four nodes: `Organization` (services,
 reviews, contact point), `WebSite`, `WebPage`+`FAQPage` (the six questions) and
-a `HowTo` for the four-phase method. Nodes reference each other by `@id`, so
+an `ItemList` for the four-phase method. Nodes reference each other by `@id`, so
 keep the `https://masolutions.mx/#…` ids stable.
 
 No ratings or reviews are marked up, and none should be added. Reviews of the
@@ -481,6 +504,14 @@ The page CSP (in both `_headers` and the `index.html` meta tag) has no `style-sr
 convention and GitHub Pages ignores it, so `X-Frame-Options`, `Referrer-Policy`,
 `Permissions-Policy` and `frame-ancestors` are never actually sent — and a
 `<meta>` CSP is specified to ignore `frame-ancestors` regardless. The page is
-therefore framable in practice. Only putting the site behind a host that honours
-the file (Cloudflare) would change that; until then, do not cite `_headers` as
-evidence that a header is set.
+therefore framable in practice. Do not cite `_headers` as evidence that a header
+is set.
+
+What production actually answers with (observed 2026-10-18, owner to confirm the
+Cloudflare configuration): `server: cloudflare` plus `cf-ray` **and**
+`x-github-request-id` — Cloudflare proxies in front of GitHub Pages, it is not
+Cloudflare Pages, so it still does not read `_headers`. The proxy also injects
+two scripts of its own (email-address obfuscation and the Web Analytics beacon),
+and the page CSP blocks both, leaving two violations in the production console.
+Turning those features off, or sending the headers from a Cloudflare Transform
+Rule, needs the Cloudflare dashboard, not a change to this repo.

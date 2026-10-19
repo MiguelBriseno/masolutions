@@ -1,28 +1,24 @@
 .process__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
-  gap: 18px;
-  margin-top: 34px;
-}
-
-.process__step {
-  padding: 22px;
-  box-shadow: none;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
 }
 
 .process__step {
   position: relative;
+  padding: var(--space-6);
+  box-shadow: none;
 }
 
 .process__phase {
   display: inline-flex;
-  padding: 5px 11px;
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-pill);
   background: var(--color-primary);
-  background-image: var(--gradient-brand);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 12.5px;
+  font-size: var(--text-xs);
   letter-spacing: 0.04em;
   color: var(--color-on-primary);
 }
@@ -30,33 +26,34 @@
 /* Connectors between consecutive phases, only once all four sit on one row.
    Under that the grid wraps, and a connector off the end of a row would point
    at nothing. A container query measures the grid itself, so the threshold is
-   exactly 4 × 230px tracks + 3 × 18px gaps = 974px, whatever the viewport,
-   scrollbar or container padding — keep it in step with the track minimum and
-   gap above. Engines without container queries simply draw no connectors. */
+   exactly 4 × 230px tracks + 3 × 20px gaps (--space-5) = 980px, whatever the
+   viewport, scrollbar or container padding — keep it in step with the track
+   minimum and gap above; a container query cannot read a custom property.
+   The connector's top offset centres it on the phase pill, so it is a literal. Engines without container queries simply draw no connectors. */
 .process__grid {
   container-type: inline-size;
 }
 
-@container (min-width: 974px) {
+@container (min-width: 980px) {
   .process__step:not(:last-child)::after {
     content: "";
     position: absolute;
     top: 34px;
     left: 100%;
-    width: 18px;
-    height: 2px;
-    background: var(--gradient-brand);
+    width: var(--space-5);
+    height: 1px;
+    background: var(--color-border-strong);
   }
 }
 
 .process__title {
-  font-size: 19px;
-  margin: 10px 0 8px;
+  font-size: var(--text-lg);
+  margin: var(--space-3) 0 var(--space-2);
 }
 
 .process__text {
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 1.6;
-  margin-bottom: 14px;
+  margin-bottom: var(--space-4);
   color: var(--color-text-soft);
 }

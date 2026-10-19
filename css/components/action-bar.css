@@ -17,26 +17,18 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 25;
+    z-index: var(--z-action-bar);
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px var(--container-pad);
+    gap: var(--space-3);
+    padding: var(--space-3) var(--container-pad);
     /* Keeps the buttons clear of the iOS home indicator. */
-    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-    background: rgba(255, 255, 255, 0.92);
+    padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+    background: var(--color-surface);
     border-top: 1px solid var(--color-border);
-    box-shadow: 0 -4px 24px rgba(20, 20, 31, 0.08);
-    transition: transform 280ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 200ms ease,
-      visibility 280ms;
-  }
-
-  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .action-bar {
-      background: rgba(255, 255, 255, 0.76);
-      -webkit-backdrop-filter: saturate(1.7) blur(14px);
-      backdrop-filter: saturate(1.7) blur(14px);
-    }
+    box-shadow: var(--shadow-action-bar);
+    transition: transform var(--duration-base) var(--ease-out),
+      opacity var(--duration-base) ease, visibility var(--duration-base);
   }
 
   /* `inert` (set alongside data-hidden) takes the links out of the tab order
@@ -60,14 +52,14 @@
   .action-bar__wa {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    min-height: 44px;
-    padding: 10px 15px;
+    gap: var(--space-2);
+    min-height: var(--touch-target);
+    padding: var(--space-3) var(--space-4);
     border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-sm);
     background: var(--color-surface);
     color: var(--color-text);
-    font-size: 14px;
+    font-size: var(--text-sm);
     font-weight: 500;
     text-decoration: none;
   }
@@ -83,15 +75,16 @@
     fill: var(--color-primary-dark);
   }
 
-  /* The bar floats over the page, so the footer needs room to clear it. */
+  /* The bar floats over the page, so the footer needs room to clear it: the
+     bar's own height (touch target plus its two paddings) and one more step. */
   body {
-    padding-bottom: 76px;
+    padding-bottom: calc(var(--touch-target) + var(--space-3) * 3);
   }
 }
 
 @media (max-width: 860px) and (prefers-reduced-motion: reduce) {
   .action-bar {
-    transition: opacity 200ms ease;
+    transition: opacity var(--duration-base) ease;
   }
 
   .action-bar[data-hidden] {

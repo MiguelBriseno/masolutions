@@ -1,39 +1,36 @@
 .about__layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: 28px;
+  gap: var(--space-7);
   align-items: start;
-  margin-top: 34px;
+  margin-top: var(--space-7);
 }
 
 .about__lead {
-  font-size: 17px;
+  font-size: var(--text-md);
   line-height: 1.7;
   color: var(--color-text-muted);
 }
 
 .about__text {
-  font-size: 15px;
+  font-size: var(--text-base);
   line-height: 1.7;
-  margin-top: 16px;
+  margin-top: var(--space-4);
   color: var(--color-text-soft);
 }
 
 .about__panel {
-  padding: 26px;
+  padding: var(--space-6);
 }
 
+/* Shares .section__eyebrow; only the colour differs. */
 .about__panel-label {
-  display: block;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
   color: var(--color-text-subtle);
 }
 
 .about__facts {
   list-style: none;
-  margin: 14px 0 0;
+  margin: var(--space-4) 0 0;
   padding: 0;
 }
 
@@ -41,20 +38,20 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 14px;
-  padding-block: 13px;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
   border-top: 1px solid var(--color-border-soft);
 }
 
 .about__fact-key {
-  font-size: 14.5px;
+  font-size: var(--text-base);
   color: var(--color-text-muted);
 }
 
 .about__fact-value {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--text-base);
   text-align: right;
   color: var(--color-text);
 }
@@ -62,13 +59,13 @@
 /* The key/value pair stacks once the row can no longer hold both. */
 @media (max-width: 400px) {
   .about__panel {
-    padding: 20px;
+    padding: var(--space-5);
   }
 
   .about__fact {
     flex-direction: column;
     align-items: flex-start;
-    gap: 2px;
+    gap: var(--space-1);
   }
 
   .about__fact-value {

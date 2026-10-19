@@ -1,6 +1,7 @@
 const MESSAGES = {
   summary: 'Revise los campos marcados antes de enviar.',
   send: 'No pudimos enviar la solicitud. Intente nuevamente en unos minutos.',
+  sending: 'Enviando…',
 };
 
 // Both sides reject empty labels ("a@.com", "a..b@c.com") and the TLD must be
@@ -98,6 +99,10 @@ export function initContactForm() {
   // would leave the user with no feedback and no native fallback.
   if (fields.length !== Object.keys(VALIDATORS).length) return;
 
+  // Native validation is switched off here, not in the markup: if this module
+  // never runs, the browser's required/type checks are the only ones left.
+  form.noValidate = true;
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     clearError();
@@ -122,9 +127,18 @@ export function initContactForm() {
     }
 
     form.classList.add('loading');
+    form.setAttribute('aria-busy', 'true');
     // .loading sets pointer-events: none, which stops the mouse but not a
     // second Enter press while the request is still in flight.
-    if (submitButton) submitButton.disabled = true;
+    const submitLabel = submitButton?.textContent;
+    if (submitButton) {
+      // Pinned so the shorter label does not shrink the button and shift the
+      // disclaimer beside it. The CSP blocks style attributes in markup, not
+      // CSSOM writes like this one.
+      submitButton.style.minWidth = `${submitButton.offsetWidth}px`;
+      submitButton.disabled = true;
+      submitButton.textContent = MESSAGES.sending;
+    }
 
     try {
       const response = await fetch(ajaxEndpoint(form.action), {
@@ -154,7 +168,12 @@ export function initContactForm() {
       showError(MESSAGES.send);
     } finally {
       form.classList.remove('loading');
-      if (submitButton) submitButton.disabled = false;
+      form.removeAttribute('aria-busy');
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = submitLabel;
+        submitButton.style.minWidth = '';
+      }
     }
   });
 
@@ -206,6 +225,9 @@ export function initContactForm() {
   }
 
   function showError(message) {
+    // Screen readers may hold back a live region inside a busy subtree, so the
+    // failure alert must not be inserted while the form is still marked busy.
+    form.removeAttribute('aria-busy');
     let errorEl = form.querySelector('.form__error');
     if (!errorEl) {
       errorEl = document.createElement('div');

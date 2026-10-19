@@ -1,28 +1,16 @@
-/* The header lives OUTSIDE .container so its translucent bar spans the whole
+/* The header lives OUTSIDE .container so its bar spans the whole
    viewport; the .container inside keeps the row aligned with the page grid.
    A bar clipped to 1180px would leave the page scrolling past it at the sides
    on any wide screen, which reads as a rendering bug. */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 30;
-  /* Fallback first: --color-bg (#f7f7fb) at 88%, for engines without
-     color-mix(). The @supports block below upgrades it. */
-  background: rgba(247, 247, 251, 0.88);
-  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  z-index: var(--z-header);
+  /* Solid, not frosted: a translucent bar let the dark "¿Por qué a la
+     medida?" panel and its headline show through behind the nav links. */
+  background: var(--color-bg);
   border-bottom: 1px solid transparent;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-/* With blur available the bar can be far more transparent, so the aurora keeps
-   drifting behind it instead of being flattened out by an opaque strip. */
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-header {
-    background: rgba(247, 247, 251, 0.62);
-    background: color-mix(in srgb, var(--color-bg) 62%, transparent);
-    -webkit-backdrop-filter: saturate(1.7) blur(14px);
-    backdrop-filter: saturate(1.7) blur(14px);
-  }
 }
 
 /* navbar.js adds this once the page has scrolled past the sentinel. At the very
@@ -30,23 +18,23 @@
    underneath does it need an edge. */
 .site-header--scrolled {
   border-bottom-color: var(--color-border);
-  box-shadow: 0 1px 20px rgba(20, 20, 31, 0.05);
+  box-shadow: var(--shadow-header);
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: var(--space-6);
   /* 404.html has no menu wrapper, so its links are direct children and still
      need somewhere to go on a narrow screen. */
   flex-wrap: wrap;
-  padding-block: 14px;
+  padding-block: var(--space-4);
 }
 
 .nav__brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   text-decoration: none;
   color: var(--color-text);
   margin-right: auto;
@@ -64,7 +52,7 @@
 .nav__brand-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 20px;
+  font-size: var(--text-lg);
   letter-spacing: -0.01em;
 }
 
@@ -74,11 +62,11 @@
   /* wrap matters only in the unenhanced state, where these five links stay in
      the row on a narrow screen instead of collapsing into the panel. */
   flex-wrap: wrap;
-  gap: 26px;
+  gap: var(--space-6);
 }
 
 .nav__link {
-  font-size: 14.5px;
+  font-size: var(--text-base);
   color: var(--color-text-muted);
   text-decoration: none;
   position: relative;
@@ -97,12 +85,12 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -6px;
+  bottom: calc(var(--space-2) * -1);
   height: 2px;
   border-radius: var(--radius-pill);
   background: var(--color-primary);
   transform: scaleX(0);
-  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  transition: transform var(--duration-base) var(--ease-out);
 }
 
 .nav__link.active::after,
@@ -116,12 +104,12 @@
    the module fails to load. */
 .nav__toggle {
   display: none;
-  width: 44px;
-  height: 44px;
+  width: var(--touch-target);
+  height: var(--touch-target);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: var(--space-1);
   padding: 0;
   background: none;
   border: 1px solid var(--color-border-strong);
@@ -130,7 +118,7 @@
 }
 
 .nav__toggle:hover {
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
 }
 
 .nav__toggle-bar {
@@ -139,11 +127,14 @@
   height: 2px;
   border-radius: var(--radius-pill);
   background: var(--color-text);
-  transition: transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1), opacity 160ms ease;
+  transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-fast) ease;
 }
 
+/* The outer bars travel one bar height (2px) plus the gap, so all three meet
+   on the middle one before rotating into the cross. */
+
 .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(calc(var(--space-1) + 2px)) rotate(45deg);
 }
 
 .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) {
@@ -151,22 +142,22 @@
 }
 
 .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(calc((var(--space-1) + 2px) * -1)) rotate(-45deg);
 }
 
 @media (pointer: coarse) {
   .nav__link {
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
+    min-height: var(--touch-target);
   }
 
-  /* The 44px touch target centres the label inside a much taller box, so an
+  /* The touch target centres the label inside a much taller box, so an
      underline pinned to the bottom of that box would float ~17px under the word
      it belongs to. Derived from the rule above rather than eyeballed: half the
      leftover space, less the 4px gap the underline should keep. */
   .nav__link::after {
-    bottom: calc((44px - 1.6em) / 2 - 4px);
+    bottom: calc((var(--touch-target) - 1.6em) / 2 - var(--space-1));
   }
 }
 
@@ -188,8 +179,8 @@
    still does. */
 @media (max-width: 860px) {
   .nav {
-    gap: 12px;
-    padding-block: 12px;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
   }
 
   .nav[data-enhanced] .nav__toggle {
@@ -223,7 +214,7 @@
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 4px var(--container-pad) 16px;
+    padding: var(--space-1) var(--container-pad) var(--space-4);
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
@@ -238,13 +229,13 @@
      keeps the links in a wrapped row, where a divider above each one would read
      as stray rules across the header rather than list separators. */
   .nav[data-enhanced] .nav__menu .nav__link {
-    font-size: 16px;
-    padding-block: 14px;
+    font-size: var(--text-base);
+    padding-block: var(--space-4);
     border-top: 1px solid var(--color-border-soft);
   }
 
   .nav:not([data-enhanced]) .nav__menu {
-    gap: 4px 18px;
+    gap: var(--space-1) var(--space-5);
   }
 
   /* The centre-out underline is a desktop affordance; in a stacked list it

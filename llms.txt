@@ -2,29 +2,30 @@
 
 > Firma mexicana de ingeniería de software a la medida. Diseña, desarrolla y
 > mantiene aplicaciones móviles (iOS y Android), plataformas web, sistemas
-> internos e integraciones por API para empresas de cualquier sector.
+> internos e integraciones entre sistemas para empresas de cualquier sector.
 > Sitio oficial: https://masolutions.mx/
 
 ## Quiénes somos
 
 MASolutions es una firma mexicana de ingeniería de software a la medida.
 Construye aplicaciones móviles para iOS y Android, plataformas web, sistemas
-internos e integraciones por API para organizaciones cuya operación crítica
+internos y conexiones entre sistemas para organizaciones cuya operación crítica
 todavía depende de hojas de cálculo, correo y registros en papel. Los sistemas
 que ha puesto en producción operan en agroindustria y trazabilidad de lotes, en
-logística y distribución de última milla, y en productos digitales de consumo.
+logística y distribución de última milla (entregas hasta la puerta del
+cliente), y en productos digitales de consumo.
 Trabaja en remoto con clientes de todo el país y atiende de forma presencial en
 Tala y la zona metropolitana de Guadalajara, Jalisco. La atención comercial, la
 propuesta y la documentación técnica se entregan en español. Cada proyecto
-arranca con un levantamiento de requerimientos y cierra con un sistema
+arranca con entrevistas a las áreas involucradas y cierra con un sistema
 documentado, publicado y con soporte contratado; si el desarrollo ya está en
 curso, se audita el código existente, se documenta su estado real y se presenta
 un plan técnico para continuarlo, corregirlo o migrarlo.
 
 ## Compromisos de trabajo
 
-- Propuesta formal por escrito: 48 horas
-- Alcance, precio y plazo: cerrados
+- Propuesta formal por escrito: 48 h hábiles
+- Alcance, precio y plazo: cerrados al firmar la propuesta
 - Avances demostrables: cada 2 semanas
 - Documentación de entrega: incluida
 - Publicación en tiendas: App Store y Google Play
@@ -48,39 +49,46 @@ El software a la medida parte de cómo opera la empresa hoy y automatiza
 exactamente eso.
 
 - Software genérico: los procesos se adaptan a la herramienta; exportaciones a hoja de cálculo y captura doble; licencias y módulos pensados para otros negocios; la hoja de ruta la decide el proveedor.
-- Software a la medida: diseñado sobre la operación real, a partir de un levantamiento con las áreas involucradas; integrado por API con ERP, CRM y pasarelas de pago; solo lo que la operación requiere, con alcance y precio cerrados; avances demostrables cada dos semanas y documentación incluida; evoluciona con el negocio bajo contrato de soporte mensual.
+- Software a la medida: diseñado sobre la operación real, a partir de entrevistas con las áreas involucradas; conectado con los sistemas que la empresa ya usa: facturación, ventas, inventario y cobros en línea; solo lo que la operación requiere, con alcance y precio cerrados al firmar la propuesta; avances demostrables cada dos semanas y documentación incluida; evoluciona con el negocio bajo contrato de soporte mensual.
 
 ## Servicios
 
-- **Aplicaciones móviles**: desarrollo nativo y multiplataforma para iOS y Android, del prototipo funcional a la publicación en App Store y Google Play.
-- **Aplicaciones web**: portales, paneles de operación y plataformas SaaS multiusuario, con control de acceso por rol y arquitectura preparada para escalar.
-- **Software a la medida**: sistemas internos que sustituyen la hoja de cálculo — inventarios, trazabilidad de lotes, facturación, reportería operativa y automatización de tareas.
-- **Integraciones y API**: interoperabilidad con ERP, CRM, pasarelas de pago y servicios de terceros mediante API documentadas, versionadas y monitoreadas.
-- **Mantenimiento y soporte**: monitoreo, atención de incidencias y evolución funcional posterior al lanzamiento, bajo contrato mensual con niveles de servicio acordados.
-- **Consultoría técnica**: auditoría de arquitectura y de código, selección tecnológica y acompañamiento a equipos internos con producto ya en operación.
+- **Aplicaciones móviles**: apps para iPhone y Android, del prototipo a la publicación en App Store y Google Play.
+- **Aplicaciones web**: portales, paneles de operación y plataformas en línea para muchos usuarios, donde cada persona ve solo lo que le corresponde y que siguen respondiendo cuando la operación crece.
+- **Software a la medida**: sistemas internos que sustituyen la hoja de cálculo — inventarios, trazabilidad de lotes, facturación, reportes de la operación y automatización de tareas.
+- **Integraciones entre sistemas**: hace que los sistemas de gestión, de ventas, de cobro en línea y de terceros de la empresa intercambien información solos, con conexiones (API) documentadas y vigiladas.
+- **Mantenimiento y soporte**: vigilancia del sistema, solución de fallas y nuevas funciones después del lanzamiento, bajo contrato mensual con tiempos de respuesta acordados.
+- **Consultoría técnica**: revisión técnica del sistema actual, ayuda para elegir tecnología y acompañamiento al equipo interno cuando el producto ya está en operación.
 
 ## Cómo trabaja MASolutions
 
-Metodología en cuatro fases: levantamiento de requerimientos, diseño y
-arquitectura, desarrollo e implementación. La propuesta formal —con alcance,
-plazos y presupuesto por escrito— se entrega en 48 horas tras la reunión
-inicial, sin costo ni compromiso. El ciclo de entrega es de dos semanas, con
+Metodología en cuatro fases:
+
+1. **Diagnóstico** (1 semana): entrevistas con las áreas involucradas para entender qué necesita la empresa, definición del alcance y estimación formal de costo y plazo.
+2. **Diseño y arquitectura** (2 semanas): recorridos de pantallas navegables y decisiones técnicas, aprobados por escrito antes de escribir código.
+3. **Desarrollo** (4–10 semanas): construcción por etapas de dos semanas; al cierre de cada una el cliente prueba lo construido y se revisa la calidad.
+4. **Implementación** (1 semana): arranque en uso real, publicación en tiendas, capacitación del equipo del cliente y entrega de la documentación técnica.
+
+Los plazos son referenciales hasta definir el alcance; quedan cerrados por
+escrito en la propuesta firmada. La propuesta formal —con alcance,
+plazos y presupuesto por escrito— se entrega en menos de 48 horas hábiles
+desde la solicitud, sin costo ni compromiso. El ciclo de entrega es de dos semanas, con
 avances demostrables en cada ciclo, y la documentación técnica de entrega está
 incluida.
 
 ## Respuestas frecuentes
 
-- **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. Tras la reunión inicial se entrega una propuesta sin costo, con precio cerrado, entregables detallados y plazos comprometidos por escrito.
+- **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. En menos de 48 horas hábiles desde la solicitud se entrega una propuesta sin costo, con entregables detallados; al firmarla, alcance, precio y plazo quedan cerrados por escrito.
 - **¿Cuánto tiempo tarda el desarrollo de un proyecto?** Una primera versión funcional en producción toma habitualmente entre 8 y 14 semanas, con avances demostrables cada dos semanas.
-- **¿Cómo se da seguimiento al avance del proyecto?** Una reunión de avance por ciclo, acceso permanente al tablero de tareas y un informe escrito al cierre de cada fase.
+- **¿Cómo se da seguimiento al avance del proyecto?** Una reunión de avance por ciclo, acceso permanente al tablero en línea con el avance y un informe escrito al cierre de cada fase.
 - **¿Trabajan con proyectos de software ya iniciados?** Sí. Se audita el código existente, se documenta su estado real y se presenta un plan para continuarlo, corregirlo o migrarlo.
-- **¿Publican la aplicación en App Store y Google Play?** Sí, se gestiona el proceso completo: fichas de tienda, material gráfico y respuesta a las revisiones.
-- **¿Qué incluye el soporte después del lanzamiento?** Contratos de mantenimiento mensual con soporte, monitoreo, atención de incidencias y horas de desarrollo para nuevas funciones.
+- **¿Publican la aplicación en App Store y Google Play?** Sí, se gestiona el proceso completo: la página de la app en cada tienda, material gráfico y respuesta a las revisiones.
+- **¿Qué incluye el soporte después del lanzamiento?** Contratos de mantenimiento mensual con soporte, monitoreo, solución de fallas y horas de desarrollo para nuevas funciones.
 
-## Proyectos representativos
+## Casos en operación
 
-- **Tonalli ERP**: sistema de gestión para la industria tequilera, con control de producción, inventario de agave y trazabilidad lote a lote, que sustituyó el control por hojas de cálculo.
-- **ActuarEnvíos**: plataforma de logística y última milla, con alta de guías, seguimiento de unidades en ruta y estado de entrega en tiempo real, que redujo las consultas telefónicas sobre el estado de un envío.
+- **Tonalli ERP**: sistema de gestión para la industria tequilera, con control de producción, inventario de agave y trazabilidad lote a lote.
+- **ActuarEnvíos**: plataforma de logística y última milla (entregas hasta la puerta del cliente), con alta de guías, seguimiento de unidades en ruta y estado de entrega en tiempo real.
 - **Urban Reps**: aplicación móvil de calistenia para iOS y Android, con rutinas progresivas, registro de series y seguimiento del avance del usuario.
 
 ## Contacto
