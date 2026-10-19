@@ -56,6 +56,23 @@
     min-height: var(--touch-target);
   }
 
+  /* Under 375px "Solicitar propuesta" and "WhatsApp" no longer fit one row:
+     the primary CTA broke onto two lines and the bar grew to 72px on every
+     360px Android phone. The WhatsApp button drops to its icon in a square; its accessible name comes from the aria-label, not this text, so
+     nothing is lost for screen readers. The primary CTA keeps its words. */
+  @media (max-width: 374px) {
+    /* A square touch target, centred against the slightly taller CTA. */
+    .action-bar__wa {
+      width: var(--touch-target);
+      height: var(--touch-target);
+      padding: 0;
+    }
+
+    .action-bar__wa-label {
+      display: none;
+    }
+  }
+
   .action-bar__wa-icon {
     width: 17px;
     height: 17px;
