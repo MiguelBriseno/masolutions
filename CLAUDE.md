@@ -312,8 +312,16 @@ MASolutions, and the law requires a domicilio. That domicilio is a
 **domicilio para notificaciones supplied by the owner** (a virtual office, an
 accountant's office or a PO box), never the residence, and it appears only
 in the aviso (see the address rule below). The text was drafted for the
-owner's or a lawyer's review, not as legal advice. If a consent banner is ever
-added, `initClarity()` is the single call to gate behind it.
+owner's or a lawyer's review, not as legal advice.
+
+**No consent banner, by the owner's decision (2026-10-18).** Clarity loads on
+every visit to the home page and starts recording before the visitor can read
+the aviso, so the aviso says so plainly. It tells the visitor that measurement
+starts on load, that blocking cookies beforehand prevents it, and that they can
+ask by email for their measurement data to be deleted. Do not add a banner
+without the owner asking for one. If one is ever added, `initClarity()` is the
+single call to gate behind it, and the aviso's "Para qué los usamos" section
+changes with it.
 
 ### Google Tag Manager (removed)
 
