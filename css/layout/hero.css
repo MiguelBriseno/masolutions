@@ -1,8 +1,4 @@
 .hero {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
-  gap: var(--space-9);
-  align-items: center;
   padding: clamp(var(--space-7), 6vw, var(--space-10)) 0 var(--section-gap);
 }
 
@@ -38,17 +34,6 @@
   margin-top: var(--space-5);
 }
 
-/* ---- Product visual ----
-   The mockups are the strongest asset on the page, so one of them opens it
-   instead of sitting four sections down. This one is deliberately generic
-   ("suempresa"): the three named mockups below belong to real clients and
-   naming one here would promote a single case above the others. */
-.hero__visual .mock {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-}
-
 /* ---- Entrance ----
    The first 800ms decide whether the page feels alive, and until now they were
    completely static. Each hero child rises in on its own delay.
@@ -61,8 +46,7 @@
    The durations and delays are one staggered sequence, so they stay literal
    rather than snapping to the --duration-* steps; only the curve is shared. */
 @media (prefers-reduced-motion: no-preference) {
-  .hero__content > *,
-  .hero__visual {
+  .hero__content > * {
     animation: hero-rise 620ms var(--ease-out) backwards;
   }
 
@@ -70,12 +54,6 @@
   .hero__content > *:nth-child(2) { animation-delay: 130ms; }
   .hero__content > *:nth-child(3) { animation-delay: 200ms; }
   .hero__content > *:nth-child(4) { animation-delay: 270ms; }
-  .hero__content > *:nth-child(5) { animation-delay: 330ms; }
-
-  .hero__visual {
-    animation-duration: 780ms;
-    animation-delay: 220ms;
-  }
 }
 
 @keyframes hero-rise {

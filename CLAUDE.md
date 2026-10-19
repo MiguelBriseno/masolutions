@@ -217,8 +217,11 @@ engine) the screens simply render finished. Keep that property: a keyframe with
 a `to` would make the mockups depend on the animation having run. The whole
 block sits inside one `prefers-reduced-motion: no-preference` query rather than
 being switched off further down, so there is a single guard and no specificity
-duel to lose. The hero copy of the dashboard plays on load; the case cards play
-off `.project-card.visible`, which `animations.js` sets.
+duel to lose. The only mockups are the three case cards, and they play off
+`.project-card.visible`, which `animations.js` sets. The hero has no visual on
+purpose: its generic dashboard was removed after the re-audit, because it
+showed nothing the named cases below do not show better and took 18% of the
+fold.
 
 ## Analytics
 
