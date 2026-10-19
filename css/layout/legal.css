@@ -1,0 +1,57 @@
+/* The aviso de privacidad: long-form text on its own page, set for reading.
+   It shares the header and footer with the 404 and, like it, runs no
+   JavaScript. */
+.legal {
+  max-width: 68ch;
+  padding-block: var(--section-gap);
+}
+
+.legal__title {
+  font-size: var(--text-xl);
+}
+
+.legal__updated {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-subtle);
+}
+
+.legal__section {
+  margin-top: var(--space-8);
+}
+
+.legal__section h2 {
+  font-size: var(--text-lg);
+}
+
+.legal__section p,
+.legal__section ul {
+  margin-top: var(--space-3);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.legal__section ul {
+  padding-left: var(--space-6);
+  list-style: disc;
+}
+
+.legal__section li + li {
+  margin-top: var(--space-2);
+}
+
+.legal__section strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Visible on purpose: a field the owner still has to supply. The page must
+   not be merged while any of these remain. */
+.legal__section .legal__pending {
+  color: var(--color-danger);
+}
+
+.legal__back {
+  margin-top: var(--space-9);
+}

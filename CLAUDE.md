@@ -288,14 +288,26 @@ otherwise be recorded into the production project.
 is `script-src 'none'`. Measuring broken inbound links would mean giving that
 page a script, which is a bigger change than the data is worth.
 
-**The site publishes no aviso de privacidad, and it needs one.** The contact
-form already collects nombre, telefono, email and detalle, which makes an aviso
-de privacidad a requirement under the LFPDPPP on its own — that gap predates
-Clarity. Clarity widens it: it sets first-party cookies (`_clck`, `_clsk`) and
-records session replays of the visitor filling that form, and transmits them to
-a third party with no disclosure anywhere on the page. This is the owner's
-decision to make, not a change to be made for them. If a notice or consent
-banner is ever added, `initClarity()` is the single call to gate behind it.
+**The aviso de privacidad lives at `aviso-de-privacidad.html`.** The LFPDPPP
+requires it because the contact form collects nombre, teléfono, email and
+detalle, and Clarity widens the scope: it sets first-party cookies (`_clck`,
+`_clsk`) and records session replays of the visitor filling that form for a
+third party. The page is static, runs no JavaScript (`script-src 'none'`, like
+`404.html`, so Clarity never runs on it), and is linked from the form
+disclaimer and from the footer of all three pages: the law asks for it to be
+reachable before the data is collected.
+
+Its text describes what the site actually does. **Any change to the data
+flow means editing the aviso in the same PR:** a new form field, a new
+analytics or chat tool, another processor (today: FormSubmit, Gmail, Microsoft
+Clarity, Cloudflare, GitHub), or turning GTM back on. The responsable is
+named as a persona física, Miguel Briseño Bustos with the trade name
+MASolutions, and the law requires a domicilio. That domicilio is a
+**domicilio para notificaciones supplied by the owner** (a virtual office, an
+accountant's office or a PO box), never the residence, and it appears only
+in the aviso (see the address rule below). The text was drafted for the
+owner's or a lawyer's review, not as legal advice. If a consent banner is ever
+added, `initClarity()` is the single call to gate behind it.
 
 ### Google Tag Manager (removed)
 
@@ -453,7 +465,10 @@ The public contact address is a personal Gmail, chosen by the owner over a
 The organisation is typed plain `Organization`, and **no postal address is
 published anywhere** — not in the page, not in the JSON-LD, not in `llms.txt`.
 The owner works from a private home; the address was added and then deliberately
-removed. Do not reintroduce it, and do not "upgrade" the type to
+removed. The one exception is the aviso de privacidad, which must carry a
+domicilio: it uses a **domicilio para notificaciones**, not the residence, and
+that address stays on that page only, never in the JSON-LD or `llms.txt`.
+Do not reintroduce the residence anywhere, and do not "upgrade" the type to
 `LocalBusiness` / `ProfessionalService`: both need a published address to mean
 anything, and publishing this one exposes a residence to every crawler that
 `robots.txt` invites in. Local reach is handled by the Google Business Profile
