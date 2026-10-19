@@ -165,9 +165,9 @@ The contract now is:
 between the hero and Nosotros and is the page's one dark band. It is a rounded
 panel inside `.container`, not a full-bleed strip — a `100vw` breakout counts
 the scrollbar and overflows the page. Every line in its "Software a la medida"
-column restates a commitment the page already makes (levantamiento, API
-integrations, closed scope and price, two-week cycles, documentation, monthly
-support); the same no-new-claims rule as the Nosotros prose applies. Both
+column restates a commitment the page already makes (interviews with the
+client's areas, connections to the systems they already use, closed scope and
+price, two-week cycles, documentation, monthly support); the same no-new-claims rule as the Nosotros prose applies. Both
 columns are duplicated in the "Por qué software a la medida" section of
 `llms.txt` — edit the two together. The generic column describes off-the-shelf
 software in general and must not name or imply a competitor. It is not in the
@@ -350,7 +350,7 @@ supplies it, and then add it to both surfaces.
 **The page segments by capability, not by sector — that axis is deliberate.**
 The H1, `slogan`, meta/`og`/`twitter` descriptions and `Organization.description`
 all name what gets built (aplicaciones móviles, web, sistemas internos,
-integraciones por API) and say **`para empresas de cualquier sector`**. They
+integraciones entre sistemas) and say **`para empresas de cualquier sector`**. They
 used to name verticals instead, and the owner asked for that filter to come off:
 a buyer outside the named industries was reading the headline as "not for me".
 
