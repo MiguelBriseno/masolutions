@@ -54,6 +54,12 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 - `index.html` — links every stylesheet individually and loads `js/core/main.js` as `type="module"`
 - `js/core/main.js` — imports all component `init*()` functions and calls them on `DOMContentLoaded`
 - `404.html` — GitHub Pages serves it for any unknown path; `noindex, follow`, no JS
+- `aviso-de-privacidad.html` — the aviso de privacidad; static, indexable, no JS, styled by `css/layout/legal.css`
+
+**The header and footer markup is copied across three pages** — `index.html`,
+`404.html` and `aviso-de-privacidad.html`, the last two in the unenhanced form.
+There is no include step, so a brand, nav or footer change has to be made in all
+three.
 
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
@@ -359,7 +365,8 @@ sync with the page:
 - `robots.txt` — allows every crawler, names the AI assistant crawlers
   explicitly (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) and points
   to the sitemap.
-- `sitemap.xml` — one URL. Bump `<lastmod>` when the page content changes.
+- `sitemap.xml` — two URLs, the home page and the aviso de privacidad. Bump
+  each `<lastmod>` when that page's content changes.
 - `llms.txt` — a plain-text summary of the company, services, process and FAQ
   for answer engines. Adoption of this convention is still informal; it costs
   nothing and no crawler is required to read it.
