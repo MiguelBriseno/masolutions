@@ -175,6 +175,16 @@ The contract now is:
   and the panel are bound. Unenhanced, the links wrap under the brand and the
   header CTA stays full width — which is what `404.html` gets too, since it is
   never enhanced.
+- Between the first paint and `load`, `[data-nav-pending]` on `<html>` stands
+  in for `[data-enhanced]`. Collapsing only after the module ran painted the
+  long wrapped header first and then shifted the whole page up (CLS 0.118 on
+  a throttled phone). `js/core/nav-pending.js` is a **classic, render-blocking**
+  script in `<head>` because it must run before first paint, which no module
+  can promise. It removes the attribute itself at `load`, by which time every
+  module has run or failed, so a dead `main.js` still ends with the links and
+  the header CTA visible. Do not make it a module, `defer` it, or drop the
+  `load` handler: each of those breaks one of the two halves. With JavaScript
+  disabled it never runs, and the page is unenhanced from the start.
 - `initMobileMenu` runs *before* the active-link highlight and the header's
   scrolled state. It is the only one of the three that owns navigation; the
   other two are decoration and must not be able to take it down with them.

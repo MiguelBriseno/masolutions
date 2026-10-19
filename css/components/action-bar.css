@@ -49,23 +49,11 @@
     flex: 1;
   }
 
+  /* Built on .btn--secondary.btn--sm, so hover and pressed come from the
+     shared button; this only adds the icon gap and the touch-target height. */
   .action-bar__wa {
-    display: inline-flex;
-    align-items: center;
     gap: var(--space-2);
     min-height: var(--touch-target);
-    padding: var(--space-3) var(--space-4);
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background: var(--color-surface);
-    color: var(--color-text);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    text-decoration: none;
-  }
-
-  .action-bar__wa:hover {
-    color: var(--color-text);
   }
 
   .action-bar__wa-icon {

@@ -29,16 +29,13 @@
     border-color: var(--color-primary-tint);
   }
 
-  /* The service icon and the avatar are the one coloured element in their card,
-     so they are what the eye tracks; deepening them on hover ties the whole
-     card to the pointer. */
-  .service-card__icon,
-  .testimonial-card__avatar {
+  /* The service icon is the one coloured element in its card, so it is what
+     the eye tracks; deepening it on hover ties the whole card to the pointer. */
+  .service-card__icon {
     transition: background var(--transition-fast), color var(--transition-fast);
   }
 
-  .service-card:hover .service-card__icon,
-  .testimonial-card:hover .testimonial-card__avatar {
+  .service-card:hover .service-card__icon {
     background: var(--color-primary);
     color: var(--color-on-primary);
   }

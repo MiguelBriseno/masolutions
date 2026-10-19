@@ -364,6 +364,8 @@
          @import rules is a render-blocking chain: the browser cannot even
          discover these files until the entry sheet has downloaded and parsed.
          Cascade order is the load order below, so keep base first. -->
+    <!-- Render-blocking and classic on purpose; see the file. -->
+    <script src="./js/core/nav-pending.js"></script>
     <link rel="stylesheet" href="./css/base/reset.css" />
     <link rel="stylesheet" href="./css/base/globals.css" />
     <link rel="stylesheet" href="./css/base/animations.css" />
@@ -452,7 +454,6 @@
       <main id="contenido" tabindex="-1">
         <section id="top" class="hero" aria-labelledby="hero-title">
           <div class="hero__content">
-            <span class="pill pill--wide">INGENIERÍA DE SOFTWARE A LA MEDIDA</span>
             <h1 class="hero__title" id="hero-title">
               Ingeniería de software a la medida:
               aplicaciones móviles, web e integraciones
@@ -1015,7 +1016,6 @@
                 reportes a nadie.”
               </blockquote>
               <figcaption class="testimonial-card__author">
-                <span class="testimonial-card__avatar">CS</span>
                 <span>
                   <span class="testimonial-card__name">Carlos Sierra</span>
                   Gerente general · Tonalli ERP
@@ -1029,7 +1029,6 @@
                 bajaron de forma notable.”
               </blockquote>
               <figcaption class="testimonial-card__author">
-                <span class="testimonial-card__avatar">KR</span>
                 <span>
                   <span class="testimonial-card__name">Karla Reyes</span>
                   Gerente general · ActuarEnvíos
@@ -1356,7 +1355,7 @@
     <div class="action-bar" data-hidden inert>
       <a href="#contacto" class="btn btn--primary action-bar__cta">Solicitar propuesta</a>
       <a
-        class="action-bar__wa"
+        class="btn btn--secondary btn--sm action-bar__wa"
         href="https://wa.me/523312170122"
         target="_blank"
         rel="noopener noreferrer"

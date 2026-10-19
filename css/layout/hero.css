@@ -14,7 +14,6 @@
    if the hero ever gets a wider column. */
 .hero__title {
   font-size: var(--text-display);
-  margin-top: var(--space-5);
   max-width: 22ch;
 }
 

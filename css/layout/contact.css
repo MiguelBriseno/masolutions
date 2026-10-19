@@ -96,6 +96,14 @@
   border-color: var(--color-accent);
 }
 
+/* The UA placeholder grey is 4.46:1 on the light field and 3.69:1 on the dark
+   one; --color-text-faint holds 4.5:1 in both. opacity: 1 undoes Firefox's
+   default dimming, which would pull it back under. */
+.form__control::placeholder {
+  color: var(--color-text-faint);
+  opacity: 1;
+}
+
 .form__control--invalid {
   border-color: var(--color-danger);
 }
