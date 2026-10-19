@@ -339,7 +339,11 @@ way, and all of it is in git history (`git log -- js/components/gtm.js`):
   blocked by the CSP and the iframe would otherwise render;
 - Ads origins (`pagead2.googlesyndication.com`, `www.googleadservices.com`,
   the `*.google.<TLD>` ccTLDs) only if remarketing or conversion tracking is
-  turned on. They were never allowed. Note that under
+  turned on. They were never allowed.
+- **an edit to `aviso-de-privacidad.html` in the same PR**, naming Google as a
+  processor and any cookies its tags set (`_ga` and friends). GTM tags
+  configured in its UI need no deploy, so the aviso must be updated before the
+  container goes live, not after the first tag fires. Note that under
 this CSP a GTM Custom HTML tag or any third-party pixel stays blocked until its
 origin is added and deployed. The failure is silent, so check the console
 before trusting a tag that reports as fired. Do not add Clarity through GTM:
