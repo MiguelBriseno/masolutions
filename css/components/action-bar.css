@@ -56,15 +56,20 @@
     min-height: var(--touch-target);
   }
 
-  /* Under 375px "Solicitar propuesta" and "WhatsApp" no longer fit one row:
-     the primary CTA broke onto two lines and the bar grew to 72px on every
-     360px Android phone. The WhatsApp button drops to its icon in a square; its accessible name comes from the aria-label, not this text, so
-     nothing is lost for screen readers. The primary CTA keeps its words. */
-  @media (max-width: 374px) {
-    /* A square touch target, centred against the slightly taller CTA. */
+  /* Below 400px the WhatsApp button drops to its icon in a square. With the
+     label, "Solicitar propuesta" broke onto two lines under 375px and the bar
+     grew to 72px on every 360px Android phone. The cut sits 25px above that
+     measured edge on purpose: the fallback system font, a translated label or
+     a larger minimum font size widen the text without changing the viewport.
+     The accessible name comes from the aria-label, not this text, so nothing
+     is lost for screen readers; the primary CTA keeps its words. */
+  @media (max-width: 399.98px) {
+    /* Square and exactly as tall as the CTA; flex: none so a crowded row can
+       never shrink it below the touch target. */
     .action-bar__wa {
-      width: var(--touch-target);
-      height: var(--touch-target);
+      flex: none;
+      width: var(--action-bar-cta-height);
+      height: var(--action-bar-cta-height);
       padding: 0;
     }
 
@@ -81,9 +86,12 @@
   }
 
   /* The bar floats over the page, so the footer needs room to clear it: the
-     bar's own height (touch target plus its two paddings) and one more step. */
+     bar's own height (the CTA plus its two paddings, plus the iOS home
+     indicator inset it adds to its own padding) and one more step. */
   body {
-    padding-bottom: calc(var(--touch-target) + var(--space-3) * 3);
+    padding-bottom: calc(
+      var(--action-bar-cta-height) + var(--space-3) * 3 + env(safe-area-inset-bottom, 0px)
+    );
   }
 }
 

@@ -120,6 +120,11 @@
   /* Layout */
   /* Minimum touch target in the primary axis on coarse pointers. */
   --touch-target: 44px;
+  /* The rendered height of a default .btn--primary: two --space-3 paddings
+     around one --text-base line at the body's 1.6 line-height. The mobile
+     action bar sizes its icon-only WhatsApp square and the body's bottom
+     reserve from it, so neither drifts if the button scale changes. */
+  --action-bar-cta-height: calc(var(--space-3) * 2 + var(--text-base) * 1.6);
   --container-max: 1180px;
   --container-pad: clamp(20px, 5vw, 56px);
   --section-gap: clamp(40px, 7vw, 56px);
