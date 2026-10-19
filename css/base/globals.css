@@ -240,13 +240,6 @@ button {
   background: var(--color-primary-tint);
 }
 
-/* Google Tag Manager's noscript iframe. Google ships it with an inline style
-   attribute, which the CSP blocks, so the same two declarations live here. */
-.gtm-noscript {
-  display: none;
-  visibility: hidden;
-}
-
 /* Text for assistive technology only, e.g. "(se abre en una pestaña nueva)"
    on links whose cue is otherwise visual. */
 .visually-hidden {

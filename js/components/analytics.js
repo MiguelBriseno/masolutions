@@ -16,7 +16,7 @@ export function initClarity() {
   // as a throwing Proxy. Modules are strict mode, so both the read and the
   // assignment below can throw — which is why the duplicate-load guard sits
   // inside the try and not before it. Analytics is not worth taking the page
-  // down for, and a throw escaping here would also skip initGtm().
+  // down for.
   try {
     if (window.clarity) return;
 
