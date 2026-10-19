@@ -77,7 +77,7 @@ incluida.
 - **¿Publican la aplicación en App Store y Google Play?** Sí, se gestiona el proceso completo: fichas de tienda, material gráfico y respuesta a las revisiones.
 - **¿Qué incluye el soporte después del lanzamiento?** Contratos de mantenimiento mensual con soporte, monitoreo, atención de incidencias y horas de desarrollo para nuevas funciones.
 
-## Proyectos representativos
+## Casos en operación
 
 - **Tonalli ERP**: sistema de gestión para la industria tequilera, con control de producción, inventario de agave y trazabilidad lote a lote.
 - **ActuarEnvíos**: plataforma de logística y última milla, con alta de guías, seguimiento de unidades en ruta y estado de entrega en tiempo real.

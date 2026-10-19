@@ -50,43 +50,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* ---- Commitment strip ----
-   Spans both columns under the hero. The 1px grid gap over a border-coloured
-   background draws the dividers, so no cell needs its own border and none of
-   them double up at the seams. */
-.hero__facts {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
-  gap: 1px;
-  margin-top: var(--space-2);
-  background: var(--color-border);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-.hero__fact {
-  background: var(--color-surface);
-  padding: var(--space-5);
-}
-
-.hero__fact-value {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: var(--text-lg);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-
-.hero__fact-key {
-  display: block;
-  margin-top: var(--space-1);
-  font-size: var(--text-sm);
-  color: var(--color-text-subtle);
-}
-
 /* ---- Entrance ----
    The first 800ms decide whether the page feels alive, and until now they were
    completely static. Each hero child rises in on its own delay.
@@ -100,8 +63,7 @@
    rather than snapping to the --duration-* steps; only the curve is shared. */
 @media (prefers-reduced-motion: no-preference) {
   .hero__content > *,
-  .hero__visual,
-  .hero__facts {
+  .hero__visual {
     animation: hero-rise 620ms var(--ease-out) backwards;
   }
 
@@ -115,23 +77,11 @@
     animation-duration: 780ms;
     animation-delay: 220ms;
   }
-
-  .hero__facts {
-    animation-delay: 420ms;
-  }
 }
 
 @keyframes hero-rise {
   from {
     opacity: 0;
     transform: translateY(var(--space-5));
-  }
-}
-
-/* The strip is the first thing to give up its row: four values side by side
-   stop being readable long before the hero columns collapse. */
-@media (max-width: 420px) {
-  .hero__fact {
-    padding: var(--space-4);
   }
 }
