@@ -62,11 +62,11 @@ exactamente eso.
 
 ## Cómo trabaja MASolutions
 
-Metodología en cuatro fases:
+Proceso en cuatro fases:
 
 1. **Diagnóstico** (1 semana): entrevistas con las áreas involucradas para entender qué necesita la empresa, definición del alcance y estimación formal de costo y plazo.
 2. **Diseño y arquitectura** (2 semanas): recorridos de pantallas navegables y decisiones técnicas, aprobados por escrito antes de escribir código.
-3. **Desarrollo** (4–10 semanas): construcción por etapas de dos semanas; al cierre de cada una el cliente prueba lo construido y se revisa la calidad.
+3. **Desarrollo** (4–10 semanas): construcción en ciclos de dos semanas; al cierre de cada ciclo el cliente prueba lo construido y se revisa la calidad.
 4. **Implementación** (1 semana): arranque en uso real, publicación en tiendas, capacitación del equipo del cliente y entrega de la documentación técnica.
 
 Los plazos son referenciales hasta definir el alcance; quedan cerrados por

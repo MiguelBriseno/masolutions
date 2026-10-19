@@ -93,8 +93,11 @@
   --shadow-sm: 0 1px 2px rgba(20, 20, 31, 0.05);
   --shadow-md: 0 8px 24px rgba(20, 20, 31, 0.06);
   --shadow-lg: 0 24px 60px -18px color-mix(in srgb, var(--color-primary-darker) 35%, transparent);
-  --shadow-brand: 0 10px 26px -8px color-mix(in srgb, var(--color-primary) 55%, transparent);
-  --shadow-brand-strong: 0 16px 34px -10px color-mix(in srgb, var(--color-primary) 70%, transparent);
+  /* The primary button's lift. Neutral on purpose: a glow in the brand colour
+     was the last trend marker the re-audit found, and it read loudest on the
+     dark page. */
+  --shadow-brand: 0 6px 16px -6px rgba(20, 20, 31, 0.28);
+  --shadow-brand-strong: 0 10px 22px -8px rgba(20, 20, 31, 0.34);
   /* Directional edges for the two bars pinned to the viewport: the header's
      falls below it, the action bar's rises above it. */
   --shadow-header: 0 1px 20px rgba(20, 20, 31, 0.05);
@@ -173,6 +176,8 @@
     --shadow-lg: 0 24px 60px -18px rgba(0, 0, 0, 0.6);
     --shadow-header: 0 1px 20px rgba(0, 0, 0, 0.35);
     --shadow-action-bar: 0 -4px 24px rgba(0, 0, 0, 0.45);
+    --shadow-brand: 0 6px 16px -6px rgba(0, 0, 0, 0.55);
+    --shadow-brand-strong: 0 10px 22px -8px rgba(0, 0, 0, 0.65);
   }
 }
 
@@ -231,6 +236,30 @@ button {
 
 /* Google Tag Manager's noscript iframe. Google ships it with an inline style
    attribute, which the CSP blocks, so the same two declarations live here. */
+/* Text for assistive technology only, e.g. "(se abre en una pestaña nueva)"
+   on links whose cue is otherwise visual. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Links that leave the page in a new tab say so. The arrow is visual only —
+   the `/ ""` alternative text keeps screen readers from announcing it, and
+   each link carries a visually-hidden sentence instead. Engines that do not
+   parse the alt-text syntax drop the declaration and show no arrow. */
+a[target="_blank"]::after {
+  content: "↗" / "";
+  margin-left: 0.3em;
+  font-size: 0.9em;
+}
+
 .gtm-noscript {
   display: none;
   visibility: hidden;
@@ -270,9 +299,11 @@ button {
   padding-block: var(--section-gap);
 }
 
-/* The one eyebrow style on the page: section labels, the Nosotros panel label
-   and the success panel label all use it, recolouring with a modifier class
-   where needed. Used both as a <span> and as a section's <h2>, so every
+/* The one eyebrow style on the page, kept only where it says something the
+   heading does not: "¿Por qué a la medida?" over its band and "Compromisos de
+   trabajo" over the Nosotros panel. Labels that repeated the nav link or the
+   H2 were removed after the re-audit; do not add them back. Recolours with a
+   modifier class where needed. Used both as a <span> and as a section's <h2>, so every
    property the global heading rule sets is restated here to keep it
    tag-agnostic. */
 .section__eyebrow {
@@ -288,8 +319,11 @@ button {
 
 .section__title {
   font-size: var(--text-xl);
-  margin-top: var(--space-3);
   max-width: 24ch;
+}
+
+.section__eyebrow + .section__title {
+  margin-top: var(--space-3);
 }
 
 .section__note {

@@ -11,10 +11,14 @@ function initActiveLink(nav) {
   const linkFor = new Map();
   links.forEach((link) => linkFor.set(link.getAttribute('href'), link));
 
-  // Only sections that actually have a link take part: #top, #testimonios and
-  // #contacto have none, and letting them through would clear the highlight
-  // for as long as they are on screen.
-  const tracked = [...sections].filter((section) => linkFor.has(`#${section.id}`));
+  // Only sections that actually have a link take part, plus #top: back at the
+  // hero no section is current, so the highlight has to clear there, not
+  // linger on whichever link was last active. #testimonios and #contacto stay
+  // out — they sit between linked sections, and clearing for them would make
+  // the highlight flicker off mid-page.
+  const tracked = [...sections].filter(
+    (section) => section.id === 'top' || linkFor.has(`#${section.id}`)
+  );
   if (tracked.length === 0) return;
 
   const observer = new IntersectionObserver(
