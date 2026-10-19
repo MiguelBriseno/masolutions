@@ -46,12 +46,6 @@
   font-weight: 600;
 }
 
-/* Visible on purpose: a field the owner still has to supply. The page must
-   not be merged while any of these remain. */
-.legal__section .legal__pending {
-  color: var(--color-danger);
-}
-
 .legal__back {
   margin-top: var(--space-9);
 }

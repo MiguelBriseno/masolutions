@@ -307,12 +307,12 @@ Its text describes what the site actually does. **Any change to the data
 flow means editing the aviso in the same PR:** a new form field, a new
 analytics or chat tool, another processor (today: FormSubmit, Gmail, Microsoft
 Clarity, Cloudflare, GitHub), or turning GTM back on. The responsable is
-named as a persona física, Miguel Briseño Bustos with the trade name
+named as a persona física, Miguel Alberto Briseño Bustos with the trade name
 MASolutions, and the law requires a domicilio. That domicilio is a
 **domicilio para notificaciones supplied by the owner** (a virtual office, an
 accountant's office or a PO box), never the residence, and it appears only
-in the aviso (see the address rule below). The text was drafted for the
-owner's or a lawyer's review, not as legal advice.
+in the aviso (see the address rule below). The text was drafted from the site's
+actual behaviour and approved by the owner on 2026-10-18.
 
 **No consent banner, by the owner's decision (2026-10-18).** Clarity loads on
 every visit to the home page and starts recording before the visitor can read
