@@ -176,7 +176,19 @@
 
    Unenhanced, the links simply wrap under the brand and the header CTA stays,
    which is what this page did before the panel existed and what 404.html
-   still does. */
+   still does.
+
+   [data-nav-pending] on <html> (an inline script in index.html's <head>)
+   covers the moment between first paint and navbar.js. It folds the links
+   into the hidden panel early, so the header is drawn at its final height
+   instead of shifting the page when the module lands. The toggle keeps its
+   slot but stays invisible until navbar.js binds it, so the row matches the
+   enhanced one exactly and no dead button is ever on screen; the header CTA
+   is dropped as it is once enhanced (brand + CTA does not fit one row at
+   375px). The mark expires at DOMContentLoaded, or
+   after 8 s if main.js stalls; if navbar.js never ran, the unenhanced fallback above
+   then brings the links back. The fallback is wrapped in :where() so the
+   html condition adds no specificity to it. */
 @media (max-width: 860px) {
   .nav {
     gap: var(--space-3);
@@ -187,25 +199,33 @@
     display: inline-flex;
   }
 
-  .nav[data-enhanced] .nav__cta {
+  /* Pending: the toggle holds its place but is invisible, which also takes it
+     out of the tab order, the accessibility tree and hit testing — so the row
+     is exactly the enhanced row and no unbound button can be pressed. */
+  [data-nav-pending] .nav:not([data-enhanced]) .nav__toggle {
+    display: inline-flex;
+    visibility: hidden;
+  }
+
+  :is(.nav[data-enhanced], [data-nav-pending] .nav) .nav__cta {
     display: none;
   }
 
   /* No JavaScript: the brand takes its own row and the surviving CTA spans the
      width, so the row never degrades into a cramped wrap. This is also the only
      rule 404.html gets here, since that page is never enhanced. */
-  .nav:not([data-enhanced]) .nav__brand {
+  :where(:root:not([data-nav-pending])) .nav:not([data-enhanced]) .nav__brand {
     margin-right: 0;
     width: 100%;
   }
 
-  .nav:not([data-enhanced]) .btn {
+  :where(:root:not([data-nav-pending])) .nav:not([data-enhanced]) .btn {
     width: 100%;
   }
 
   /* Anchored to .site-header rather than .nav so the panel spans the full
      viewport width, matching the bar above it. */
-  .nav[data-enhanced] .nav__menu {
+  :is(.nav[data-enhanced], [data-nav-pending] .nav) .nav__menu {
     position: absolute;
     top: 100%;
     left: 0;
@@ -220,7 +240,7 @@
     box-shadow: var(--shadow-md);
   }
 
-  .nav[data-enhanced] .nav__menu[data-open] {
+  :is(.nav[data-enhanced], [data-nav-pending] .nav) .nav__menu[data-open] {
     display: flex;
   }
 
@@ -228,13 +248,13 @@
      wrapper — its one link is a direct child of .nav — and the unenhanced state
      keeps the links in a wrapped row, where a divider above each one would read
      as stray rules across the header rather than list separators. */
-  .nav[data-enhanced] .nav__menu .nav__link {
+  :is(.nav[data-enhanced], [data-nav-pending] .nav) .nav__menu .nav__link {
     font-size: var(--text-base);
     padding-block: var(--space-4);
     border-top: 1px solid var(--color-border-soft);
   }
 
-  .nav:not([data-enhanced]) .nav__menu {
+  :where(:root:not([data-nav-pending])) .nav:not([data-enhanced]) .nav__menu {
     gap: var(--space-1) var(--space-5);
   }
 

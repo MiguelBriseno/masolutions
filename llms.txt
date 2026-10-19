@@ -80,7 +80,7 @@ incluida.
 
 - **¿Cuánto cuesta un proyecto de desarrollo de software?** Depende del alcance definido. En menos de 48 horas hábiles desde la solicitud se entrega una propuesta sin costo, con entregables detallados; al firmarla, alcance, precio y plazo quedan cerrados por escrito.
 - **¿Cuánto tiempo tarda el desarrollo de un proyecto?** Una primera versión funcional en producción toma habitualmente entre 8 y 14 semanas, con avances demostrables cada dos semanas.
-- **¿Cómo se da seguimiento al avance del proyecto?** Una reunión de avance por ciclo, acceso permanente al tablero en línea con el avance y un informe escrito al cierre de cada fase.
+- **¿Cómo se da seguimiento al avance del proyecto?** Una reunión de avance por ciclo y un informe escrito al cierre de cada fase.
 - **¿Trabajan con proyectos de software ya iniciados?** Sí. Se audita el código existente, se documenta su estado real y se presenta un plan para continuarlo, corregirlo o migrarlo.
 - **¿Publican la aplicación en App Store y Google Play?** Sí, se gestiona el proceso completo: la página de la app en cada tienda, material gráfico y respuesta a las revisiones.
 - **¿Qué incluye el soporte después del lanzamiento?** Contratos de mantenimiento mensual con soporte, monitoreo, solución de fallas y horas de desarrollo para nuevas funciones.

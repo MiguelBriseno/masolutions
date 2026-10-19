@@ -28,7 +28,7 @@
     <link rel="manifest" href="./site.webmanifest" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://*.clarity.ms https://www.googletagmanager.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.clarity.ms https://c.bing.com https://www.googletagmanager.com https://*.google-analytics.com https://*.g.doubleclick.net; connect-src 'self' https://formsubmit.co https://*.clarity.ms https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com; frame-src 'self' https://www.googletagmanager.com; form-action 'self' https://formsubmit.co; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;"
+      content="default-src 'self'; script-src 'self' 'sha256-/JlG3x7aBsQJT/07qMe46QEvr2uF/2sERzb5jEaLzEs=' https://*.clarity.ms https://www.googletagmanager.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.clarity.ms https://c.bing.com https://www.googletagmanager.com https://*.google-analytics.com https://*.g.doubleclick.net; connect-src 'self' https://formsubmit.co https://*.clarity.ms https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com; frame-src 'self' https://www.googletagmanager.com; form-action 'self' https://formsubmit.co; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;"
     />
     <meta property="og:type" content="website" />
     <meta
@@ -293,7 +293,7 @@
                 "name": "¿Cómo se da seguimiento al avance del proyecto?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Una reunión de avance por ciclo, acceso permanente al tablero en línea con el avance y un informe escrito al cierre de cada fase."
+                  "text": "Una reunión de avance por ciclo y un informe escrito al cierre de cada fase."
                 }
               },
               {
@@ -364,6 +364,23 @@
          @import rules is a render-blocking chain: the browser cannot even
          discover these files until the entry sheet has downloaded and parsed.
          Cascade order is the load order below, so keep base first. -->
+    <!-- Phone header: marks <html> before first paint so header.css can fold
+         the links away at the header's final height, instead of the page
+         shifting when navbar.js lands. Inline because it must run before
+         first paint with no extra request; allowed by its sha256 in
+         script-src (here and in _headers), so EDITING ONE CHARACTER OF IT
+         MEANS RECOMPUTING THAT HASH IN BOTH PLACES. It expires at
+         DOMContentLoaded (fired once every module has run or failed, without
+         waiting for fonts or images) or after 8 s if main.js stalls, so the
+         links can never stay hidden for long. See CLAUDE.md, "Nothing the visitor needs may be hidden". -->
+    <script>
+      document.documentElement.setAttribute('data-nav-pending', '');
+      (() => {
+        const done = () => document.documentElement.removeAttribute('data-nav-pending');
+        document.addEventListener('DOMContentLoaded', done, { once: true });
+        setTimeout(done, 8000);
+      })();
+    </script>
     <link rel="stylesheet" href="./css/base/reset.css" />
     <link rel="stylesheet" href="./css/base/globals.css" />
     <link rel="stylesheet" href="./css/base/animations.css" />
@@ -452,7 +469,6 @@
       <main id="contenido" tabindex="-1">
         <section id="top" class="hero" aria-labelledby="hero-title">
           <div class="hero__content">
-            <span class="pill pill--wide">INGENIERÍA DE SOFTWARE A LA MEDIDA</span>
             <h1 class="hero__title" id="hero-title">
               Ingeniería de software a la medida:
               aplicaciones móviles, web e integraciones
@@ -473,81 +489,6 @@
               cerrados al firmar · Sin costo ni compromiso
             </p>
           </div>
-
-          <!-- Illustrative operations dashboard, drawn in markup like the case
-               mockups below (see css/components/mockups.css). The domain here
-               is deliberately generic — "suempresa", orders, on-time rate — so
-               the hero shows what the work looks like without promoting one of
-               the three named client systems above the other two. -->
-          <div class="hero__visual">
-            <div class="mock mock--browser mock--hero" aria-hidden="true">
-              <div class="mock__window">
-                <div class="mock__chrome">
-                  <span class="mock__dot"></span>
-                  <span class="mock__dot"></span>
-                  <span class="mock__dot"></span>
-                  <span class="mock__url">panel.suempresa.mx/operacion</span>
-                </div>
-                <div class="mock__app">
-                  <div class="mock__sidebar">
-                    <span class="mock__sidebar-brand">PANEL</span>
-                    <span class="mock__sidebar-item mock__sidebar-item--active"></span>
-                    <span class="mock__sidebar-item"></span>
-                    <span class="mock__sidebar-item"></span>
-                    <span class="mock__sidebar-item"></span>
-                    <span class="mock__sidebar-item"></span>
-                  </div>
-                  <div class="mock__main">
-                    <div class="mock__kpis">
-                      <div class="mock__kpi">
-                        <div class="mock__kpi-label">ÓRDENES ABIERTAS</div>
-                        <div class="mock__kpi-value">312</div>
-                      </div>
-                      <div class="mock__kpi">
-                        <div class="mock__kpi-label">EN PROCESO</div>
-                        <div class="mock__kpi-value">87</div>
-                      </div>
-                      <div class="mock__kpi">
-                        <div class="mock__kpi-label">ENTREGA A TIEMPO</div>
-                        <div class="mock__kpi-value mock__kpi-value--accent">96%</div>
-                      </div>
-                    </div>
-                    <div class="mock__chart">
-                      <div class="mock__chart-label">ÓRDENES COMPLETADAS POR SEMANA</div>
-                      <div class="mock__bars">
-                        <span class="mock__bar"></span>
-                        <span class="mock__bar"></span>
-                        <span class="mock__bar"></span>
-                        <span class="mock__bar"></span>
-                        <span class="mock__bar"></span>
-                        <span class="mock__bar mock__bar--active"></span>
-                        <span class="mock__bar"></span>
-                      </div>
-                    </div>
-                    <div class="mock__rows">
-                      <div class="mock__row">
-                        <span class="mock__row-key">OP-4821</span>
-                        <span class="mock__row-meta">Planta norte</span>
-                        <span class="mock__row-tag mock__row-tag--ok">CERRADA</span>
-                      </div>
-                      <div class="mock__row">
-                        <span class="mock__row-key">OP-4822</span>
-                        <span class="mock__row-meta">Almacén central</span>
-                        <span class="mock__row-tag">EN PROCESO</span>
-                      </div>
-                      <div class="mock__row">
-                        <span class="mock__row-key">OP-4823</span>
-                        <span class="mock__row-meta">Ruta 12</span>
-                        <span class="mock__row-tag">EN PROCESO</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p class="mock-caption">Ilustración con datos de ejemplo.</p>
-          </div>
-
         </section>
 
         <!-- The positioning argument, on the page's one dark band. Every line
@@ -1015,7 +956,6 @@
                 reportes a nadie.”
               </blockquote>
               <figcaption class="testimonial-card__author">
-                <span class="testimonial-card__avatar">CS</span>
                 <span>
                   <span class="testimonial-card__name">Carlos Sierra</span>
                   Gerente general · Tonalli ERP
@@ -1029,7 +969,6 @@
                 bajaron de forma notable.”
               </blockquote>
               <figcaption class="testimonial-card__author">
-                <span class="testimonial-card__avatar">KR</span>
                 <span>
                   <span class="testimonial-card__name">Karla Reyes</span>
                   Gerente general · ActuarEnvíos
@@ -1087,8 +1026,8 @@
                 <span class="faq__icon" aria-hidden="true"></span>
               </summary>
               <p class="faq__answer">
-                Una reunión de avance por ciclo, acceso permanente al tablero en
-                línea con el avance y un informe escrito al cierre de cada fase.
+                Una reunión de avance por ciclo y un informe escrito al cierre de
+                cada fase.
               </p>
             </details>
             <details class="faq__item" name="faq">
@@ -1356,7 +1295,7 @@
     <div class="action-bar" data-hidden inert>
       <a href="#contacto" class="btn btn--primary action-bar__cta">Solicitar propuesta</a>
       <a
-        class="action-bar__wa"
+        class="btn btn--secondary btn--sm action-bar__wa"
         href="https://wa.me/523312170122"
         target="_blank"
         rel="noopener noreferrer"

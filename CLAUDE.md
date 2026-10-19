@@ -175,6 +175,29 @@ The contract now is:
   and the panel are bound. Unenhanced, the links wrap under the brand and the
   header CTA stays full width — which is what `404.html` gets too, since it is
   never enhanced.
+- Between first paint and `navbar.js`, `[data-nav-pending]` on `<html>` folds
+  the links into the hidden panel early. Collapsing only after the module ran
+  painted the long wrapped header first and then shifted the whole page up
+  (CLS 0.118 on a throttled phone). While pending, the header CTA is dropped
+  (as it is once enhanced) and the toggle keeps its slot under
+  `visibility: hidden`, so the row is exactly the enhanced row and nothing
+  moves when `navbar.js` reveals the toggle — and an unbound button can be
+  neither seen, tabbed to nor tapped. Brand + CTA cannot stand in instead: at
+  375px they do not fit one row and the header grows by a line. The mark is set by a small **inline**
+  script in `<head>` — it must run before first paint, and inline costs no
+  request — allowed by its `sha256-…` in `script-src` in both the meta CSP and
+  `_headers`. **Any edit to that script, even whitespace, means recomputing
+  the hash in both places**, or the CSP blocks it silently and the page falls
+  back to the shifting header. It expires at `DOMContentLoaded` — which waits for
+  the deferred modules to run or fail, but not for fonts or images — or after
+  8 s if `main.js` stalls outright. Its listener is registered before
+  `main.js`'s, so it fires first in the same task and no frame paints between
+  the mark going and `data-enhanced` arriving. Do not shorten the timeout to a
+  few seconds: on a throttled Slow 4G phone `main.js` runs at ~4.3 s, and a 3 s
+  timeout expired first, unfolding the header and folding it again (CLS 0.25).
+  If the module did not run, the late reveal is a layout shift, accepted
+  because navigation matters more. With JavaScript disabled it never
+  runs, and the page is unenhanced from the start.
 - `initMobileMenu` runs *before* the active-link highlight and the header's
   scrolled state. It is the only one of the three that owns navigation; the
   other two are decoration and must not be able to take it down with them.
@@ -207,8 +230,11 @@ engine) the screens simply render finished. Keep that property: a keyframe with
 a `to` would make the mockups depend on the animation having run. The whole
 block sits inside one `prefers-reduced-motion: no-preference` query rather than
 being switched off further down, so there is a single guard and no specificity
-duel to lose. The hero copy of the dashboard plays on load; the case cards play
-off `.project-card.visible`, which `animations.js` sets.
+duel to lose. The only mockups are the three case cards, and they play off
+`.project-card.visible`, which `animations.js` sets. The hero has no visual on
+purpose: its generic dashboard was removed after the re-audit, because it
+showed nothing the named cases below do not show better and took 18% of the
+fold.
 
 ## Analytics
 

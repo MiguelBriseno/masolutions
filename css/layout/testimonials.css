@@ -21,26 +21,9 @@
 }
 
 .testimonial-card__author {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
   margin-top: var(--space-6);
   font-size: var(--text-sm);
   color: var(--color-text-soft);
-}
-
-.testimonial-card__avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-pill);
-  background: var(--color-primary-soft);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: var(--text-sm);
-  color: var(--color-primary-dark);
-  flex-shrink: 0;
 }
 
 .testimonial-card__name {
