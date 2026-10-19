@@ -308,10 +308,10 @@ flow means editing the aviso in the same PR:** a new form field, a new
 analytics or chat tool, another processor (today: FormSubmit, Gmail, Google Fonts,
 Microsoft Clarity, Cloudflare, GitHub), or turning GTM back on. The responsable is
 named as a persona física, Miguel Alberto Briseño Bustos with the trade name
-MASolutions, and the law requires a domicilio. That domicilio is a
-**domicilio para notificaciones supplied by the owner** (a virtual office, an
-accountant's office or a PO box), never the residence, and it appears only
-in the aviso (see the address rule below). The text was drafted from the site's
+MASolutions, and the law requires a domicilio. The **domicilio para oír y
+recibir notificaciones** is the one the owner supplied and confirmed for
+publication on 2026-10-18, and it appears only in the aviso (see the address
+rule below). The text was drafted from the site's
 actual behaviour and approved by the owner on 2026-10-18.
 
 Two production details the aviso depends on:
@@ -504,15 +504,16 @@ The public contact address is a personal Gmail, chosen by the owner over a
 `mailto:` link, `Organization.email` plus its `contactPoint`, and `llms.txt`.
 
 The organisation is typed plain `Organization`, and **no postal address is
-published anywhere** — not in the page, not in the JSON-LD, not in `llms.txt`.
+published on the marketing surfaces** — not in `index.html`, not in the
+JSON-LD, not in `llms.txt`.
 The owner works from a private home; the address was added and then deliberately
-removed. The one exception is the aviso de privacidad, which must carry a
-domicilio: it uses a **domicilio para notificaciones**, not the residence, and
-that address stays on that page only, never in the JSON-LD or `llms.txt`.
-Do not reintroduce the residence anywhere, and do not "upgrade" the type to
+removed. The one exception is the aviso de privacidad, which the LFPDPPP
+requires to carry a domicilio: the owner chose the address it publishes,
+knowingly, on 2026-10-18. That address stays on that page only. Do not copy it
+into the home page, the JSON-LD or `llms.txt`, and do not "upgrade" the type to
 `LocalBusiness` / `ProfessionalService`: both need a published address to mean
-anything, and publishing this one exposes a residence to every crawler that
-`robots.txt` invites in. Local reach is handled by the Google Business Profile
+anything, and marking up an address there would broadcast it as the
+business location to every crawler that `robots.txt` invites in. Local reach is handled by the Google Business Profile
 as a service-area business instead, which shows the coverage area without the
 address.
 
