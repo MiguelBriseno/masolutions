@@ -1,7 +1,11 @@
 const MOBILE_QUERY = '(max-width: 860px)';
 
-/* Active-section highlighting. Unchanged in behaviour: the observer marks the
-   link whose section is crossing the middle band of the viewport. */
+// Unlinked sections that sit above the first linked one; see initActiveLink.
+const CLEARING_SECTIONS = new Set(['top', 'a-la-medida']);
+
+/* Active-section highlighting: the observer marks the link whose section is
+   crossing the middle band of the viewport, and clears every link while the
+   hero or the "¿Por qué a la medida?" band is there instead. */
 function initActiveLink(nav) {
   const links = nav.querySelectorAll('.nav__link');
   const sections = document.querySelectorAll('section[id]');
@@ -11,13 +15,14 @@ function initActiveLink(nav) {
   const linkFor = new Map();
   links.forEach((link) => linkFor.set(link.getAttribute('href'), link));
 
-  // Only sections that actually have a link take part, plus #top: back at the
-  // hero no section is current, so the highlight has to clear there, not
-  // linger on whichever link was last active. #testimonios and #contacto stay
-  // out — they sit between linked sections, and clearing for them would make
-  // the highlight flicker off mid-page.
+  // Sections with a link take part, plus CLEARING_SECTIONS above the first one:
+  // in the hero and the "a la medida" band no section is current, so the
+  // highlight has to clear there instead of lingering on whichever link was
+  // last active. #testimonios and #contacto stay out — they sit between linked
+  // sections, and clearing for them would make the highlight flicker off
+  // mid-page.
   const tracked = [...sections].filter(
-    (section) => section.id === 'top' || linkFor.has(`#${section.id}`)
+    (section) => CLEARING_SECTIONS.has(section.id) || linkFor.has(`#${section.id}`)
   );
   if (tracked.length === 0) return;
 

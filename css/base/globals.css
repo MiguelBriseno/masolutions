@@ -93,11 +93,12 @@
   --shadow-sm: 0 1px 2px rgba(20, 20, 31, 0.05);
   --shadow-md: 0 8px 24px rgba(20, 20, 31, 0.06);
   --shadow-lg: 0 24px 60px -18px color-mix(in srgb, var(--color-primary-darker) 35%, transparent);
-  /* The primary button's lift. Neutral on purpose: a glow in the brand colour
-     was the last trend marker the re-audit found, and it read loudest on the
-     dark page. */
-  --shadow-brand: 0 6px 16px -6px rgba(20, 20, 31, 0.28);
-  --shadow-brand-strong: 0 10px 22px -8px rgba(20, 20, 31, 0.34);
+  /* The primary button's lift at rest and on hover. Neutral on purpose, and
+     named for the button rather than the brand: a glow in --color-primary was
+     the last trend marker the re-audit found, and it read loudest on the dark
+     page. Do not tint it back. */
+  --shadow-btn: 0 6px 16px -6px rgba(20, 20, 31, 0.28);
+  --shadow-btn-hover: 0 10px 22px -8px rgba(20, 20, 31, 0.34);
   /* Directional edges for the two bars pinned to the viewport: the header's
      falls below it, the action bar's rises above it. */
   --shadow-header: 0 1px 20px rgba(20, 20, 31, 0.05);
@@ -176,8 +177,8 @@
     --shadow-lg: 0 24px 60px -18px rgba(0, 0, 0, 0.6);
     --shadow-header: 0 1px 20px rgba(0, 0, 0, 0.35);
     --shadow-action-bar: 0 -4px 24px rgba(0, 0, 0, 0.45);
-    --shadow-brand: 0 6px 16px -6px rgba(0, 0, 0, 0.55);
-    --shadow-brand-strong: 0 10px 22px -8px rgba(0, 0, 0, 0.65);
+    --shadow-btn: 0 6px 16px -6px rgba(0, 0, 0, 0.55);
+    --shadow-btn-hover: 0 10px 22px -8px rgba(0, 0, 0, 0.65);
   }
 }
 
@@ -236,6 +237,11 @@ button {
 
 /* Google Tag Manager's noscript iframe. Google ships it with an inline style
    attribute, which the CSP blocks, so the same two declarations live here. */
+.gtm-noscript {
+  display: none;
+  visibility: hidden;
+}
+
 /* Text for assistive technology only, e.g. "(se abre en una pestaña nueva)"
    on links whose cue is otherwise visual. */
 .visually-hidden {
@@ -253,16 +259,13 @@ button {
 /* Links that leave the page in a new tab say so. The arrow is visual only —
    the `/ ""` alternative text keeps screen readers from announcing it, and
    each link carries a visually-hidden sentence instead. Engines that do not
-   parse the alt-text syntax drop the declaration and show no arrow. */
-a[target="_blank"]::after {
+   parse the alt-text syntax drop the declaration and show no arrow. The
+   action bar's WhatsApp button is left out: it already carries the WhatsApp
+   glyph and an aria-label that says so, and in that tight fixed bar the arrow
+   would become a third flex item and squeeze the primary CTA at 320px. */
+a[target="_blank"]:not(.action-bar__wa)::after {
   content: "↗" / "";
-  margin-left: 0.3em;
-  font-size: 0.9em;
-}
-
-.gtm-noscript {
-  display: none;
-  visibility: hidden;
+  margin-left: var(--space-1);
 }
 
 /* Layered above .site-header and .action-bar; see --z-skip. top: -100px only
@@ -303,9 +306,9 @@ a[target="_blank"]::after {
    heading does not: "¿Por qué a la medida?" over its band and "Compromisos de
    trabajo" over the Nosotros panel. Labels that repeated the nav link or the
    H2 were removed after the re-audit; do not add them back. Recolours with a
-   modifier class where needed. Used both as a <span> and as a section's <h2>, so every
-   property the global heading rule sets is restated here to keep it
-   tag-agnostic. */
+   modifier class where needed. Both remaining uses are a <span>; the font
+   properties are still restated so the rule never depends on the element it
+   lands on. */
 .section__eyebrow {
   display: block;
   font-family: var(--font-body);
@@ -355,18 +358,18 @@ a[target="_blank"]::after {
      Hover darkens the button by tinting it rather than swapping the
      background, so the darkening eases with the shadow. Both states list the
      same two shadows so they ease pairwise. */
-  box-shadow: var(--shadow-brand), inset 0 0 0 100vmax transparent;
+  box-shadow: var(--shadow-btn), inset 0 0 0 100vmax transparent;
 }
 
 .btn--primary:hover:not(:disabled) {
   color: var(--color-on-primary);
-  box-shadow: var(--shadow-brand-strong), inset 0 0 0 100vmax var(--color-btn-hover-overlay);
+  box-shadow: var(--shadow-btn-hover), inset 0 0 0 100vmax var(--color-btn-hover-overlay);
 }
 
 /* Pressed: the hover tint deepens and the lift drops back to the resting
    shadow, so a click reads as the button going down. */
 .btn--primary:active:not(:disabled) {
-  box-shadow: var(--shadow-brand), inset 0 0 0 100vmax var(--color-btn-active-overlay);
+  box-shadow: var(--shadow-btn), inset 0 0 0 100vmax var(--color-btn-active-overlay);
 }
 
 .btn--secondary {
