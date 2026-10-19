@@ -320,7 +320,8 @@ added, `initClarity()` is the single call to gate behind it.
 Container `GTM-MNRGGGF9` was loaded from a `js/components/gtm.js` module until
 2026-10-18, and was removed by the owner's decision. It had been **empty**
 since install (`"tags":[]`, `"rules":[]`), so every visit downloaded ~119 KB
-of runtime that measured nothing, the largest single item in the page weight.
+of runtime over the wire (gzip; ~328 KB uncompressed to parse and run) that
+measured nothing, the largest single item in the page weight.
 The loader, the `<noscript>` iframe and its `.gtm-noscript` rule went with it,
 as did every Google origin in the CSP (`www.googletagmanager.com`,
 `*.google-analytics.com`, `*.analytics.google.com`, `*.g.doubleclick.net`,
@@ -328,9 +329,17 @@ as did every Google origin in the CSP (`www.googletagmanager.com`,
 iframe. Frames fall back to `default-src 'self'` again.
 
 If tag management or GA4 is ever wanted again, it has to come back the same
-way: a module from `'self'` (Google's inline snippet is blocked, and its
-documented nonce alternative needs a server this site does not have), plus
-the Google origins in **both** the meta CSP and `_headers`. Note that under
+way, and all of it is in git history (`git log -- js/components/gtm.js`):
+
+- a module from `'self'` — Google's inline snippet is blocked, and its
+  documented nonce alternative needs a server this site does not have;
+- the Google origins above, in **both** the meta CSP and `_headers`;
+- if the `<noscript>` iframe comes back, a `frame-src` for it and a class for
+  its two hiding declarations, because the inline `style` Google ships is
+  blocked by the CSP and the iframe would otherwise render;
+- Ads origins (`pagead2.googlesyndication.com`, `www.googleadservices.com`,
+  the `*.google.<TLD>` ccTLDs) only if remarketing or conversion tracking is
+  turned on. They were never allowed. Note that under
 this CSP a GTM Custom HTML tag or any third-party pixel stays blocked until its
 origin is added and deployed. The failure is silent, so check the console
 before trusting a tag that reports as fired. Do not add Clarity through GTM:
