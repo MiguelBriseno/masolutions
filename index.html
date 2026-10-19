@@ -28,7 +28,7 @@
     <link rel="manifest" href="./site.webmanifest" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://*.clarity.ms https://www.googletagmanager.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.clarity.ms https://c.bing.com https://www.googletagmanager.com https://*.google-analytics.com https://*.g.doubleclick.net; connect-src 'self' https://formsubmit.co https://*.clarity.ms https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com; frame-src 'self' https://www.googletagmanager.com; form-action 'self' https://formsubmit.co; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;"
+      content="default-src 'self'; script-src 'self' 'sha256-/JlG3x7aBsQJT/07qMe46QEvr2uF/2sERzb5jEaLzEs=' https://*.clarity.ms https://www.googletagmanager.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.clarity.ms https://c.bing.com https://www.googletagmanager.com https://*.google-analytics.com https://*.g.doubleclick.net; connect-src 'self' https://formsubmit.co https://*.clarity.ms https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com; frame-src 'self' https://www.googletagmanager.com; form-action 'self' https://formsubmit.co; object-src 'none'; base-uri 'self'; upgrade-insecure-requests;"
     />
     <meta property="og:type" content="website" />
     <meta
@@ -364,8 +364,23 @@
          @import rules is a render-blocking chain: the browser cannot even
          discover these files until the entry sheet has downloaded and parsed.
          Cascade order is the load order below, so keep base first. -->
-    <!-- Render-blocking and classic on purpose; see the file. -->
-    <script src="./js/core/nav-pending.js"></script>
+    <!-- Phone header: marks <html> before first paint so header.css can fold
+         the links away at the header's final height, instead of the page
+         shifting when navbar.js lands. Inline because it must run before
+         first paint with no extra request; allowed by its sha256 in
+         script-src (here and in _headers), so EDITING ONE CHARACTER OF IT
+         MEANS RECOMPUTING THAT HASH IN BOTH PLACES. It expires at
+         DOMContentLoaded (fired once every module has run or failed, without
+         waiting for fonts or images) or after 8 s if main.js stalls, so the
+         links can never stay hidden for long. See CLAUDE.md, "Nothing the visitor needs may be hidden". -->
+    <script>
+      document.documentElement.setAttribute('data-nav-pending', '');
+      (() => {
+        const done = () => document.documentElement.removeAttribute('data-nav-pending');
+        document.addEventListener('DOMContentLoaded', done, { once: true });
+        setTimeout(done, 8000);
+      })();
+    </script>
     <link rel="stylesheet" href="./css/base/reset.css" />
     <link rel="stylesheet" href="./css/base/globals.css" />
     <link rel="stylesheet" href="./css/base/animations.css" />
@@ -474,8 +489,6 @@
               cerrados al firmar · Sin costo ni compromiso
             </p>
           </div>
-
-
         </section>
 
         <!-- The positioning argument, on the page's one dark band. Every line

@@ -175,16 +175,29 @@ The contract now is:
   and the panel are bound. Unenhanced, the links wrap under the brand and the
   header CTA stays full width — which is what `404.html` gets too, since it is
   never enhanced.
-- Between the first paint and `load`, `[data-nav-pending]` on `<html>` stands
-  in for `[data-enhanced]`. Collapsing only after the module ran painted the
-  long wrapped header first and then shifted the whole page up (CLS 0.118 on
-  a throttled phone). `js/core/nav-pending.js` is a **classic, render-blocking**
-  script in `<head>` because it must run before first paint, which no module
-  can promise. It removes the attribute itself at `load`, by which time every
-  module has run or failed, so a dead `main.js` still ends with the links and
-  the header CTA visible. Do not make it a module, `defer` it, or drop the
-  `load` handler: each of those breaks one of the two halves. With JavaScript
-  disabled it never runs, and the page is unenhanced from the start.
+- Between first paint and `navbar.js`, `[data-nav-pending]` on `<html>` folds
+  the links into the hidden panel early. Collapsing only after the module ran
+  painted the long wrapped header first and then shifted the whole page up
+  (CLS 0.118 on a throttled phone). While pending, the header CTA is dropped
+  (as it is once enhanced) and the toggle keeps its slot under
+  `visibility: hidden`, so the row is exactly the enhanced row and nothing
+  moves when `navbar.js` reveals the toggle — and an unbound button can be
+  neither seen, tabbed to nor tapped. Brand + CTA cannot stand in instead: at
+  375px they do not fit one row and the header grows by a line. The mark is set by a small **inline**
+  script in `<head>` — it must run before first paint, and inline costs no
+  request — allowed by its `sha256-…` in `script-src` in both the meta CSP and
+  `_headers`. **Any edit to that script, even whitespace, means recomputing
+  the hash in both places**, or the CSP blocks it silently and the page falls
+  back to the shifting header. It expires at `DOMContentLoaded` — which waits for
+  the deferred modules to run or fail, but not for fonts or images — or after
+  8 s if `main.js` stalls outright. Its listener is registered before
+  `main.js`'s, so it fires first in the same task and no frame paints between
+  the mark going and `data-enhanced` arriving. Do not shorten the timeout to a
+  few seconds: on a throttled Slow 4G phone `main.js` runs at ~4.3 s, and a 3 s
+  timeout expired first, unfolding the header and folding it again (CLS 0.25).
+  If the module did not run, the late reveal is a layout shift, accepted
+  because navigation matters more. With JavaScript disabled it never
+  runs, and the page is unenhanced from the start.
 - `initMobileMenu` runs *before* the active-link highlight and the header's
   scrolled state. It is the only one of the three that owns navigation; the
   other two are decoration and must not be able to take it down with them.
