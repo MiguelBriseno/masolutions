@@ -141,7 +141,7 @@ four derive from `icon.webp`; regenerate them together with it.
 - **action-bar.js** — parks the fixed mobile CTA off screen while the hero or
   the contact section is visible, and toggles `inert` with it
 - **analytics.js** — loads the Microsoft Clarity tag from a `'self'` module instead of the inline snippet the CSP blocks (see Analytics below)
-- **gtm.js** — same treatment for the Google Tag Manager container; `environment.js` holds the host guard both loaders share
+- **environment.js** (`js/core/`) — `isMeasuredHost()`, the local-host guard `analytics.js` checks before loading Clarity
 
 **The header is sticky and lives outside `.container`.** The bar has to span the
 full viewport; wrapped in the 1180px column it would stop short at both sides on
@@ -266,8 +266,8 @@ stays `_headers`-only, because a `<meta>` CSP is specified to ignore it.
 The queue shim stays a `function`, not an arrow — it forwards `arguments`,
 which an arrow function does not have.
 
-The third-party loaders run **after** the page's own components in `main.js`,
-and each body is wrapped in `try`/`catch`. Privacy extensions neutralize known
+The Clarity loader runs **after** the page's own components in `main.js`, and
+its body is wrapped in `try`/`catch`. Privacy extensions neutralize known
 analytics globals by redefining `window.clarity` as non-writable, as a getter
 with no setter, or as a throwing Proxy; modules are strict mode, so **both**
 reading and assigning it can throw. That is why the duplicate-load guard sits
@@ -275,19 +275,14 @@ inside the `try` rather than before it. Ordered first and unguarded, such a
 throw would take the navbar, the mobile menu, the action bar and the contact
 form — the site's only conversion path — down with it.
 
-Both loaders return early on local hosts via `isMeasuredHost()` in
-`js/core/environment.js` — the shared guard exists so the two cannot drift.
+The loader returns early on local hosts via `isMeasuredHost()` in
+`js/core/environment.js`, kept as its own module so any future third-party
+loader reuses the same guard instead of growing a second one.
 It covers `localhost`, `0.0.0.0`, loopback, the RFC 1918 private ranges,
 link-local and `.local`/`.localhost`, not just `localhost`. The private ranges
 are not padding: checking the layout at 320px means `--bind 0.0.0.0` and
 opening `http://192.168.x.x:8000` on a real phone, and that session would
 otherwise be recorded into the production project.
-
-The `<noscript>` iframe is the one path this guard cannot cover — gating it
-would take JavaScript, which is the whole point of `<noscript>`. A developer
-browsing localhost with JavaScript disabled registers one pageview in the
-production container. Narrow enough to accept; worth knowing before someone
-hunts the phantom hit.
 
 `404.html` is deliberately left out: it runs no JavaScript at all and its CSP
 is `script-src 'none'`. Measuring broken inbound links would mean giving that
@@ -302,52 +297,26 @@ a third party with no disclosure anywhere on the page. This is the owner's
 decision to make, not a change to be made for them. If a notice or consent
 banner is ever added, `initClarity()` is the single call to gate behind it.
 
-### Google Tag Manager
+### Google Tag Manager (removed)
 
-Container `GTM-MNRGGGF9`, loaded from `js/components/gtm.js` for the same
-reason Clarity is: the snippet Google publishes is an inline `<script>` and
-there is no `script-src 'unsafe-inline'`. Google's documented alternative is a
-per-request **nonce**, which this site cannot produce — GitHub Pages serves
-static files and there is no server to generate one per response. A module
-served from `'self'` is what is left.
+Container `GTM-MNRGGGF9` was loaded from a `js/components/gtm.js` module until
+2026-10-18, and was removed by the owner's decision. It had been **empty**
+since install (`"tags":[]`, `"rules":[]`), so every visit downloaded ~119 KB
+of runtime that measured nothing, the largest single item in the page weight.
+The loader, the `<noscript>` iframe and its `.gtm-noscript` rule went with it,
+as did every Google origin in the CSP (`www.googletagmanager.com`,
+`*.google-analytics.com`, `*.analytics.google.com`, `*.g.doubleclick.net`,
+`www.google.com`) and the `frame-src` directive, which existed only for that
+iframe. Frames fall back to `default-src 'self'` again.
 
-The `<noscript>` iframe sits immediately after `<body>`. Google ships it with
-`style="display:none;visibility:hidden"`, blocked by the CSP, so the same two
-declarations live in `.gtm-noscript` in `globals.css`. It also needed a new
-`frame-src` directive: frames previously fell back to `default-src 'self'`.
-
-**GTM here is not a no-deploy tag manager, and that is the whole point of GTM.**
-The CSP allows Google's own measurement origins, so a GA4 or Google Ads tag
-configured in the UI will work. Anything else will not: a Custom HTML tag
-injects an inline script and is blocked outright, and any third-party pixel
-(Meta, LinkedIn, TikTok, Hotjar…) is blocked until its origin is added to the
-CSP in **both** `index.html` and `_headers` and the change is deployed. Google's
-CSP guide does not cover custom or third-party tags at all. The failure is
-silent — the tag reports as fired in GTM's preview while the browser blocks the
-request — so check the console before believing a new tag works.
-
-Origins allowed for GTM and GA4: `https://www.googletagmanager.com` in
-`script-src`, `img-src`, `connect-src` and `frame-src`, plus
-`https://*.google-analytics.com`, `https://*.analytics.google.com`,
-`https://*.g.doubleclick.net` and `https://www.google.com`. Deliberately **not**
-included, because no Ads campaign runs yet: `pagead2.googlesyndication.com`,
-`www.googleadservices.com` and the `https://*.google.<TLD>` ccTLD wildcards.
-Add them if remarketing or conversion tracking is ever turned on.
-
-At install time the container was **empty** — `"tags":[]`, `"rules":[]` — so it
-downloads ~328 KB of runtime and measures nothing until tags are configured.
-
-**GTM Preview does not work under this policy**, which is awkward given that
-every tag added to an empty container needs validating. The debug overlay is
-served from origins the CSP does not allow: `https://tagmanager.google.com` in
-`script-src`, `style-src` and `frame-src`, plus `https://www.gstatic.com` and
-`https://ssl.gstatic.com` in `img-src`. They are left out on purpose — letting
-Google serve **styles** into the page permanently, to support a tool only the
-owner ever opens, is a poor trade. Add them temporarily on a branch to debug,
-and drop them before merging.
-
-**Do not add Clarity as a tag inside GTM.** It is already loaded directly by
-`analytics.js`; a second copy through the container would double-count sessions.
+If tag management or GA4 is ever wanted again, it has to come back the same
+way: a module from `'self'` (Google's inline snippet is blocked, and its
+documented nonce alternative needs a server this site does not have), plus
+the Google origins in **both** the meta CSP and `_headers`. Note that under
+this CSP a GTM Custom HTML tag or any third-party pixel stays blocked until its
+origin is added and deployed. The failure is silent, so check the console
+before trusting a tag that reports as fired. Do not add Clarity through GTM:
+`analytics.js` already loads it, and a second copy would double-count sessions.
 
 ## Contact form delivery
 
