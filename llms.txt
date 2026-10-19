@@ -54,7 +54,7 @@ exactamente eso.
 ## Servicios
 
 - **Aplicaciones móviles**: apps para iPhone y Android, del prototipo a la publicación en App Store y Google Play.
-- **Aplicaciones web**: portales, paneles de operación y plataformas en línea para muchos usuarios, donde cada persona ve solo lo que le corresponde y que siguen respondiendo cuando la operación crece.
+- **Aplicaciones web**: portales, paneles de operación y plataformas en línea para muchos usuarios, donde cada persona ve solo lo que le corresponde.
 - **Software a la medida**: sistemas internos que sustituyen la hoja de cálculo — inventarios, trazabilidad de lotes, facturación, reportes de la operación y automatización de tareas.
 - **Integraciones entre sistemas**: hace que los sistemas de gestión, de ventas, de cobro en línea y de terceros de la empresa intercambien información solos, con conexiones (API) documentadas y vigiladas.
 - **Mantenimiento y soporte**: vigilancia del sistema, solución de fallas y nuevas funciones después del lanzamiento, bajo contrato mensual con tiempos de respuesta acordados.
