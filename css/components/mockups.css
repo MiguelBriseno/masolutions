@@ -260,7 +260,7 @@
   display: block;
   position: absolute;
   inset: 0;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .mock__timeline {

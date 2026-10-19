@@ -81,12 +81,12 @@
 }
 
 .faq__item[open] .faq__icon {
-  background: var(--color-primary);
+  background: var(--color-accent);
 }
 
 .faq__item[open] .faq__icon::before,
 .faq__item[open] .faq__icon::after {
-  background: var(--color-on-primary);
+  background: var(--color-on-accent);
   transform: rotate(0deg);
 }
 

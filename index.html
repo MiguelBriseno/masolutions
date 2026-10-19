@@ -1190,7 +1190,6 @@
                 action="https://formsubmit.co/miguel.briseno.bustos@gmail.com"
                 method="POST"
                 aria-labelledby="contacto-title"
-                novalidate
               >
                 <input type="hidden" name="_subject" value="Nueva solicitud desde masolutions.mx" />
                 <input type="hidden" name="_captcha" value="false" />
@@ -1207,7 +1206,7 @@
                 <div class="form__grid">
                   <div class="form__group">
                     <label class="form__label" for="nombre"
-                      >Nombre y apellido <span class="form__label-hint">(obligatorio)</span></label
+                      >Nombre y apellido <span class="form__label-hint" aria-hidden="true">(obligatorio)</span></label
                     >
                     <input
                       class="form__control"
@@ -1241,7 +1240,7 @@
                   </div>
                   <div class="form__group form__group--full">
                     <label class="form__label" for="email"
-                      >Correo electrónico <span class="form__label-hint">(obligatorio)</span></label
+                      >Correo electrónico <span class="form__label-hint" aria-hidden="true">(obligatorio)</span></label
                     >
                     <input
                       class="form__control"
@@ -1258,7 +1257,7 @@
                   </div>
                   <div class="form__group form__group--full">
                     <label class="form__label" for="detalle"
-                      >Descripción del proyecto <span class="form__label-hint">(obligatorio)</span></label
+                      >Descripción del proyecto <span class="form__label-hint" aria-hidden="true">(obligatorio)</span></label
                     >
                     <textarea
                       class="form__control"

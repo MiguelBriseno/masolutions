@@ -16,9 +16,13 @@
   --color-primary-softer: #f2f0ff;
   --color-primary-tint: #ddd4ff;
   --color-primary-faint: #f6f4ff;
-  /* Focus rings and focused input borders. The primary fill in light mode; in
-     dark mode the fill drops under 3:1 against the surface, so it splits off. */
-  --color-focus: var(--color-primary);
+  /* The brand colour as a line or a marker rather than a fill: focus rings,
+     borders that carry meaning, state indicators and graphics. The same as
+     --color-primary in light mode; in dark mode the fill falls under 3:1 on the
+     surface, so this one lifts. --color-on-accent is what sits on top of it. */
+  --color-accent: var(--color-primary);
+  --color-on-accent: var(--color-on-primary);
+  --color-border-hover: #a3a3b8;
   /* Ink — the dark "¿Por qué a la medida?" band. */
   --color-ink: #12102a;
   --color-ink-raised: #1d1a3d;
@@ -139,7 +143,9 @@
     --color-primary-softer: #221d48;
     --color-primary-tint: #3b3180;
     --color-primary-faint: #1b1838;
-    --color-focus: #b7a8ff;
+    --color-accent: #b7a8ff;
+    --color-on-accent: #0f0e1f;
+    --color-border-hover: rgba(255, 255, 255, 0.32);
 
     /* The band stays distinct from the page by being raised, not darker. */
     --color-ink: #1d1a3d;
@@ -215,7 +221,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-focus);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -339,11 +345,11 @@ button {
 }
 
 .btn--secondary:hover {
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
   color: var(--color-primary-dark);
 }
 
-.btn--secondary:active {
+.btn--secondary:active:not(:disabled) {
   background: var(--color-primary-softer);
 }
 

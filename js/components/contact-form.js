@@ -99,6 +99,10 @@ export function initContactForm() {
   // would leave the user with no feedback and no native fallback.
   if (fields.length !== Object.keys(VALIDATORS).length) return;
 
+  // Native validation is switched off here, not in the markup: if this module
+  // never runs, the browser's required/type checks are the only ones left.
+  form.noValidate = true;
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     clearError();
@@ -128,6 +132,10 @@ export function initContactForm() {
     // second Enter press while the request is still in flight.
     const submitLabel = submitButton?.textContent;
     if (submitButton) {
+      // Pinned so the shorter label does not shrink the button and shift the
+      // disclaimer beside it. The CSP blocks style attributes in markup, not
+      // CSSOM writes like this one.
+      submitButton.style.minWidth = `${submitButton.offsetWidth}px`;
       submitButton.disabled = true;
       submitButton.textContent = MESSAGES.sending;
     }
@@ -164,6 +172,7 @@ export function initContactForm() {
       if (submitButton) {
         submitButton.disabled = false;
         submitButton.textContent = submitLabel;
+        submitButton.style.minWidth = '';
       }
     }
   });
@@ -216,6 +225,9 @@ export function initContactForm() {
   }
 
   function showError(message) {
+    // Screen readers may hold back a live region inside a busy subtree, so the
+    // failure alert must not be inserted while the form is still marked busy.
+    form.removeAttribute('aria-busy');
     let errorEl = form.querySelector('.form__error');
     if (!errorEl) {
       errorEl = document.createElement('div');

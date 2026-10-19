@@ -80,8 +80,11 @@ active. There is no toggle. Three things are easy to get wrong:
   `--color-primary-dark` — the token every link, eyebrow and pill uses as
   *text* — lifts to the ink accent `#b7a8ff`. A new rule that puts text in
   `--color-primary` will be ~3:1 in dark mode; use `--color-primary-dark`.
-- Focus rings and focused borders use `--color-focus`, not `--color-primary`,
-  which drops below 3:1 against the dark surface.
+- The brand colour used as a **line or marker** — focus rings, focused and
+  hovered borders, the tailored column's border, the open FAQ marker, the 404
+  code, the mock route — is `--color-accent` (with `--color-on-accent` for what
+  sits on it), not `--color-primary`, which is 2.9:1 on the dark surface.
+  Anything that has to clear 3:1 as a graphic goes through `--color-accent`.
 - Every text step down to `--color-text-faint` holds 4.5:1 on
   `--color-primary-soft`, the darkest tint text sits on, in **both** themes.
   Measure a new tint against the text tokens before using it.

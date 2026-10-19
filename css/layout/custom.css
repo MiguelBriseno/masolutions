@@ -51,7 +51,7 @@
 }
 
 .custom__column--tailored {
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
   background: var(--color-ink-raised);
 }
 

@@ -89,11 +89,11 @@
 /* Hover must not repaint the red border of a flagged field, nor the focus
    border of the one being typed in. */
 .form__control:hover:not(:focus, .form__control--invalid) {
-  border-color: var(--color-border-strong);
+  border-color: var(--color-border-hover);
 }
 
 .form__control:focus {
-  border-color: var(--color-focus);
+  border-color: var(--color-accent);
 }
 
 .form__control--invalid {
