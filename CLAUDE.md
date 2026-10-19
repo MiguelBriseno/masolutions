@@ -54,6 +54,12 @@ Single-page app with a module-based JS architecture and a sectioned CSS architec
 - `index.html` — links every stylesheet individually and loads `js/core/main.js` as `type="module"`
 - `js/core/main.js` — imports all component `init*()` functions and calls them on `DOMContentLoaded`
 - `404.html` — GitHub Pages serves it for any unknown path; `noindex, follow`, no JS
+- `aviso-de-privacidad.html` — the aviso de privacidad; static, indexable, no JS, styled by `css/layout/legal.css`
+
+**The header and footer markup is copied across three pages** — `index.html`,
+`404.html` and `aviso-de-privacidad.html`, the last two in the unenhanced form.
+There is no include step, so a brand, nav or footer change has to be made in all
+three.
 
 **JS pattern:** Each feature lives in `js/components/<name>.js` and exports a single `initComponentName()` function. To add a feature: create the module, export the init function, import and call it from `main.js`.
 
@@ -288,21 +294,55 @@ otherwise be recorded into the production project.
 is `script-src 'none'`. Measuring broken inbound links would mean giving that
 page a script, which is a bigger change than the data is worth.
 
-**The site publishes no aviso de privacidad, and it needs one.** The contact
-form already collects nombre, telefono, email and detalle, which makes an aviso
-de privacidad a requirement under the LFPDPPP on its own — that gap predates
-Clarity. Clarity widens it: it sets first-party cookies (`_clck`, `_clsk`) and
-records session replays of the visitor filling that form, and transmits them to
-a third party with no disclosure anywhere on the page. This is the owner's
-decision to make, not a change to be made for them. If a notice or consent
-banner is ever added, `initClarity()` is the single call to gate behind it.
+**The aviso de privacidad lives at `aviso-de-privacidad.html`.** The LFPDPPP
+requires it because the contact form collects nombre, teléfono, email and
+detalle, and Clarity widens the scope: it sets first-party cookies (`_clck`,
+`_clsk`) and records session replays of the visitor filling that form for a
+third party. The page is static, runs no JavaScript (`script-src 'none'`, like
+`404.html`, so Clarity never runs on it), and is linked from the form
+disclaimer and from the footer of all three pages: the law asks for it to be
+reachable before the data is collected.
+
+Its text describes what the site actually does. **Any change to the data
+flow means editing the aviso in the same PR:** a new form field, a new
+analytics or chat tool, another processor (today: FormSubmit, Gmail, Google Fonts,
+Microsoft Clarity, Cloudflare, GitHub), or turning GTM back on. The responsable is
+named as a persona física, Miguel Alberto Briseño Bustos with the trade name
+MASolutions, and the law requires a domicilio. The **domicilio para oír y
+recibir notificaciones** is the one the owner supplied and confirmed for
+publication on 2026-10-18, and it appears only in the aviso (see the address
+rule below). The text was drafted from the site's
+actual behaviour and approved by the owner on 2026-10-18.
+
+Two production details the aviso depends on:
+
+- **Its email links are wrapped in `<!--email_off-->`.** Cloudflare's Email
+  Address Obfuscation rewrites every address into a placeholder that a script
+  decodes, and this page's `script-src 'none'` blocks that script, so without
+  the wrapper the only channel for ARCO requests would read "[email protected]".
+- **Google Fonts is a processor** (every page sends the visitor's IP to
+  `fonts.googleapis.com`/`fonts.gstatic.com`), and Clarity's MUID sync sets
+  Microsoft cookies on `bing.com` and `clarity.ms`. Self-hosting the fonts
+  would remove the former; both are disclosed while they stay.
+
+**No consent banner, by the owner's decision (2026-10-18).** Clarity loads on
+every visit to the home page and starts recording before the visitor can read
+the aviso, so the aviso says so plainly. It tells the visitor that measurement
+starts on load, that blocking cookies does **not** stop it (Clarity records
+without cookies, and only loses the link between sessions), that a tracking
+protection or content blocker that blocks `clarity.ms` does, and that they can
+ask by email for their measurement data to be deleted. Do not add a banner
+without the owner asking for one. If one is ever added, `initClarity()` is the
+single call to gate behind it, and the aviso's "Para qué los usamos" section
+changes with it.
 
 ### Google Tag Manager (removed)
 
 Container `GTM-MNRGGGF9` was loaded from a `js/components/gtm.js` module until
 2026-10-18, and was removed by the owner's decision. It had been **empty**
 since install (`"tags":[]`, `"rules":[]`), so every visit downloaded ~119 KB
-of runtime that measured nothing, the largest single item in the page weight.
+of runtime over the wire (gzip; ~328 KB uncompressed to parse and run) that
+measured nothing, the largest single item in the page weight.
 The loader, the `<noscript>` iframe and its `.gtm-noscript` rule went with it,
 as did every Google origin in the CSP (`www.googletagmanager.com`,
 `*.google-analytics.com`, `*.analytics.google.com`, `*.g.doubleclick.net`,
@@ -310,9 +350,21 @@ as did every Google origin in the CSP (`www.googletagmanager.com`,
 iframe. Frames fall back to `default-src 'self'` again.
 
 If tag management or GA4 is ever wanted again, it has to come back the same
-way: a module from `'self'` (Google's inline snippet is blocked, and its
-documented nonce alternative needs a server this site does not have), plus
-the Google origins in **both** the meta CSP and `_headers`. Note that under
+way, and all of it is in git history (`git log -- js/components/gtm.js`):
+
+- a module from `'self'` — Google's inline snippet is blocked, and its
+  documented nonce alternative needs a server this site does not have;
+- the Google origins above, in **both** the meta CSP and `_headers`;
+- if the `<noscript>` iframe comes back, a `frame-src` for it and a class for
+  its two hiding declarations, because the inline `style` Google ships is
+  blocked by the CSP and the iframe would otherwise render;
+- Ads origins (`pagead2.googlesyndication.com`, `www.googleadservices.com`,
+  the `*.google.<TLD>` ccTLDs) only if remarketing or conversion tracking is
+  turned on. They were never allowed.
+- **an edit to `aviso-de-privacidad.html` in the same PR**, naming Google as a
+  processor and any cookies its tags set (`_ga` and friends). GTM tags
+  configured in its UI need no deploy, so the aviso must be updated before the
+  container goes live, not after the first tag fires. Note that under
 this CSP a GTM Custom HTML tag or any third-party pixel stays blocked until its
 origin is added and deployed. The failure is silent, so check the console
 before trusting a tag that reports as fired. Do not add Clarity through GTM:
@@ -347,7 +399,8 @@ sync with the page:
 - `robots.txt` — allows every crawler, names the AI assistant crawlers
   explicitly (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) and points
   to the sitemap.
-- `sitemap.xml` — one URL. Bump `<lastmod>` when the page content changes.
+- `sitemap.xml` — two URLs, the home page and the aviso de privacidad. Bump
+  each `<lastmod>` when that page's content changes.
 - `llms.txt` — a plain-text summary of the company, services, process and FAQ
   for answer engines. Adoption of this convention is still informal; it costs
   nothing and no crawler is required to read it.
@@ -451,12 +504,16 @@ The public contact address is a personal Gmail, chosen by the owner over a
 `mailto:` link, `Organization.email` plus its `contactPoint`, and `llms.txt`.
 
 The organisation is typed plain `Organization`, and **no postal address is
-published anywhere** — not in the page, not in the JSON-LD, not in `llms.txt`.
+published on the marketing surfaces** — not in `index.html`, not in the
+JSON-LD, not in `llms.txt`.
 The owner works from a private home; the address was added and then deliberately
-removed. Do not reintroduce it, and do not "upgrade" the type to
+removed. The one exception is the aviso de privacidad, which the LFPDPPP
+requires to carry a domicilio: the owner chose the address it publishes,
+knowingly, on 2026-10-18. That address stays on that page only. Do not copy it
+into the home page, the JSON-LD or `llms.txt`, and do not "upgrade" the type to
 `LocalBusiness` / `ProfessionalService`: both need a published address to mean
-anything, and publishing this one exposes a residence to every crawler that
-`robots.txt` invites in. Local reach is handled by the Google Business Profile
+anything, and marking up an address there would broadcast it as the
+business location to every crawler that `robots.txt` invites in. Local reach is handled by the Google Business Profile
 as a service-area business instead, which shows the coverage area without the
 address.
 
