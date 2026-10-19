@@ -13,7 +13,9 @@
       name="robots"
       content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
     />
-    <meta name="theme-color" content="#5b3df5" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#5b3df5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f0e1f" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href="https://masolutions.mx/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1187,6 +1189,8 @@
                 id="contact-form"
                 action="https://formsubmit.co/miguel.briseno.bustos@gmail.com"
                 method="POST"
+                aria-labelledby="contacto-title"
+                novalidate
               >
                 <input type="hidden" name="_subject" value="Nueva solicitud desde masolutions.mx" />
                 <input type="hidden" name="_captcha" value="false" />
@@ -1202,7 +1206,9 @@
 
                 <div class="form__grid">
                   <div class="form__group">
-                    <label class="form__label" for="nombre">Nombre y apellido</label>
+                    <label class="form__label" for="nombre"
+                      >Nombre y apellido <span class="form__label-hint">(obligatorio)</span></label
+                    >
                     <input
                       class="form__control"
                       id="nombre"
@@ -1217,7 +1223,9 @@
                     <p class="form__feedback" id="nombre-error" hidden></p>
                   </div>
                   <div class="form__group">
-                    <label class="form__label" for="telefono">Teléfono / WhatsApp</label>
+                    <label class="form__label" for="telefono"
+                      >Teléfono / WhatsApp <span class="form__label-hint">(opcional)</span></label
+                    >
                     <input
                       class="form__control"
                       id="telefono"
@@ -1232,7 +1240,9 @@
                     <p class="form__feedback" id="telefono-error" hidden></p>
                   </div>
                   <div class="form__group form__group--full">
-                    <label class="form__label" for="email">Correo electrónico</label>
+                    <label class="form__label" for="email"
+                      >Correo electrónico <span class="form__label-hint">(obligatorio)</span></label
+                    >
                     <input
                       class="form__control"
                       id="email"
@@ -1247,7 +1257,9 @@
                     <p class="form__feedback" id="email-error" hidden></p>
                   </div>
                   <div class="form__group form__group--full">
-                    <label class="form__label" for="detalle">Descripción del proyecto</label>
+                    <label class="form__label" for="detalle"
+                      >Descripción del proyecto <span class="form__label-hint">(obligatorio)</span></label
+                    >
                     <textarea
                       class="form__control"
                       id="detalle"
@@ -1298,14 +1310,14 @@
                 </ol>
                 <div class="form__success-actions">
                   <a
-                    class="form__success-link"
+                    class="btn btn--primary"
                     href="https://wa.me/523312170122"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Escribir por WhatsApp
                   </a>
-                  <button type="button" class="form__success-reset" id="form-reset">
+                  <button type="button" class="btn btn--secondary" id="form-reset">
                     Enviar otra solicitud
                   </button>
                 </div>

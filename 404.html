@@ -11,7 +11,9 @@
     <!-- A soft 404 that gets indexed splits the site's signals across a page
          with no content, so this one is kept out of the index deliberately. -->
     <meta name="robots" content="noindex, follow" />
-    <meta name="theme-color" content="#5b3df5" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#5b3df5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f0e1f" media="(prefers-color-scheme: dark)" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

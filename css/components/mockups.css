@@ -27,6 +27,30 @@
   --mock-brand-mid: #c9bff5;
   --mock-shadow-window: 0 6px 18px color-mix(in srgb, var(--color-text) 10%, transparent);
   --mock-shadow-phone: 0 8px 20px color-mix(in srgb, var(--color-text) 18%, transparent);
+  /* The phone body is the darkest thing on the stage in both themes, so it
+     cannot follow --color-text, which turns light in dark mode. */
+  --mock-phone-body: var(--color-text);
+}
+
+/* Dark theme for the same palette: chrome and dividers step up from the dark
+   stage instead of down from a light one, and the shadows go black because
+   --color-text is now light and would make them glow. */
+@media (prefers-color-scheme: dark) {
+  .mock {
+    --mock-window-border: #2e2a55;
+    --mock-chrome-bg: #1d1a3d;
+    --mock-chrome-border: #2a2650;
+    --mock-dot: #3a3566;
+    --mock-panel-border: #2a2650;
+    --mock-divider: #26224a;
+    --mock-map-bg: #1b1838;
+    --mock-map-grid: #26224a;
+    --mock-brand-bar: #3b3180;
+    --mock-brand-mid: #4a3fa0;
+    --mock-shadow-window: 0 6px 18px rgba(0, 0, 0, 0.4);
+    --mock-shadow-phone: 0 8px 20px rgba(0, 0, 0, 0.5);
+    --mock-phone-body: #08071a;
+  }
 }
 
 /* ---- Shared mockup stage ---- */
@@ -292,7 +316,7 @@
 .mock__phone {
   width: 132px;
   height: 222px;
-  background: var(--color-text);
+  background: var(--mock-phone-body);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
   padding: 6px 6px 0;
   box-shadow: var(--mock-shadow-phone);
@@ -344,7 +368,7 @@
 
 .mock__set-label {
   font-size: 6.5px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .mock__set-value {

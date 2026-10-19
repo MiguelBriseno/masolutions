@@ -1,6 +1,7 @@
 const MESSAGES = {
   summary: 'Revise los campos marcados antes de enviar.',
   send: 'No pudimos enviar la solicitud. Intente nuevamente en unos minutos.',
+  sending: 'Enviando…',
 };
 
 // Both sides reject empty labels ("a@.com", "a..b@c.com") and the TLD must be
@@ -122,9 +123,14 @@ export function initContactForm() {
     }
 
     form.classList.add('loading');
+    form.setAttribute('aria-busy', 'true');
     // .loading sets pointer-events: none, which stops the mouse but not a
     // second Enter press while the request is still in flight.
-    if (submitButton) submitButton.disabled = true;
+    const submitLabel = submitButton?.textContent;
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = MESSAGES.sending;
+    }
 
     try {
       const response = await fetch(ajaxEndpoint(form.action), {
@@ -154,7 +160,11 @@ export function initContactForm() {
       showError(MESSAGES.send);
     } finally {
       form.classList.remove('loading');
-      if (submitButton) submitButton.disabled = false;
+      form.removeAttribute('aria-busy');
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = submitLabel;
+      }
     }
   });
 

@@ -71,6 +71,29 @@ layers. New values map to the nearest step rather than adding a literal.
 `mockups.css` is exempt for its miniature sizes, radii and `--mock-*` palette —
 it is a deliberate scale model — but uses the shared easing.
 
+**Dark theme.** Follows the OS through one `@media (prefers-color-scheme: dark)`
+block right after `:root` in `globals.css`, redefining colour tokens (and the
+shadows built from colour) only — no rule anywhere else knows which theme is
+active. There is no toggle. Three things are easy to get wrong:
+
+- `--color-primary` stays `#5b3df5` as a **fill** (white on it is 6.12:1), but
+  `--color-primary-dark` — the token every link, eyebrow and pill uses as
+  *text* — lifts to the ink accent `#b7a8ff`. A new rule that puts text in
+  `--color-primary` will be ~3:1 in dark mode; use `--color-primary-dark`.
+- Focus rings and focused borders use `--color-focus`, not `--color-primary`,
+  which drops below 3:1 against the dark surface.
+- Every text step down to `--color-text-faint` holds 4.5:1 on
+  `--color-primary-soft`, the darkest tint text sits on, in **both** themes.
+  Measure a new tint against the text tokens before using it.
+
+The `#a-la-medida` band moves from darker-than-page to raised above it (ink
+tokens remapped), and `mockups.css` carries its own dark block for the
+`--mock-*` palette, with `--mock-phone-body` split off because the phone was
+painted in `--color-text`, which turns light. The brand assets were not
+regenerated: the `--color-primary` mark on `#0f0e1f` is 3.11:1, above the 3:1
+for non-text graphics. Both pages ship `color-scheme` and a per-scheme
+`theme-color` meta.
+
 **`cards.css` must stay after `animations.css` in that order, and its
 `transition` shorthand must keep restating the reveal's own
 `opacity`/`transform` timings.** One element cannot have two owners for
@@ -410,7 +433,7 @@ column and moves the question the reader was about to reach.
 
 The JSON-LD is a single `@graph` with four nodes: `Organization` (services,
 reviews, contact point), `WebSite`, `WebPage`+`FAQPage` (the six questions) and
-a `HowTo` for the four-phase method. Nodes reference each other by `@id`, so
+an `ItemList` for the four-phase method. Nodes reference each other by `@id`, so
 keep the `https://masolutions.mx/#…` ids stable.
 
 No ratings or reviews are marked up, and none should be added. Reviews of the
@@ -478,6 +501,14 @@ The page CSP (in both `_headers` and the `index.html` meta tag) has no `style-sr
 convention and GitHub Pages ignores it, so `X-Frame-Options`, `Referrer-Policy`,
 `Permissions-Policy` and `frame-ancestors` are never actually sent — and a
 `<meta>` CSP is specified to ignore `frame-ancestors` regardless. The page is
-therefore framable in practice. Only putting the site behind a host that honours
-the file (Cloudflare) would change that; until then, do not cite `_headers` as
-evidence that a header is set.
+therefore framable in practice. Do not cite `_headers` as evidence that a header
+is set.
+
+What production actually answers with (observed 2026-10-18, owner to confirm the
+Cloudflare configuration): `server: cloudflare` plus `cf-ray` **and**
+`x-github-request-id` — Cloudflare proxies in front of GitHub Pages, it is not
+Cloudflare Pages, so it still does not read `_headers`. The proxy also injects
+two scripts of its own (email-address obfuscation and the Web Analytics beacon),
+and the page CSP blocks both, leaving two violations in the production console.
+Turning those features off, or sending the headers from a Cloudflare Transform
+Rule, needs the Cloudflare dashboard, not a change to this repo.

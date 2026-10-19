@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light dark;
+
   /* Surfaces */
   --color-bg: #f7f7fb;
   --color-surface: #ffffff;
@@ -14,6 +16,9 @@
   --color-primary-softer: #f2f0ff;
   --color-primary-tint: #ddd4ff;
   --color-primary-faint: #f6f4ff;
+  /* Focus rings and focused input borders. The primary fill in light mode; in
+     dark mode the fill drops under 3:1 against the surface, so it splits off. */
+  --color-focus: var(--color-primary);
   /* Ink — the dark "¿Por qué a la medida?" band. */
   --color-ink: #12102a;
   --color-ink-raised: #1d1a3d;
@@ -22,13 +27,16 @@
   --color-ink-muted: #b9b4d8;
   --color-ink-accent: #b7a8ff;
   --color-btn-hover-overlay: rgba(20, 20, 31, 0.14);
+  --color-btn-active-overlay: rgba(20, 20, 31, 0.24);
 
   /* Text */
   --color-text: #14141f;
   --color-text-muted: #4b4b60;
   --color-text-soft: #5a5a70;
-  --color-text-subtle: #6b6b82;
-  --color-text-faint: #8b8ba3;
+  /* subtle and faint are the two lightest steps, and both still hold 4.5:1 on
+     the palest tint they sit on (--color-primary-soft), not just on white. */
+  --color-text-subtle: #5f5f77;
+  --color-text-faint: #66667d;
 
   /* Borders */
   --color-border: #e6e6f0;
@@ -109,6 +117,59 @@
   --section-gap: clamp(40px, 7vw, 56px);
 }
 
+
+/* Dark theme. Only colour tokens (and the shadows built from colour) change;
+   every rule below keeps reading the same names. --color-primary stays the
+   brand fill — white on it is 6.12:1 — while --color-primary-dark, the token
+   every link, eyebrow and pill uses as *text*, lifts to the ink accent. Each
+   text step holds 4.5:1 on --color-primary-soft, the darkest tint it meets.
+   Shadows referencing other tokens are restated here because a var() inside a
+   custom property resolves against these values, and the light shadow-lg would
+   otherwise glow with the lightened --color-primary-darker. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f0e1f;
+    --color-surface: #17152e;
+    --color-surface-muted: #1b1838;
+    --color-mock: #1d1a3d;
+
+    --color-primary-dark: #b7a8ff;
+    --color-primary-darker: #d4caff;
+    --color-primary-soft: #2a2358;
+    --color-primary-softer: #221d48;
+    --color-primary-tint: #3b3180;
+    --color-primary-faint: #1b1838;
+    --color-focus: #b7a8ff;
+
+    /* The band stays distinct from the page by being raised, not darker. */
+    --color-ink: #1d1a3d;
+    --color-ink-raised: #28244f;
+    --color-ink-border: rgba(255, 255, 255, 0.14);
+
+    --color-text: #f3f1ff;
+    --color-text-muted: #c9c5e3;
+    --color-text-soft: #bdb8da;
+    --color-text-subtle: #aaa5cc;
+    --color-text-faint: #9893bd;
+
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-soft: rgba(255, 255, 255, 0.08);
+    --color-border-strong: rgba(255, 255, 255, 0.16);
+    --color-border-input: rgba(255, 255, 255, 0.14);
+
+    --color-danger: #ff8a7a;
+    --color-danger-soft: #3a1a1d;
+    --color-success: #5fd49b;
+    --color-success-soft: #13301f;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 24px 60px -18px rgba(0, 0, 0, 0.6);
+    --shadow-header: 0 1px 20px rgba(0, 0, 0, 0.35);
+    --shadow-action-bar: 0 -4px 24px rgba(0, 0, 0, 0.45);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -154,7 +215,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -262,6 +323,12 @@ button {
   box-shadow: var(--shadow-brand-strong), inset 0 0 0 100vmax var(--color-btn-hover-overlay);
 }
 
+/* Pressed: the hover tint deepens and the lift drops back to the resting
+   shadow, so a click reads as the button going down. */
+.btn--primary:active:not(:disabled) {
+  box-shadow: var(--shadow-brand), inset 0 0 0 100vmax var(--color-btn-active-overlay);
+}
+
 .btn--secondary {
   padding: var(--space-3) var(--space-6);
   background: var(--color-surface);
@@ -274,6 +341,10 @@ button {
 .btn--secondary:hover {
   border-color: var(--color-primary);
   color: var(--color-primary-dark);
+}
+
+.btn--secondary:active {
+  background: var(--color-primary-softer);
 }
 
 .btn:disabled {
