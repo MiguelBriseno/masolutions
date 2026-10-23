@@ -127,18 +127,24 @@
   fill: var(--color-accent);
 }
 
+/* Sizes here are SVG user units, so they scale with the diagram: at 1100px
+   the 440-unit viewBox renders at ~340px and 13.5 units is ~10.4px. The
+   tokens still set the ratios, which is what keeps the labels in step with
+   the page's type. */
 .hero__label {
-  font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 500;
   fill: var(--color-text);
   dominant-baseline: central;
 }
 
+/* No shadow of its own: the pulse scales right behind this rect, and a filter
+   here would be re-rasterised on every frame of it. The fill carries enough
+   weight without one. */
 .hero__node--core rect {
   fill: var(--color-primary);
   stroke: none;
-  filter: drop-shadow(var(--shadow-btn));
+  filter: none;
 }
 
 .hero__label--core {
@@ -152,16 +158,24 @@
 /* The packets and the pulse are the only moving parts, and they exist only
    when motion is welcome: the still diagram is the resting state, and a dot
    frozen mid-line would read as a stray mark. SMIL cannot read the media
-   query itself, so the packets are hidden rather than paused. */
+   query itself, so the packets are hidden rather than paused. They also stay
+   hidden until hero-diagram.js sets data-animating at `load`, because the
+   SMIL clock starts then and before it every packet sits at the SVG origin. */
 .hero__packet,
 .hero__pulse {
   display: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero__packet {
+  .hero__diagram[data-animating] .hero__packet {
     display: block;
     fill: var(--color-accent);
+  }
+
+  /* hero-diagram.js pauses the SMIL clock while the hero is off screen; this
+     is the same pause for the CSS half of the animation. */
+  .hero__diagram[data-paused] .hero__pulse {
+    animation-play-state: paused;
   }
 
   .hero__pulse {

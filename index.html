@@ -484,9 +484,9 @@
                with SMIL <animateMotion> along the same paths the lines are
                drawn with; the user units are the SVG's own, which is what a
                CSS offset-path could not guarantee across engines. The
-               staggered begins are negative on purpose: a positive delay
-               leaves the packet parked at the SVG origin until it starts,
-               a stray dot in the top-left corner. -->
+               staggered begins are negative on purpose, so every packet is
+               already mid-line when the clock starts; hero-diagram.js
+               reveals them at `load`, which is when that clock starts. -->
           <div class="hero__visual" aria-hidden="true">
             <svg
               class="hero__diagram"
@@ -501,24 +501,24 @@
               <rect class="hero__pulse" x="145" y="162" width="150" height="56" rx="14" />
 
               <g class="hero__node">
-                <rect x="10" y="40" width="160" height="48" rx="12" />
-                <circle class="hero__node-dot" cx="32" cy="64" r="4" />
-                <text class="hero__label" x="46" y="64">App móvil</text>
+                <rect x="5" y="40" width="170" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="27" cy="64" r="4" />
+                <text class="hero__label" x="41" y="64">App móvil</text>
               </g>
               <g class="hero__node">
-                <rect x="270" y="40" width="160" height="48" rx="12" />
-                <circle class="hero__node-dot" cx="292" cy="64" r="4" />
-                <text class="hero__label" x="306" y="64">Plataforma web</text>
+                <rect x="265" y="40" width="170" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="287" cy="64" r="4" />
+                <text class="hero__label" x="301" y="64">Plataforma web</text>
               </g>
               <g class="hero__node">
-                <rect x="10" y="292" width="160" height="48" rx="12" />
-                <circle class="hero__node-dot" cx="32" cy="316" r="4" />
-                <text class="hero__label" x="46" y="316">ERP e inventario</text>
+                <rect x="5" y="292" width="170" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="27" cy="316" r="4" />
+                <text class="hero__label" x="41" y="316">ERP e inventario</text>
               </g>
               <g class="hero__node">
-                <rect x="270" y="292" width="160" height="48" rx="12" />
-                <circle class="hero__node-dot" cx="292" cy="316" r="4" />
-                <text class="hero__label" x="306" y="316">Facturación y CRM</text>
+                <rect x="265" y="292" width="170" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="287" cy="316" r="4" />
+                <text class="hero__label" x="301" y="316">Facturación y CRM</text>
               </g>
 
               <g class="hero__node hero__node--core">
