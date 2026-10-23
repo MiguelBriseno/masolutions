@@ -5,7 +5,11 @@
   margin-top: var(--space-7);
 }
 
+/* A column, so the case link can sit at the foot of every card in a row
+   whatever the length of the text above it. */
 .service-card {
+  display: flex;
+  flex-direction: column;
   padding: var(--space-6);
 }
 
@@ -36,4 +40,31 @@
   font-size: var(--text-base);
   line-height: 1.65;
   color: var(--color-text-soft);
+}
+
+/* Links a service to the case card that backs it. margin-top: auto pins it
+   to the foot of the card; the padding keeps the gap when the text is the
+   tallest in the row. */
+.service-card__link {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  align-self: flex-start;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.service-card__link:hover {
+  text-decoration: underline;
+}
+
+/* On touch the link is the only control in the card, and a line of 13.5px
+   text is well under the minimum target. Padding, not min-height, so the
+   baseline stays put and the hit area grows both ways. */
+@media (pointer: coarse) {
+  .service-card__link {
+    padding-block: var(--space-3);
+    margin-bottom: calc(var(--space-3) * -1);
+  }
 }

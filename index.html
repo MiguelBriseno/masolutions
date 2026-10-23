@@ -668,6 +668,10 @@
           <h2 class="section__title" id="servicios-title">
             Servicios de desarrollo de software a la medida
           </h2>
+          <!-- The first three cards link to the case that backs them, by id
+               on the project card. A service with no delivered case carries
+               no link: the link is evidence, and a dead one would promise
+               what the page cannot show. -->
           <div class="services__grid">
             <article class="card service-card">
               <span class="service-card__icon" aria-hidden="true">
@@ -680,6 +684,7 @@
                 Apps para iPhone y Android, del prototipo a la publicación en
                 App Store y Google Play.
               </p>
+              <a class="service-card__link" href="#caso-urban-reps">Ver el caso: Urban Reps <span aria-hidden="true">→</span></a>
             </article>
             <article class="card service-card">
               <span class="service-card__icon" aria-hidden="true">
@@ -692,6 +697,7 @@
                 Portales, paneles de operación y plataformas en línea para muchos
                 usuarios, donde cada persona ve solo lo que le corresponde.
               </p>
+              <a class="service-card__link" href="#caso-actuarenvios">Ver el caso: ActuarEnvíos <span aria-hidden="true">→</span></a>
             </article>
             <article class="card service-card">
               <span class="service-card__icon" aria-hidden="true">
@@ -705,6 +711,7 @@
                 inventarios, trazabilidad de lotes, facturación, reportes de la
                 operación y automatización de tareas.
               </p>
+              <a class="service-card__link" href="#caso-tonalli">Ver el caso: Tonalli ERP <span aria-hidden="true">→</span></a>
             </article>
             <article class="card service-card">
               <span class="service-card__icon" aria-hidden="true">
@@ -794,7 +801,7 @@
         <section id="casos" class="section projects" aria-labelledby="casos-title">
           <h2 class="section__title" id="casos-title">Casos en operación</h2>
           <div class="projects__grid">
-            <article class="card project-card">
+            <article class="card project-card" id="caso-tonalli">
               <div class="mock mock--browser" aria-hidden="true">
                 <div class="mock__window">
                   <div class="mock__chrome">
@@ -855,7 +862,7 @@
               </div>
             </article>
 
-            <article class="card project-card">
+            <article class="card project-card" id="caso-actuarenvios">
               <div class="mock mock--browser" aria-hidden="true">
                 <div class="mock__window">
                   <div class="mock__topbar">
@@ -932,7 +939,7 @@
               </div>
             </article>
 
-            <article class="card project-card">
+            <article class="card project-card" id="caso-urban-reps">
               <div class="mock mock--phone" aria-hidden="true">
                 <div class="mock__phone">
                   <div class="mock__screen">

@@ -5,10 +5,37 @@
   margin-top: var(--space-7);
 }
 
+/* The grid is the counter's scope: four articles, one number each. The
+   number is what carries the sequence — the connector line alone read as an
+   accidental border — and it is generated content so the ItemList markup
+   stays exactly what the JSON-LD describes. */
+.process__grid {
+  counter-reset: phase;
+}
+
 .process__step {
   position: relative;
+  display: flex;
+  flex-direction: column;
   padding: var(--space-6);
   box-shadow: none;
+  counter-increment: phase;
+}
+
+.process__step::before {
+  content: counter(phase, decimal-leading-zero);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-7);
+  height: var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
 }
 
 /* Connectors between consecutive phases, only once all four sit on one row.
@@ -20,9 +47,9 @@
    220px rather than 230px because the section is a tinted panel whose inner
    padding leaves the grid 972px at the container's full width; at 230px the
    fourth phase wrapped to a second row on every desktop.
-   The connector's top offset centres it on the first line of the phase title:
-   the card's top padding plus half a title line (--text-lg at the global
-   heading line-height of 1.1). Derived, so it follows either token. Engines without container queries simply draw no connectors. */
+   The connector's top offset centres it on the phase number badge: the
+   card's top padding plus half the badge height. Derived, so it follows the
+   tokens. Engines without container queries simply draw no connectors. */
 .process__grid {
   container-type: inline-size;
 }
@@ -31,17 +58,17 @@
   .process__step:not(:last-child)::after {
     content: "";
     position: absolute;
-    top: calc(var(--space-6) + var(--text-lg) * 1.1 / 2);
+    top: calc(var(--space-6) + var(--space-6) / 2);
     left: 100%;
     width: var(--space-5);
-    height: 1px;
-    background: var(--color-border-strong);
+    height: 2px;
+    background: var(--color-primary-tint);
   }
 }
 
 .process__title {
   font-size: var(--text-lg);
-  margin: 0 0 var(--space-2);
+  margin: var(--space-4) 0 var(--space-2);
 }
 
 .process__text {
@@ -49,4 +76,10 @@
   line-height: 1.6;
   margin-bottom: var(--space-4);
   color: var(--color-text-soft);
+}
+
+/* The duration pill sits at the foot of every card in the row. */
+.process__step > .pill {
+  margin-top: auto;
+  align-self: flex-start;
 }
