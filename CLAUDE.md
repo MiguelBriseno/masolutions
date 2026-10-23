@@ -146,6 +146,8 @@ four derive from `icon.webp`; regenerate them together with it.
 - **animations.js** — `IntersectionObserver` adds `.visible` to `.animate-on-scroll` elements; CSS handles the transition, and it is skipped under `prefers-reduced-motion`
 - **action-bar.js** — parks the fixed mobile CTA off screen while the hero or
   the contact section is visible, and toggles `inert` with it
+- **hero-diagram.js** — reveals the hero diagram's packets at `load` and
+  pauses the whole diagram while the hero is scrolled out of view
 - **analytics.js** — loads the Microsoft Clarity tag from a `'self'` module instead of the inline snippet the CSP blocks (see Analytics below)
 - **environment.js** (`js/core/`) — `isMeasuredHost()`, the local-host guard `analytics.js` checks before loading Clarity
 
@@ -237,10 +239,47 @@ a `to` would make the mockups depend on the animation having run. The whole
 block sits inside one `prefers-reduced-motion: no-preference` query rather than
 being switched off further down, so there is a single guard and no specificity
 duel to lose. The only mockups are the three case cards, and they play off
-`.project-card.visible`, which `animations.js` sets. The hero has no visual on
-purpose: its generic dashboard was removed after the re-audit, because it
-showed nothing the named cases below do not show better and took 18% of the
-fold.
+`.project-card.visible`, which `animations.js` sets.
+
+**The hero's visual is an integration diagram** (`.hero__visual` in
+`index.html`, styled at the bottom of `css/layout/hero.css`): "Su operación"
+at the centre, four systems around it, packets travelling the links. It is
+there because the hero's lead promises *conexiones entre los sistemas que su
+empresa ya usa*, and that is the one thing the case cards below do not draw.
+A generic dashboard sat there before and was removed after the re-audit — it
+showed nothing the named cases did not show better and took 18% of the fold —
+so do not put a fake product screen back; the diagram earns its place only
+while it restates the copy. Rules it follows:
+
+- **Desktop only, from 1100px**, in a fixed-width second column. Below that
+  the headline needs the whole column and the CTA sits on the fold budget; the
+  visual is `aria-hidden` decoration, so hiding it costs nothing.
+- The packets are **SMIL `<animateMotion>` along the same `<path>`s the lines
+  are drawn with**, not CSS `offset-path`, whose units do not follow the
+  `viewBox` reliably across engines. A packet has no position of its own, so
+  before the SMIL clock starts it sits at the SVG origin — and browsers start
+  that clock at the document `load` event, after fonts and images. That is
+  why `hero-diagram.js` reveals the packets (`data-animating`) at `load`, and
+  why their `begin`s are **negative**, so each is already mid-line on its
+  first frame. SMIL cannot read a media query, so under
+  `prefers-reduced-motion` the packets and the pulse are `display: none`
+  rather than paused — a dot frozen mid-line reads as a mistake, while the
+  still diagram is complete on its own. The same module pauses the SMIL
+  clock and the CSS pulse (`data-paused`) while the hero is scrolled out of
+  view, because an infinite animation inside an SVG repaints the whole SVG
+  every frame for as long as the tab is open. Without the module the diagram
+  renders complete and still, which is what reduced motion gets too.
+- The core node carries **no `filter`**: the pulse scales right behind it,
+  and a `drop-shadow` there is re-rasterised on every frame. Note also that
+  `drop-shadow()` takes at most three lengths — the `--shadow-*` tokens with
+  a spread value (`--shadow-btn`, `--shadow-lg`) are invalid inside it and
+  silently compute to `none`.
+- The dot grid behind it (`.hero::before`) is **static** and masked to fade
+  well before the headline. The diagram is the one thing that moves in the
+  hero; texture behind text must not compete with it. Do not extend animated
+  backgrounds to the other sections — it was discussed with the owner on
+  2026-10-22 and set aside: the page sells with arguments a B2B reader has to
+  read, and movement behind them costs attention and battery for nothing.
 
 ## Analytics
 
