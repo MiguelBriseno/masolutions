@@ -1,14 +1,16 @@
+/* The section title lives in the first column (see index.html), so the panel
+   in the second starts level with it instead of a heading's height below. */
 .about__layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: var(--space-7);
   align-items: start;
-  margin-top: var(--space-7);
 }
 
 .about__lead {
   font-size: var(--text-md);
   line-height: 1.7;
+  margin-top: var(--space-6);
   color: var(--color-text-muted);
 }
 

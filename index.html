@@ -598,13 +598,15 @@
         </section>
 
         <section id="nosotros" class="section about" aria-labelledby="nosotros-title">
-          <h2 class="section__title" id="nosotros-title">
-            Desarrollo de software a la medida desde Jalisco para empresas de
-            todo México
-          </h2>
-
+          <!-- The title sits inside the text column so the commitments panel
+               can start level with it. Outside the grid it left a hole the
+               height of the heading above the panel. -->
           <div class="about__layout">
             <div>
+              <h2 class="section__title" id="nosotros-title">
+                Desarrollo de software a la medida desde Jalisco para empresas de
+                todo México
+              </h2>
               <p class="about__lead">
                 MASolutions es una firma mexicana de ingeniería de software a
                 la medida. Construimos aplicaciones móviles para iOS y Android,
@@ -746,7 +748,7 @@
           </div>
         </section>
 
-        <section id="proceso" class="section process" aria-labelledby="proceso-title">
+        <section id="proceso" class="section section--tinted process" aria-labelledby="proceso-title">
           <h2 class="section__title" id="proceso-title">Proceso en cuatro fases</h2>
           <div class="process__grid">
             <article class="card process__step">
@@ -991,7 +993,7 @@
 
         <section
           id="testimonios"
-          class="section testimonials"
+          class="section section--tinted testimonials"
           aria-labelledby="testimonios-title"
         >
           <h2 class="section__title" id="testimonios-title">
@@ -1142,6 +1144,24 @@
                 </a>
                 <span class="contact__hours">Lunes a viernes, 9:00 – 18:00</span>
               </address>
+              <!-- Every line restates a promise made higher up the page (the
+                   48-hour proposal, closed scope and price). No new claims
+                   here: the same rule as the Nosotros prose. -->
+              <h3 class="contact__steps-title">Qué sigue después de enviar</h3>
+              <ol class="contact__steps">
+                <li class="contact__step">
+                  Revisamos su solicitud y, si hace falta, le hacemos algunas
+                  preguntas por correo o WhatsApp.
+                </li>
+                <li class="contact__step">
+                  Le enviamos una propuesta por escrito en menos de 48 horas
+                  hábiles, sin costo ni compromiso.
+                </li>
+                <li class="contact__step">
+                  Si la aprueba, alcance, precio y plazo quedan cerrados al
+                  firmar.
+                </li>
+              </ol>
             </div>
 
             <div>
