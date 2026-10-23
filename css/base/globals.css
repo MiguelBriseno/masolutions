@@ -300,6 +300,19 @@ a[target="_blank"]:not(.action-bar__wa)::after {
   padding-block: var(--section-gap);
 }
 
+/* A tinted panel for every other block of the long white run between the
+   dark band and the contact card, so the eye can tell where one section ends.
+   A rounded panel inside the column, like the band and the contact card, not
+   a full-bleed strip: a 100vw breakout counts the scrollbar and overflows.
+   The panel carries no margin of its own: the plain sections on either side
+   already pad --section-gap, and a margin here would double it. That means
+   two tinted sections must never be adjacent — they would touch. */
+.section--tinted {
+  padding: clamp(var(--space-6), 4vw, var(--space-9));
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-faint);
+}
+
 /* The one eyebrow style on the page, kept only where it says something the
    heading does not: "¿Por qué a la medida?" over its band and "Compromisos de
    trabajo" over the Nosotros panel. Labels that repeated the nav link or the

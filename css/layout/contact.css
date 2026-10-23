@@ -45,6 +45,69 @@
   color: var(--color-text-subtle);
 }
 
+/* "Qué sigue después de enviar" — fills the column under the channels and
+   tells the reader what the form sets in motion. Only while the panel is two
+   columns: once it stacks, the list would sit between the channels and the
+   form and push the first field a screen further down on a phone, and the
+   disclaimer under the button already carries the 48-hour promise. The panel
+   stacks when its content box drops under 2 × 330px + --space-9, which with
+   --container-pad and the panel padding both at their vw values is 0.82 × the
+   viewport: 863px. Keep this in step with .contact__panel's track minimum. */
+@media (max-width: 863px) {
+  .contact__steps-title,
+  .contact__steps {
+    display: none;
+  }
+}
+
+.contact__steps-title {
+  margin-top: var(--space-7);
+  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.contact__steps {
+  list-style: none;
+  counter-reset: step;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.contact__step {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: var(--space-6) 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 44ch;
+}
+
+.contact__step::before {
+  content: counter(step);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xs);
+}
+
 /* ---- Form ---- */
 .form__grid {
   display: grid;

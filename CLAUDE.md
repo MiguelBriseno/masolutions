@@ -77,6 +77,15 @@ layers. New values map to the nearest step rather than adding a literal.
 `mockups.css` is exempt for its miniature sizes, radii and `--mock-*` palette —
 it is a deliberate scale model — but uses the shared easing.
 
+**`.section--tinted`** (Proceso and Clientes) is a rounded panel in
+`--color-primary-faint` that breaks the run of white sections between the
+dark band and the contact card. It carries no margin of its own — the plain
+sections around it already pad `--section-gap` — so **two tinted sections must
+never be adjacent**, they would touch. Its inner padding also narrows the
+Proceso grid, which is why that grid's track minimum and container query sit
+at 220px / 940px rather than 230px / 980px. Static on purpose: no section
+background moves.
+
 **Dark theme.** Follows the OS through one `@media (prefers-color-scheme: dark)`
 block right after `:root` in `globals.css`, redefining colour tokens (and the
 shadows built from colour) only — no rule anywhere else knows which theme is
@@ -453,6 +462,12 @@ capability headline is 77 characters; at the previous `clamp()` it set six lines
 and 396px, which pushed the call to action below the fold on a 1366×768 laptop.
 Four lines is the budget. If the headline changes materially, measure the CTA
 against the fold again rather than assuming it still fits.
+
+**The contact panel's "Qué sigue después de enviar" list** is subject to the
+same no-new-claims rule as the Nosotros prose: each step restates the 48-hour
+written proposal and the closed scope and price. It is hidden once the panel
+stacks to one column (see `contact.css`), so a phone visitor reaches the form
+without scrolling past it.
 
 **The page addresses the reader as `usted`, without exception** — headings,
 form labels, placeholders, disclaimers and the success panel included. This has
