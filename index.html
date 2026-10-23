@@ -477,6 +477,77 @@
               cerrados al firmar · Sin costo ni compromiso
             </p>
           </div>
+          <!-- Decorative integration diagram, desktop only (see hero.css).
+               It restates the lead's own promise — the client's operation at
+               the centre, the systems a project connects around it — so it
+               is aria-hidden: the text already says it. The packets travel
+               with SMIL <animateMotion> along the same paths the lines are
+               drawn with; the user units are the SVG's own, which is what a
+               CSS offset-path could not guarantee across engines. The
+               staggered begins are negative on purpose: a positive delay
+               leaves the packet parked at the SVG origin until it starts,
+               a stray dot in the top-left corner. -->
+          <div class="hero__visual" aria-hidden="true">
+            <svg
+              class="hero__diagram"
+              viewBox="0 0 440 380"
+              focusable="false"
+            >
+              <path id="hero-link-1" class="hero__link" d="M220,162 C220,110 90,140 90,88" />
+              <path id="hero-link-2" class="hero__link" d="M220,162 C220,110 350,140 350,88" />
+              <path id="hero-link-3" class="hero__link" d="M220,218 C220,270 90,240 90,292" />
+              <path id="hero-link-4" class="hero__link" d="M220,218 C220,270 350,240 350,292" />
+
+              <rect class="hero__pulse" x="145" y="162" width="150" height="56" rx="14" />
+
+              <g class="hero__node">
+                <rect x="10" y="40" width="160" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="32" cy="64" r="4" />
+                <text class="hero__label" x="46" y="64">App móvil</text>
+              </g>
+              <g class="hero__node">
+                <rect x="270" y="40" width="160" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="292" cy="64" r="4" />
+                <text class="hero__label" x="306" y="64">Plataforma web</text>
+              </g>
+              <g class="hero__node">
+                <rect x="10" y="292" width="160" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="32" cy="316" r="4" />
+                <text class="hero__label" x="46" y="316">ERP e inventario</text>
+              </g>
+              <g class="hero__node">
+                <rect x="270" y="292" width="160" height="48" rx="12" />
+                <circle class="hero__node-dot" cx="292" cy="316" r="4" />
+                <text class="hero__label" x="306" y="316">Facturación y CRM</text>
+              </g>
+
+              <g class="hero__node hero__node--core">
+                <rect x="145" y="162" width="150" height="56" rx="14" />
+                <text class="hero__label hero__label--core" x="220" y="190">Su operación</text>
+              </g>
+
+              <circle class="hero__packet" r="4">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="0s">
+                  <mpath href="#hero-link-1" />
+                </animateMotion>
+              </circle>
+              <circle class="hero__packet" r="4">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="-0.9s" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                  <mpath href="#hero-link-2" />
+                </animateMotion>
+              </circle>
+              <circle class="hero__packet" r="4">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="-1.8s" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                  <mpath href="#hero-link-3" />
+                </animateMotion>
+              </circle>
+              <circle class="hero__packet" r="4">
+                <animateMotion dur="3.6s" repeatCount="indefinite" begin="-2.7s">
+                  <mpath href="#hero-link-4" />
+                </animateMotion>
+              </circle>
+            </svg>
+          </div>
         </section>
 
         <!-- The positioning argument, on the page's one dark band. Every line

@@ -62,3 +62,131 @@
     transform: translateY(var(--space-5));
   }
 }
+
+/* ---- Integration diagram ----
+   Desktop only. Below 1100px the headline already needs the whole column and
+   the call to action sits on the fold budget, so the visual is simply not
+   shown — it is decoration, nothing a visitor needs. The second column is
+   fixed rather than fractional on purpose: at 1366px a 1fr/1fr split left the
+   headline 560px and pushed it to five lines. */
+.hero__visual {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(340px, 34vw, 420px);
+    align-items: center;
+    gap: var(--space-9);
+  }
+
+  .hero__visual {
+    display: block;
+  }
+
+  /* A quiet dot grid behind the diagram, fading out long before it reaches
+     the headline. Static on purpose: the one thing that moves in the hero is
+     the diagram, and texture behind text should never compete with it. */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(var(--color-border-strong) 1px, transparent 1.5px);
+    background-size: var(--space-6) var(--space-6);
+    mask-image: radial-gradient(ellipse 34% 52% at 78% 50%, #000 0%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 34% 52% at 78% 50%, #000 0%, transparent 100%);
+  }
+}
+
+.hero__diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hero__link {
+  fill: none;
+  stroke: var(--color-border-strong);
+  stroke-width: 1.5;
+}
+
+.hero__node rect {
+  fill: var(--color-surface);
+  stroke: var(--color-border-strong);
+  stroke-width: 1.5;
+  filter: drop-shadow(var(--shadow-sm));
+}
+
+.hero__node-dot {
+  fill: var(--color-accent);
+}
+
+.hero__label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  fill: var(--color-text);
+  dominant-baseline: central;
+}
+
+.hero__node--core rect {
+  fill: var(--color-primary);
+  stroke: none;
+  filter: drop-shadow(var(--shadow-btn));
+}
+
+.hero__label--core {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 600;
+  fill: var(--color-on-primary);
+  text-anchor: middle;
+}
+
+/* The packets and the pulse are the only moving parts, and they exist only
+   when motion is welcome: the still diagram is the resting state, and a dot
+   frozen mid-line would read as a stray mark. SMIL cannot read the media
+   query itself, so the packets are hidden rather than paused. */
+.hero__packet,
+.hero__pulse {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__packet {
+    display: block;
+    fill: var(--color-accent);
+  }
+
+  .hero__pulse {
+    display: block;
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hero-pulse 3.6s var(--ease-out) infinite;
+  }
+
+  .hero__visual {
+    animation: hero-rise 620ms var(--ease-out) 200ms backwards;
+  }
+}
+
+@keyframes hero-pulse {
+  from {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}

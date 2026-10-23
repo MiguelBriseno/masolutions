@@ -237,10 +237,35 @@ a `to` would make the mockups depend on the animation having run. The whole
 block sits inside one `prefers-reduced-motion: no-preference` query rather than
 being switched off further down, so there is a single guard and no specificity
 duel to lose. The only mockups are the three case cards, and they play off
-`.project-card.visible`, which `animations.js` sets. The hero has no visual on
-purpose: its generic dashboard was removed after the re-audit, because it
-showed nothing the named cases below do not show better and took 18% of the
-fold.
+`.project-card.visible`, which `animations.js` sets.
+
+**The hero's visual is an integration diagram** (`.hero__visual` in
+`index.html`, styled at the bottom of `css/layout/hero.css`): "Su operación"
+at the centre, four systems around it, packets travelling the links. It is
+there because the hero's lead promises *conexiones entre los sistemas que su
+empresa ya usa*, and that is the one thing the case cards below do not draw.
+A generic dashboard sat there before and was removed after the re-audit — it
+showed nothing the named cases did not show better and took 18% of the fold —
+so do not put a fake product screen back; the diagram earns its place only
+while it restates the copy. Rules it follows:
+
+- **Desktop only, from 1100px**, in a fixed-width second column. Below that
+  the headline needs the whole column and the CTA sits on the fold budget; the
+  visual is `aria-hidden` decoration, so hiding it costs nothing.
+- The packets are **SMIL `<animateMotion>` along the same `<path>`s the lines
+  are drawn with**, not CSS `offset-path`, whose units do not follow the
+  `viewBox` reliably across engines. Their `begin`s are **negative**: a
+  positive delay parks the packet at the SVG origin until it starts, a stray
+  dot in the corner. SMIL cannot read a media query, so under
+  `prefers-reduced-motion` the packets and the pulse are `display: none`
+  rather than paused — a dot frozen mid-line reads as a mistake, while the
+  still diagram is complete on its own.
+- The dot grid behind it (`.hero::before`) is **static** and masked to fade
+  well before the headline. The diagram is the one thing that moves in the
+  hero; texture behind text must not compete with it. Do not extend animated
+  backgrounds to the other sections — it was discussed with the owner on
+  2026-10-22 and set aside: the page sells with arguments a B2B reader has to
+  read, and movement behind them costs attention and battery for nothing.
 
 ## Analytics
 
