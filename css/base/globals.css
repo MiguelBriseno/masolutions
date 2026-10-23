@@ -446,7 +446,7 @@ a[target="_blank"]:not(.action-bar__wa)::after {
    lands with the section heading hidden underneath it. Roughly the header's
    own height plus breathing room — derived from the header, not a spacing
    step, so it stays a literal. */
-:where(section[id], #contenido) {
+:where(section[id], .project-card[id], #contenido) {
   scroll-margin-top: 84px;
 }
 

@@ -86,6 +86,12 @@ Proceso grid, which is why that grid's track minimum and container query sit
 at 220px / 940px rather than 230px / 980px. Static on purpose: no section
 background moves.
 
+The four phase cards are numbered by a CSS counter on `.process__step::before`
+(`01`–`04`), not in the markup, so the `ItemList` in the JSON-LD and the
+rendered headings stay identical. The connector between cards is centred on
+that badge; if the badge height changes, the `top` of the `::after` in
+`process.css` follows the same token.
+
 **Dark theme.** Follows the OS through one `@media (prefers-color-scheme: dark)`
 block right after `:root` in `globals.css`, redefining colour tokens (and the
 shadows built from colour) only — no rule anywhere else knows which theme is
@@ -455,6 +461,15 @@ That backing is the rule: adding a sector means the owner has a delivered case
 for it; removing a case means removing its sector from all four. A vertical
 claimed with no project behind it is a false promise on the page and a
 contradicted signal in the schema.
+
+The same rule governs the **"Ver el caso" links on the service cards**: the
+three cards with a delivered case (móviles → `#caso-urban-reps`, web →
+`#caso-actuarenvios`, a la medida → `#caso-tonalli`) link to it, and the three
+without one carry no link. The link is evidence, not navigation — do not add
+one to a service until the owner has a case card for it, and when a case is
+removed, remove its link. The ids live on the `.project-card` articles, which
+are in the `scroll-margin-top` rule alongside `section[id]` so the jump clears
+the sticky header.
 
 **The hero type scale is tuned to the headline's length**, not chosen in the
 abstract — see the comment on `.hero__title` in `css/layout/hero.css`. The
