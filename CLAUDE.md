@@ -520,8 +520,14 @@ against the fold again rather than assuming it still fits.
 **The contact panel's "Qué sigue después de enviar" list** is subject to the
 same no-new-claims rule as the Nosotros prose: each step restates the 48-hour
 written proposal and the closed scope and price. It is hidden once the panel
-stacks to one column (see `contact.css`), so a phone visitor reaches the form
-without scrolling past it.
+stacks to one column, so a phone visitor reaches the form without scrolling
+past it. The switch is a **container query on `.contact__panel`** at the
+grid's own threshold (2 × 330px + 48px = 708px), not a viewport media query:
+the stacking point moves with the scrollbar and both vw-based paddings, and a
+viewport guess (863px) once left the list showing on stacked panels up to
+~885px. The query also has to come **after** the base rules in `contact.css`
+— same specificity, so placed first it lost to `display: flex` and the list
+shipped visible on every phone.
 
 **The page addresses the reader as `usted`, without exception** — headings,
 form labels, placeholders, disclaimers and the success panel included. This has

@@ -3,6 +3,7 @@
 }
 
 .contact__panel {
+  container-type: inline-size;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
   gap: var(--space-9);
@@ -49,17 +50,7 @@
    tells the reader what the form sets in motion. Only while the panel is two
    columns: once it stacks, the list would sit between the channels and the
    form and push the first field a screen further down on a phone, and the
-   disclaimer under the button already carries the 48-hour promise. The panel
-   stacks when its content box drops under 2 × 330px + --space-9, which with
-   --container-pad and the panel padding both at their vw values is 0.82 × the
-   viewport: 863px. Keep this in step with .contact__panel's track minimum. */
-@media (max-width: 863px) {
-  .contact__steps-title,
-  .contact__steps {
-    display: none;
-  }
-}
-
+   disclaimer under the button already carries the 48-hour promise. */
 .contact__steps-title {
   margin-top: var(--space-7);
   font-size: var(--text-xs);
@@ -106,6 +97,23 @@
   font-family: var(--font-display);
   font-weight: 600;
   font-size: var(--text-xs);
+}
+
+/* Hidden exactly when the panel stacks. A container query on the panel
+   measures the same content box its grid does, so the threshold is the grid's
+   own: 2 × 330px tracks + --space-9 (48px) gap = 708px — keep it in step with
+   the track minimum and gap above; a container query cannot read a custom
+   property. A viewport media query cannot do this: the stacking point moves
+   with the scrollbar and with both vw-based paddings, and an 863px guess left
+   the list showing on stacked panels up to ~890px.
+   It sits after the base rules on purpose: same specificity, so the later
+   one wins. Engines without container queries show the list, which is
+   harmless. */
+@container (width < 708px) {
+  .contact__steps-title,
+  .contact__steps {
+    display: none;
+  }
 }
 
 /* ---- Form ---- */
